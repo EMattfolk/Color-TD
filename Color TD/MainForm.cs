@@ -14,7 +14,8 @@ namespace Color_TD
 {
     public partial class MainForm : Form
     {
-        private Bitmap canvas, map;
+        private Bitmap canvas;
+        private TDMap map;
 
         public MainForm()
         {
@@ -28,20 +29,19 @@ namespace Color_TD
             {
                 GameUpdate();
                 Render();
-                Thread.Sleep(100);
+                Thread.Sleep(20);
             }
         }
 
         private void GameUpdate()
         {
-            
         }
 
         private void Render()
         {
             using (Graphics g = Graphics.FromImage(canvas))
             {
-                g.DrawImage(map, 0, 0);
+                g.DrawImage(map.Map, 0, 0);
                 Refresh();
 
             }
@@ -51,10 +51,17 @@ namespace Color_TD
         {
             DoubleBuffered = true;
             canvas = new Bitmap(480,480);
-            map = new Bitmap("..\\..\\Map1.png");
+            map = new TDMap("..\\..\\Map1.png", new Point[] {
+                new Point(490,69),
+                new Point(67,69),
+                new Point(67,175),
+                new Point(395,175),
+                new Point(395,280),
+                new Point(63,280),
+                new Point(63,417),
+                new Point(490,417)
+            });
         }
-
-
 
         [StructLayout(LayoutKind.Sequential)]
         public struct NativeMessage
