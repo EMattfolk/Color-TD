@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -14,8 +15,11 @@ namespace Color_TD
 {
     public partial class MainForm : Form
     {
+        private static readonly int FPS = 60, SLEEPTIME = 1000/FPS;
         private Bitmap canvas;
         private TDMap map;
+        private Stopwatch stopWatch;
+        private List<Dot> enemies;
 
         public MainForm()
         {
@@ -25,11 +29,17 @@ namespace Color_TD
 
         private void GameLoop(object sender, EventArgs e)
         {
+            long startTime, endTime;
+
             while (ApplicationIsIdle())
             {
+                startTime = stopWatch.ElapsedTicks;
+
                 GameUpdate();
                 Render();
-                Thread.Sleep(20);
+
+                endTime = stopWatch.ElapsedTicks;
+                Thread.Sleep(new TimeSpan(0, 0, 0, 0, SLEEPTIME) - new TimeSpan(endTime - startTime)); //TODO: add if statement
             }
         }
 
@@ -43,13 +53,13 @@ namespace Color_TD
             {
                 g.DrawImage(map.Map, 0, 0);
                 Refresh();
-
             }
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             DoubleBuffered = true;
+            stopWatch = new Stopwatch();
             canvas = new Bitmap(480,480);
             map = new TDMap("..\\..\\Map1.png", new Point[] {
                 new Point(490,69),
@@ -61,6 +71,7 @@ namespace Color_TD
                 new Point(63,417),
                 new Point(490,417)
             });
+            stopWatch.Start();
         }
 
         [StructLayout(LayoutKind.Sequential)]
