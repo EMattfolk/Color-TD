@@ -16,7 +16,7 @@ namespace Color_TD
     public partial class MainForm : Form
     {
         private static readonly int FPS = 60, SLEEPTIME = 1000/FPS;
-        private double lastUpdateTime;
+        private static readonly double DELTATIME = 1.0 / FPS;
         private Bitmap canvas;
         private TDMap map;
         private Stopwatch stopWatch;
@@ -45,7 +45,6 @@ namespace Color_TD
                 new Point(490,417)
             });
             stopWatch.Start();
-            lastUpdateTime = stopWatch.Elapsed.TotalSeconds;
         }
 
         private void GameLoop(object sender, EventArgs e)
@@ -66,9 +65,8 @@ namespace Color_TD
 
         private void GameUpdate()
         {
-            double deltaTime = stopWatch.Elapsed.TotalSeconds - lastUpdateTime;
-            lastUpdateTime = stopWatch.Elapsed.TotalSeconds;
-            UpdatePositions(deltaTime);
+            //enemies.Add(new Dot(100, 32, 0));
+            UpdatePositions(DELTATIME);
         }
 
         private void Render()

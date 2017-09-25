@@ -9,7 +9,7 @@ namespace Color_TD
 {
     class Dot
     {
-        private static Bitmap image = new Bitmap("..\\..\\Black_dot.png"); //TODO: move to subclasses
+        private static Bitmap image = new Bitmap("..\\..\\Black_dot.png"); //TODO: move to subclasses or make into an array with identifiers
 
         private int speed, size;
         private double distance;
