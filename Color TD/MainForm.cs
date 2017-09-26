@@ -21,6 +21,7 @@ namespace Color_TD
         private TDMap map;
         private Stopwatch stopWatch;
         private List<Dot> enemies;
+        private List<Tower> towers;
 
         public MainForm()
         {
@@ -33,7 +34,8 @@ namespace Color_TD
             DoubleBuffered = true;
             stopWatch = new Stopwatch();
             canvas = new Bitmap(480, 480);
-            enemies = new List<Dot>() { new Dot(100, 32, 0) };
+            enemies = new List<Dot>() { new Dot(100, 16, 0) };
+            towers = new List<Tower>() { new LaserTower(new Point(100, 100)) };
             map = new TDMap("..\\..\\Map1.png", new Point[] {
                 new Point(490,69),
                 new Point(67,69),
@@ -65,7 +67,6 @@ namespace Color_TD
 
         private void GameUpdate()
         {
-            //enemies.Add(new Dot(100, 32, 0));
             UpdatePositions(DELTATIME);
         }
 
@@ -78,6 +79,17 @@ namespace Color_TD
                 {
                     float correction = enemy.Size / 2f;
                     g.DrawImage(Dot.Image, (float)(enemy.Position.X - correction), (float)(enemy.Position.Y - correction), enemy.Size, enemy.Size);
+                }
+                foreach (Tower tower in towers)
+                {
+                    float correction = tower.Size / 2f;
+                    float xTranslation = correction + tower.Position.X;
+                    float yTranslation = correction + tower.Position.Y;
+                    g.TranslateTransform(xTranslation, yTranslation);
+                    g.RotateTransform(tower.Rotation);
+                    g.TranslateTransform(-xTranslation, -yTranslation);
+                    g.DrawImage(tower.GetImage(), tower.Position.X, tower.Position.Y, tower.Size, tower.Size);
+                    g.ResetTransform();
                 }
                 Refresh();
             }
@@ -108,6 +120,11 @@ namespace Color_TD
         {
             NativeMessage result;
             return PeekMessage(out result, IntPtr.Zero, 0, 0, 0) == 0;
+        }
+
+        private void MainForm_MouseClick(object sender, MouseEventArgs e)
+        {
+            towers.Add(new LaserTower(e.Location));
         }
 
         private void MainForm_Paint(object sender, PaintEventArgs e)
