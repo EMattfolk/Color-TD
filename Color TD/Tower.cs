@@ -38,9 +38,9 @@ namespace Color_TD
             set { rotation = value; }
         }
 
-        internal Point Position
+        public Point Position
         {
-            get{ return position; }
+            get { return position; }
         }
 
         public int Damage

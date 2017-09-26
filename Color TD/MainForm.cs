@@ -35,7 +35,7 @@ namespace Color_TD
             stopWatch = new Stopwatch();
             canvas = new Bitmap(480, 480);
             enemies = new List<Dot>() { new Dot(100, 16, 0) };
-            towers = new List<Tower>() { new LaserTower(new Point(100, 100)) };
+            towers = new List<Tower>();
             map = new TDMap("..\\..\\Map1.png", new Point[] {
                 new Point(490,69),
                 new Point(67,69),
@@ -83,12 +83,12 @@ namespace Color_TD
                 foreach (Tower tower in towers)
                 {
                     float correction = tower.Size / 2f;
-                    float xTranslation = correction + tower.Position.X;
-                    float yTranslation = correction + tower.Position.Y;
+                    float xTranslation = tower.Position.X;
+                    float yTranslation = tower.Position.Y;
                     g.TranslateTransform(xTranslation, yTranslation);
                     g.RotateTransform(tower.Rotation);
                     g.TranslateTransform(-xTranslation, -yTranslation);
-                    g.DrawImage(tower.GetImage(), tower.Position.X, tower.Position.Y, tower.Size, tower.Size);
+                    g.DrawImage(tower.GetImage(), tower.Position.X - correction, tower.Position.Y - correction, tower.Size, tower.Size);
                     g.ResetTransform();
                 }
                 Refresh();

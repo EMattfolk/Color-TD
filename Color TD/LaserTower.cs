@@ -9,7 +9,7 @@ namespace Color_TD
 {
     class LaserTower : Tower
     {
-        public LaserTower (Point position) : base(position, 32, 0, .5f, 10, 100) { }
+        public LaserTower (Point position) : base(position, 32, -90, .5f, 10, 100) { }
 
         public override Bitmap GetImage ()
         {
