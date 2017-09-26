@@ -107,7 +107,7 @@ namespace Color_TD
             }
         }
 
-        private void UpdateTargets()
+        private void UpdateTargets() //TODO: Add in fire command for increased effectiveness of towers?
         {
             foreach (Tower tower in towers)
             {
@@ -125,12 +125,10 @@ namespace Color_TD
 
         private void FireAtTargets()
         {
-            foreach (var item in towers)
+            foreach (Tower tower in towers)
             {
-                if (item.HasTarget())
-                {
-                    item.Rotation = (float)Math.Atan2(item.Target.Position.Y - item.Position.Y, item.Target.Position.X - item.Position.X) * 180 / (float)Math.PI;
-                }
+                tower.UpdateFrameCount();
+                tower.Shoot();
             }
         }
 
