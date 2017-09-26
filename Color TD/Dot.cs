@@ -12,24 +12,24 @@ namespace Color_TD
         private static Bitmap image = new Bitmap("..\\..\\Black_dot.png"); //TODO: move to subclasses or make into an array with identifiers
 
         private int speed, size;
-        private double distance;
-        private PointD position;
+        private float distance;
+        private PointF position;
 
-        public Dot (int speed, int size, double distance)
+        public Dot (int speed, int size, float distance)
         {
             this.speed = speed;
             this.size = size;
             this.distance = distance;
-            position = new PointD();
+            position = new PointF();
         }
 
-        public double UpdateDistance (double deltaTime)
+        public float UpdateDistance (float deltaTime)
         {
             distance += deltaTime * speed;
             return distance;
         }
 
-        public PointD Position
+        public PointF Position
         {
             get { return position; }
             set { position = value; }

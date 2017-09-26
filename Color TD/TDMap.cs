@@ -11,8 +11,8 @@ namespace Color_TD
     {
         private Point[] path;
         private Bitmap map;
-        private double totalDistance;
-        private double[] cumulativeDistances;
+        private float totalDistance;
+        private float[] cumulativeDistances;
 
         public TDMap (string imagePath, Point[] path)
         {
@@ -24,21 +24,21 @@ namespace Color_TD
         private void SetupDistances ()
         {
             totalDistance = 0;
-            cumulativeDistances = new double[path.Length];
+            cumulativeDistances = new float[path.Length];
             cumulativeDistances[0] = 0;
             int x, y;
-            double dist;
+            float dist;
             for (int i = 0; i < path.Length - 1; i++)
             {
                 x = path[i].X - path[i + 1].X;
                 y = path[i].Y - path[i + 1].Y;
-                dist = Math.Sqrt(x * x + y * y);
+                dist = (float) Math.Sqrt(x * x + y * y);
                 totalDistance += dist;
                 cumulativeDistances[i + 1] = totalDistance;
             }
         }
 
-        public PointD GetPosition (double distance) //TODO: Optimize
+        public PointF GetPosition (float distance) //TODO: Optimize
         {
             int index = 0;
             for (int i = 0; i < cumulativeDistances.Length; i++)
@@ -51,19 +51,19 @@ namespace Color_TD
             }
             if (index == cumulativeDistances.Length - 1)
             {
-                return new PointD(path[path.Length - 1]);
+                return path[path.Length - 1];
             }
             else
             {
                 int x, y;
                 x = path[index + 1].X - path[index].X;
                 y = path[index + 1].Y - path[index].Y;
-                double progress = (distance - cumulativeDistances[index]) / Math.Sqrt(x * x + y * y);
-                return new PointD(path[index].X + x * progress, path[index].Y + y * progress);
+                float progress = (distance - cumulativeDistances[index]) / (float) Math.Sqrt(x * x + y * y);
+                return new PointF(path[index].X + x * progress, path[index].Y + y * progress);
             }
         }
 
-        public bool HasFinished (double distance)
+        public bool HasFinished (float distance)
         {
             return distance > totalDistance;
         }

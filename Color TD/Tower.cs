@@ -10,6 +10,7 @@ namespace Color_TD
     abstract class Tower
     {
         private static Bitmap[] images = new Bitmap[] { new Bitmap("..\\..\\Tower_laser.png") };
+        private Dot target;
         private Point position;
         private float rotation, fireRate;
         private int size, damage, range;
@@ -22,6 +23,16 @@ namespace Color_TD
             this.fireRate = fireRate;
             this.damage = damage;
             this.range = range;
+        }
+
+        public bool HasTarget ()
+        {
+            if (target != null && Distance(target.Position, position) < range)
+            {
+                return true;
+            }
+            target = null;
+            return false;
         }
 
         abstract public Bitmap GetImage();
@@ -56,6 +67,12 @@ namespace Color_TD
         public int Size
         {
             get { return size; }
+        }
+
+        private double Distance (PointF p1, PointF p2)
+        {
+            float x = p1.X - p2.X, y = p1.Y - p2.Y;
+            return Math.Sqrt(x * x + y * y);
         }
     }
 }

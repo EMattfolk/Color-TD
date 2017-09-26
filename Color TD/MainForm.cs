@@ -16,7 +16,7 @@ namespace Color_TD
     public partial class MainForm : Form
     {
         private static readonly int FPS = 60, SLEEPTIME = 1000/FPS;
-        private static readonly double DELTATIME = 1.0 / FPS;
+        private static readonly float DELTATIME = 1f / FPS;
         private Bitmap canvas;
         private TDMap map;
         private Stopwatch stopWatch;
@@ -95,11 +95,11 @@ namespace Color_TD
             }
         }
 
-        private void UpdatePositions(double deltaTime)
+        private void UpdatePositions(float deltaTime)
         {
             for (int i = 0; i < enemies.Count; i++)
             {
-                double distance = enemies[i].UpdateDistance(deltaTime);
+                float distance = enemies[i].UpdateDistance(deltaTime);
                 enemies[i].Position = map.GetPosition(distance);
             }
         }
