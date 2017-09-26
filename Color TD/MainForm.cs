@@ -129,7 +129,7 @@ namespace Color_TD
             {
                 if (item.HasTarget())
                 {
-                    item.Rotation = 180 - (float)Math.Atan2(item.Target.Position.X - item.Position.X, item.Target.Position.Y - item.Position.Y) * 180 / (float)Math.PI;
+                    item.Rotation = (float)Math.Atan2(item.Target.Position.Y - item.Position.Y, item.Target.Position.X - item.Position.X) * 180 / (float)Math.PI;
                 }
             }
         }
