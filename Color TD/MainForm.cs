@@ -68,6 +68,9 @@ namespace Color_TD
         private void GameUpdate()
         {
             UpdatePositions(DELTATIME);
+            UpdateTargets();
+            FireAtTargets();
+            
         }
 
         private void Render()
@@ -78,7 +81,7 @@ namespace Color_TD
                 foreach (Dot enemy in enemies)
                 {
                     float correction = enemy.Size / 2f;
-                    g.DrawImage(Dot.Image, (float)(enemy.Position.X - correction), (float)(enemy.Position.Y - correction), enemy.Size, enemy.Size);
+                    g.DrawImage(Dot.Image, enemy.Position.X - correction, enemy.Position.Y - correction, enemy.Size, enemy.Size);
                 }
                 foreach (Tower tower in towers)
                 {
@@ -101,6 +104,33 @@ namespace Color_TD
             {
                 float distance = enemies[i].UpdateDistance(deltaTime);
                 enemies[i].Position = map.GetPosition(distance);
+            }
+        }
+
+        private void UpdateTargets()
+        {
+            foreach (Tower tower in towers)
+            {
+                if (tower.HasTarget()) continue;
+                foreach (Dot enemy in enemies)
+                {
+                    if (tower.DistanceTo(enemy.Position) < tower.Range)
+                    {
+                        tower.Target = enemy;
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void FireAtTargets()
+        {
+            foreach (var item in towers)
+            {
+                if (item.HasTarget())
+                {
+                    item.Rotation = 180 - (float)Math.Atan2(item.Target.Position.X - item.Position.X, item.Target.Position.Y - item.Position.Y) * 180 / (float)Math.PI;
+                }
             }
         }
 

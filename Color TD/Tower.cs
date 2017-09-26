@@ -27,7 +27,7 @@ namespace Color_TD
 
         public bool HasTarget ()
         {
-            if (target != null && Distance(target.Position, position) < range)
+            if (target != null && DistanceTo(target.Position) < range)
             {
                 return true;
             }
@@ -69,9 +69,16 @@ namespace Color_TD
             get { return size; }
         }
 
-        private double Distance (PointF p1, PointF p2)
+        public Dot Target
         {
-            float x = p1.X - p2.X, y = p1.Y - p2.Y;
+            get { return target; }
+
+            set { target = value; }
+        }
+
+        public double DistanceTo (PointF other)
+        {
+            float x = position.X - other.X, y = position.Y - other.Y;
             return Math.Sqrt(x * x + y * y);
         }
     }
