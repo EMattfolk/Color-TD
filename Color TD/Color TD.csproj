@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attack.cs" />
+    <Compile Include="BlackDot.cs" />
     <Compile Include="Dot.cs" />
     <Compile Include="LaserAttack.cs" />
     <Compile Include="LaserTower.cs" />

@@ -7,22 +7,25 @@ using System.Threading.Tasks;
 
 namespace Color_TD
 {
-    class Dot
+    abstract class Dot
     {
-        private static Bitmap image = new Bitmap("..\\..\\Black_dot.png"); //TODO: move to subclasses or make into an array with identifiers
+        private static Bitmap[] images = { new Bitmap("..\\..\\Black_dot.png") }; 
 
-        private int speed, size, hp;
+        protected int speed, size, hp, regeneration;
         private float distance;
         private PointF position;
 
-        public Dot (int speed, int size, int hp, float distance)
+        public Dot (int speed, int size, int hp, int regeneration, float distance)
         {
             this.speed = speed;
             this.size = size;
             this.hp = hp;
+            this.regeneration = regeneration;
             this.distance = distance;
             position = new PointF();
         }
+
+        public abstract Bitmap GetImage ();
 
         public void ApplyDamage (int damage)
         {
@@ -50,9 +53,6 @@ namespace Color_TD
 
         public int Size => size;
 
-        public static Bitmap Image
-        {
-            get { return image; }
-        }
+        public static Bitmap[] Images => images;
     }
 }

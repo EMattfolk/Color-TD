@@ -21,7 +21,7 @@ namespace Color_TD
             hitsLeft = maxHitCount;
         }
 
-        public abstract void Update ();
+        public abstract void Update (); // Add firstUpdate to increase effectiveness?
 
         public void Kill ()
         {

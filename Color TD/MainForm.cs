@@ -35,7 +35,7 @@ namespace Color_TD
             DoubleBuffered = true;
             stopWatch = new Stopwatch();
             canvas = new Bitmap(480, 480);
-            enemies = new List<Dot>() { new Dot(100, 16, 10, 0) };
+            enemies = new List<Dot>() { new BlackDot() };
             towers = new List<Tower>();
             attacks = new List<Attack>();
             map = new TDMap("..\\..\\Map1.png", new Point[] {
@@ -69,7 +69,6 @@ namespace Color_TD
 
         private void GameUpdate()
         {
-            enemies.Add(new Dot(100, 16, 10, 0));
             CleanupDertroyedObjects();
             UpdatePositions(DELTATIME);
             UpdateTargets();
@@ -85,7 +84,7 @@ namespace Color_TD
                 foreach (Dot enemy in enemies)
                 {
                     float correction = enemy.Size / 2f;
-                    g.DrawImage(Dot.Image, enemy.Position.X - correction, enemy.Position.Y - correction, enemy.Size, enemy.Size);
+                    g.DrawImage(enemy.GetImage(), enemy.Position.X - correction, enemy.Position.Y - correction, enemy.Size, enemy.Size);
                 }
                 foreach (Attack attack in attacks)
                 {

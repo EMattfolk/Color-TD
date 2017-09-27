@@ -46,9 +46,9 @@ namespace Color_TD
             rotation = (float)Math.Atan2(target.Position.Y - position.Y, target.Position.X - position.X) * 180 / (float)Math.PI;
         }
 
-        abstract public Attack Shoot();
+        abstract public Attack Shoot ();
 
-        abstract public Bitmap GetImage();
+        abstract public Bitmap GetImage ();
 
         public static Bitmap[] Images => images;
 

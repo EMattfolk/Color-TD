@@ -11,10 +11,7 @@ namespace Color_TD
     {
         public LaserTower (Point position) : base(position, 32, 0, 30, 10, 100) { }
 
-        public override Bitmap GetImage ()
-        {
-            return Images[0];
-        }
+        public override Bitmap GetImage () => Images[0];
 
         public override Attack Shoot()
         {
