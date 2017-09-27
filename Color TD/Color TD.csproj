@@ -46,7 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attack.cs" />
     <Compile Include="Dot.cs" />
+    <Compile Include="LaserAttack.cs" />
     <Compile Include="LaserTower.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>

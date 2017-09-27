@@ -28,7 +28,7 @@ namespace Color_TD
 
         public bool HasTarget ()
         {
-            if (target != null && DistanceTo(target.Position) < range)
+            if (target != null && target.IsAlive && DistanceTo(target.Position) < range)
             {
                 return true;
             }
@@ -46,14 +46,11 @@ namespace Color_TD
             rotation = (float)Math.Atan2(target.Position.Y - position.Y, target.Position.X - position.X) * 180 / (float)Math.PI;
         }
 
-        abstract public void Shoot();
+        abstract public Attack Shoot();
 
         abstract public Bitmap GetImage();
 
-        public static Bitmap[] Images
-        {
-            get { return images; }
-        }
+        public static Bitmap[] Images => images;
 
         public float Rotation
         {
@@ -62,25 +59,13 @@ namespace Color_TD
             set { rotation = value; }
         }
 
-        public Point Position
-        {
-            get { return position; }
-        }
+        public Point Position => position;
 
-        public int Damage
-        {
-            get{ return damage; }
-        }
+        public int Damage => damage;
 
-        public int Range
-        {
-            get { return range; }
-        }
+        public int Range => range;
 
-        public int Size
-        {
-            get { return size; }
-        }
+        public int Size => size;
 
         public Dot Target
         {

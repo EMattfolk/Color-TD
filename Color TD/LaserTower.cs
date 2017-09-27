@@ -16,13 +16,16 @@ namespace Color_TD
             return Images[0];
         }
 
-        public override void Shoot()
+        public override Attack Shoot()
         {
             if (framesSinceLastShot >= fireRate && target != null)
             {
+                Console.Write("Shot");
                 framesSinceLastShot = 0;
                 TurnToTarget();
+                return new LaserAttack(target, this, damage, 1, 1);
             }
+            return null;
         }
     }
 }

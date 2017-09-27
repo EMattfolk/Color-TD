@@ -11,17 +11,30 @@ namespace Color_TD
     {
         private static Bitmap image = new Bitmap("..\\..\\Black_dot.png"); //TODO: move to subclasses or make into an array with identifiers
 
-        private int speed, size;
+        private int speed, size, hp;
         private float distance;
         private PointF position;
 
-        public Dot (int speed, int size, float distance)
+        public Dot (int speed, int size, int hp, float distance)
         {
             this.speed = speed;
             this.size = size;
+            this.hp = hp;
             this.distance = distance;
             position = new PointF();
         }
+
+        public void ApplyDamage (int damage)
+        {
+            hp -= damage;
+        }
+
+        public void Kill ()
+        {
+            hp = 0;
+        }
+
+        public bool IsAlive => hp > 0;
 
         public float UpdateDistance (float deltaTime)
         {
@@ -35,10 +48,7 @@ namespace Color_TD
             set { position = value; }
         }
 
-        public int Size
-        {
-            get { return size; }
-        }
+        public int Size => size;
 
         public static Bitmap Image
         {

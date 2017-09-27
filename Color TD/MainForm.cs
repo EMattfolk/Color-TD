@@ -22,6 +22,7 @@ namespace Color_TD
         private Stopwatch stopWatch;
         private List<Dot> enemies;
         private List<Tower> towers;
+        private List<Attack> attacks;
 
         public MainForm()
         {
@@ -34,8 +35,9 @@ namespace Color_TD
             DoubleBuffered = true;
             stopWatch = new Stopwatch();
             canvas = new Bitmap(480, 480);
-            enemies = new List<Dot>() { new Dot(100, 16, 0) };
+            enemies = new List<Dot>() { new Dot(100, 16, 10, 0) };
             towers = new List<Tower>();
+            attacks = new List<Attack>();
             map = new TDMap("..\\..\\Map1.png", new Point[] {
                 new Point(490,69),
                 new Point(67,69),
@@ -67,10 +69,12 @@ namespace Color_TD
 
         private void GameUpdate()
         {
+            enemies.Add(new Dot(100, 16, 10, 0));
+            CleanupDertroyedObjects();
             UpdatePositions(DELTATIME);
             UpdateTargets();
             FireAtTargets();
-            
+            UpdateShots();
         }
 
         private void Render()
@@ -82,6 +86,10 @@ namespace Color_TD
                 {
                     float correction = enemy.Size / 2f;
                     g.DrawImage(Dot.Image, enemy.Position.X - correction, enemy.Position.Y - correction, enemy.Size, enemy.Size);
+                }
+                foreach (Attack attack in attacks)
+                {
+                    using (Pen p = new Pen(Color.Red)) g.DrawLine(p, attack.Shooter.Position, attack.Target.Position);
                 }
                 foreach (Tower tower in towers)
                 {
@@ -95,6 +103,18 @@ namespace Color_TD
                     g.ResetTransform();
                 }
                 Refresh();
+            }
+        }
+
+        private void CleanupDertroyedObjects()
+        {
+            for (int i = enemies.Count - 1; i >= 0; i--)
+            {
+                if (!enemies[i].IsAlive) enemies.RemoveAt(i);
+            }
+            for (int i = attacks.Count - 1; i >= 0; i--)
+            {
+                if (!attacks[i].IsAlive) attacks.RemoveAt(i);
             }
         }
 
@@ -128,7 +148,16 @@ namespace Color_TD
             foreach (Tower tower in towers)
             {
                 tower.UpdateFrameCount();
-                tower.Shoot();
+                Attack shot = tower.Shoot();
+                if (shot != null) attacks.Add(shot);
+            }
+        }
+
+        private void UpdateShots ()
+        {
+            foreach (Attack shot in attacks)
+            {
+                shot.Update();
             }
         }
 
