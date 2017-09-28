@@ -10,6 +10,8 @@ namespace Color_TD
     {
         public LaserAttack (Dot target, Tower shooter, int damage, int aliveTime, int maxHitCount) : base(target, shooter, damage, aliveTime, maxHitCount) { }
 
+        public override AttackType AttackType => AttackType.Laser;
+
         public override void Update ()
         {
             target.ApplyDamage(damage);

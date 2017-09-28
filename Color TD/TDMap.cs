@@ -63,14 +63,8 @@ namespace Color_TD
             }
         }
 
-        public bool HasFinished (float distance)
-        {
-            return distance > totalDistance;
-        }
+        public bool HasFinished (float distance) => distance > totalDistance;
 
-        public Bitmap Map
-        {
-            get { return map; }
-        } 
+        public Bitmap Map => map;
     }
 }

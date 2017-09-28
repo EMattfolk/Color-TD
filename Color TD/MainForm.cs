@@ -88,7 +88,7 @@ namespace Color_TD
                 }
                 foreach (Attack attack in attacks)
                 {
-                    using (Pen p = new Pen(Color.Red)) g.DrawLine(p, attack.Shooter.Position, attack.Target.Position);
+                    if (attack.AttackType == AttackType.Laser) using (Pen p = new Pen(Color.Red)) g.DrawLine(p, attack.Shooter.Position, attack.Target.Position);
                 }
                 foreach (Tower tower in towers)
                 {

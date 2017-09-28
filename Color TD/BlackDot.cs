@@ -11,6 +11,6 @@ namespace Color_TD
     {
         public BlackDot () : base(100, 8, 10, 0, 0) { }
 
-        public override Bitmap GetImage() => Images[0];
+        public override EnemyType EnemyType => EnemyType.BlackDot;
     }
 }

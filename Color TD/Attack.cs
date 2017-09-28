@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace Color_TD
 {
+    enum AttackType
+    {
+        Laser
+    }
+
     abstract class Attack
     {
         protected Dot target;
@@ -21,7 +26,9 @@ namespace Color_TD
             hitsLeft = maxHitCount;
         }
 
-        public abstract void Update (); // Add firstUpdate to increase effectiveness?
+        abstract public void Update (); // Add firstUpdate to increase effectiveness?
+
+        abstract public AttackType AttackType { get; }
 
         public void Kill ()
         {

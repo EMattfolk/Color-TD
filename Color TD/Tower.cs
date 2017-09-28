@@ -7,9 +7,15 @@ using System.Threading.Tasks;
 
 namespace Color_TD
 {
+    enum TowerType
+    {
+        Laser
+    }
+
     abstract class Tower
     {
         private static Bitmap[] images = new Bitmap[] { new Bitmap("..\\..\\Tower_laser.png") };
+
         protected Dot target;
         protected Point position;
         protected float rotation;
@@ -41,23 +47,24 @@ namespace Color_TD
             framesSinceLastShot++;
         }
 
+        public double DistanceTo(PointF other)
+        {
+            float x = position.X - other.X, y = position.Y - other.Y;
+            return Math.Sqrt(x * x + y * y);
+        }
+
         protected void TurnToTarget ()
         {
             rotation = (float)Math.Atan2(target.Position.Y - position.Y, target.Position.X - position.X) * 180 / (float)Math.PI;
         }
 
-        abstract public Attack Shoot ();
+        abstract public TowerType TowerType { get; }
 
-        abstract public Bitmap GetImage ();
+        abstract public Attack Shoot ();
 
         public static Bitmap[] Images => images;
 
-        public float Rotation
-        {
-            get { return rotation; }
-
-            set { rotation = value; }
-        }
+        public Bitmap GetImage() => images[(int)TowerType];
 
         public Point Position => position;
 
@@ -67,17 +74,18 @@ namespace Color_TD
 
         public int Size => size;
 
+        public float Rotation
+        {
+            get { return rotation; }
+
+            set { rotation = value; }
+        }
+
         public Dot Target
         {
             get { return target; }
 
             set { target = value; }
-        }
-
-        public double DistanceTo (PointF other)
-        {
-            float x = position.X - other.X, y = position.Y - other.Y;
-            return Math.Sqrt(x * x + y * y);
         }
     }
 }

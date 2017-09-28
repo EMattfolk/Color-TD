@@ -7,10 +7,16 @@ using System.Threading.Tasks;
 
 namespace Color_TD
 {
+    enum EnemyType
+    {
+        BlackDot
+    }
+
     abstract class Dot
     {
         private static Bitmap[] images = { new Bitmap("..\\..\\Black_dot.png") }; 
 
+        public abstract EnemyType EnemyType { get; }
         protected int speed, size, hp, regeneration;
         private float distance;
         private PointF position;
@@ -25,7 +31,11 @@ namespace Color_TD
             position = new PointF();
         }
 
-        public abstract Bitmap GetImage ();
+        public float UpdateDistance(float deltaTime)
+        {
+            distance += deltaTime * speed;
+            return distance;
+        }
 
         public void ApplyDamage (int damage)
         {
@@ -39,11 +49,9 @@ namespace Color_TD
 
         public bool IsAlive => hp > 0;
 
-        public float UpdateDistance (float deltaTime)
-        {
-            distance += deltaTime * speed;
-            return distance;
-        }
+        public int Size => size;
+
+        public Bitmap GetImage() => images[(int)EnemyType];
 
         public PointF Position
         {
@@ -51,8 +59,5 @@ namespace Color_TD
             set { position = value; }
         }
 
-        public int Size => size;
-
-        public static Bitmap[] Images => images;
     }
 }
