@@ -10,7 +10,11 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+/*
+ * A game made by Erik Mattfolk
+ * 
+ * Project start: Sep 24, 2017
+ */
 namespace Color_TD
 {
     public partial class MainForm : Form
