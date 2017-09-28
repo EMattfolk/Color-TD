@@ -174,6 +174,16 @@ namespace Color_TD
             foreach (Attack shot in attacks)
             {
                 shot.Update(DELTATIME);
+                if (shot.AttackType == AttackType.Bolt)
+                {
+                    foreach (Dot enemy in enemies)
+                    {
+                        if (shot.DistanceTo(enemy.Position) < enemy.Size)
+                        {
+                            enemy.ApplyDamage(shot.Damage);
+                        }
+                    }
+                }
             }
         }
 
