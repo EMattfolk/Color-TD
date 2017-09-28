@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Color_TD
 {
-    class LaserTower : Tower
+    class BoltTower : Tower
     {
-        public LaserTower (Point position) : base(position, 32, 0, 30, 10, 100) { }
+        public BoltTower(Point position) : base(position, 32, 0, 30, 10, 100) { }
 
-        public override TowerType TowerType => TowerType.Laser;
+        public override TowerType TowerType => TowerType.Bolt;
 
         public override Attack Shoot()
         {
@@ -19,7 +19,7 @@ namespace Color_TD
             {
                 framesSinceLastShot = 0;
                 TurnToTarget();
-                return new LaserAttack(target, this, damage, 1, 1);
+                return new BoltAttack(this, damage, 1, 200, 8);
             }
             return null;
         }

@@ -9,12 +9,13 @@ namespace Color_TD
 {
     enum TowerType
     {
-        Laser
+        Laser,
+        Bolt
     }
 
     abstract class Tower
     {
-        private static Bitmap[] images = new Bitmap[] { new Bitmap("..\\..\\Tower_laser.png") };
+        private static Bitmap[] images = new Bitmap[] { new Bitmap("..\\..\\Tower_laser.png"), new Bitmap("..\\..\\Tower_bolt.png") };
 
         protected Dot target;
         protected Point position;

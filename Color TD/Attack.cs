@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +9,8 @@ namespace Color_TD
 {
     enum AttackType
     {
-        Laser
+        Laser,
+        Bolt
     }
 
     abstract class Attack
@@ -26,9 +28,17 @@ namespace Color_TD
             hitsLeft = maxHitCount;
         }
 
-        abstract public void Update (); // Add firstUpdate to increase effectiveness?
+        abstract public void Update (float deltaTime);
 
         abstract public AttackType AttackType { get; }
+
+        abstract public PointF Position { get; }
+
+        abstract public Bitmap GetImage ();
+
+        abstract public int Size { get; }
+
+        abstract public float Rotation { get; }
 
         public void Kill ()
         {

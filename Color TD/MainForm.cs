@@ -28,13 +28,13 @@ namespace Color_TD
         private List<Tower> towers;
         private List<Attack> attacks;
 
-        public MainForm()
+        public MainForm ()
         {
             InitializeComponent();
             Application.Idle += GameLoop;
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        private void MainForm_Load (object sender, EventArgs e)
         {
             DoubleBuffered = true;
             stopWatch = new Stopwatch();
@@ -55,7 +55,7 @@ namespace Color_TD
             stopWatch.Start();
         }
 
-        private void GameLoop(object sender, EventArgs e)
+        private void GameLoop (object sender, EventArgs e)
         {
             long startTime, endTime;
 
@@ -71,8 +71,9 @@ namespace Color_TD
             }
         }
 
-        private void GameUpdate()
+        private void GameUpdate ()
         {
+            enemies.Add(new BlackDot());
             CleanupDertroyedObjects();
             UpdatePositions(DELTATIME);
             UpdateTargets();
@@ -80,7 +81,7 @@ namespace Color_TD
             UpdateShots();
         }
 
-        private void Render()
+        private void Render ()
         {
             using (Graphics g = Graphics.FromImage(canvas))
             {
@@ -93,6 +94,18 @@ namespace Color_TD
                 foreach (Attack attack in attacks)
                 {
                     if (attack.AttackType == AttackType.Laser) using (Pen p = new Pen(Color.Red)) g.DrawLine(p, attack.Shooter.Position, attack.Target.Position);
+                    if (attack.AttackType == AttackType.Bolt) //TODO: Clean up
+                    {
+                        float xcorrection = attack.Size / 2f;
+                        float ycorrection = attack.Size / 2f;
+                        float xTranslation = attack.Position.X;
+                        float yTranslation = attack.Position.Y;
+                        g.TranslateTransform(xTranslation, yTranslation);
+                        g.RotateTransform(attack.Rotation);
+                        g.TranslateTransform(-xTranslation, -yTranslation);
+                        g.DrawImage(attack.GetImage(), attack.Position.X - xcorrection, attack.Position.Y - ycorrection, attack.Size, attack.Size);
+                        g.ResetTransform();
+                    }
                 }
                 foreach (Tower tower in towers)
                 {
@@ -109,7 +122,7 @@ namespace Color_TD
             }
         }
 
-        private void CleanupDertroyedObjects()
+        private void CleanupDertroyedObjects ()
         {
             for (int i = enemies.Count - 1; i >= 0; i--)
             {
@@ -121,7 +134,7 @@ namespace Color_TD
             }
         }
 
-        private void UpdatePositions(float deltaTime)
+        private void UpdatePositions (float deltaTime)
         {
             for (int i = 0; i < enemies.Count; i++)
             {
@@ -130,7 +143,7 @@ namespace Color_TD
             }
         }
 
-        private void UpdateTargets() //TODO: Add in fire command for increased effectiveness of towers?
+        private void UpdateTargets ()
         {
             foreach (Tower tower in towers)
             {
@@ -146,7 +159,7 @@ namespace Color_TD
             }
         }
 
-        private void FireAtTargets()
+        private void FireAtTargets ()
         {
             foreach (Tower tower in towers)
             {
@@ -160,7 +173,7 @@ namespace Color_TD
         {
             foreach (Attack shot in attacks)
             {
-                shot.Update();
+                shot.Update(DELTATIME);
             }
         }
 
@@ -184,7 +197,7 @@ namespace Color_TD
 
         private void MainForm_MouseClick(object sender, MouseEventArgs e)
         {
-            towers.Add(new LaserTower(e.Location));
+            towers.Add(new BoltTower(e.Location));
         }
 
         private void MainForm_Paint(object sender, PaintEventArgs e)
