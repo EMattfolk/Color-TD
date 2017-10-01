@@ -12,23 +12,22 @@ namespace Color_TD
         BlackDot
     }
 
-    abstract class Dot
+    abstract class Dot : GameObject
     {
         private static Bitmap[] images = { new Bitmap("..\\..\\Black_dot.png") }; 
 
         public abstract EnemyType EnemyType { get; }
-        protected int speed, size, hp, regeneration;
+        protected int speed, hp, regeneration;
         private float distance;
-        private PointF position;
 
         public Dot (int speed, int size, int hp, int regeneration, float distance)
         {
             this.speed = speed;
-            this.size = size;
             this.hp = hp;
             this.regeneration = regeneration;
             this.distance = distance;
-            position = new PointF();
+            Size = size;
+            Position = new PointF();
         }
 
         public float UpdateDistance(float deltaTime)
@@ -49,15 +48,6 @@ namespace Color_TD
 
         public bool IsAlive => hp > 0;
 
-        public int Size => size;
-
-        public Bitmap GetImage() => images[(int)EnemyType];
-
-        public PointF Position
-        {
-            get { return position; }
-            set { position = value; }
-        }
-
+        public override Bitmap GetImage() => images[(int)EnemyType];
     }
 }

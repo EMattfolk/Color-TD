@@ -13,13 +13,7 @@ namespace Color_TD
 
         public override AttackType AttackType => AttackType.Laser;
 
-        public override PointF Position => new PointF();
-
         public override Bitmap GetImage() => null;
-
-        public override int Size => 0;
-
-        public override float Rotation => 0;
 
         public override void Update (float deltaTime)
         {

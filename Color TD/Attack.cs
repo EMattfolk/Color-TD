@@ -13,7 +13,7 @@ namespace Color_TD
         Bolt
     }
 
-    abstract class Attack
+    abstract class Attack : GameObject
     {
         protected Dot target;
         protected Tower shooter;
@@ -31,14 +31,6 @@ namespace Color_TD
         abstract public void Update (float deltaTime);
 
         abstract public AttackType AttackType { get; }
-
-        abstract public PointF Position { get; }
-
-        abstract public Bitmap GetImage ();
-
-        abstract public int Size { get; }
-
-        abstract public float Rotation { get; }
 
         public void Kill ()
         {

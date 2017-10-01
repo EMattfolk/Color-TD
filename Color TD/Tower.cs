@@ -13,29 +13,27 @@ namespace Color_TD
         Bolt
     }
 
-    abstract class Tower
+    abstract class Tower : GameObject
     {
         private static Bitmap[] images = new Bitmap[] { new Bitmap("..\\..\\Tower_laser.png"), new Bitmap("..\\..\\Tower_bolt.png") };
 
         protected Dot target;
-        protected Point position;
-        protected float rotation;
-        protected int size, fireRate, damage, range, framesSinceLastShot;
+        protected int fireRate, damage, range, framesSinceLastShot;
 
         public Tower (Point position, int size, float rotation, int fireRate, int damage, int range)
         {
-            this.position = position;
-            this.size = size;
-            this.rotation = rotation;
             this.fireRate = fireRate;
             this.damage = damage;
             this.range = range;
+            Position = position;
+            Size = size;
+            Rotation = rotation;
             framesSinceLastShot = 0;
         }
 
         public bool HasTarget ()
         {
-            if (target != null && target.IsAlive && DistanceTo(target.Position) < range)
+            if (target != null && target.IsAlive && DistanceTo(target) < range)
             {
                 return true;
             }
@@ -48,15 +46,9 @@ namespace Color_TD
             framesSinceLastShot++;
         }
 
-        public double DistanceTo(PointF other)
-        {
-            float x = position.X - other.X, y = position.Y - other.Y;
-            return Math.Sqrt(x * x + y * y);
-        }
-
         protected void TurnToTarget ()
         {
-            rotation = (float)Math.Atan2(target.Position.Y - position.Y, target.Position.X - position.X) * 180 / (float)Math.PI;
+            Rotation = (float)Math.Atan2(target.Position.Y - Position.Y, target.Position.X - Position.X) * 180 / (float)Math.PI;
         }
 
         abstract public TowerType TowerType { get; }
@@ -65,22 +57,11 @@ namespace Color_TD
 
         public static Bitmap[] Images => images;
 
-        public Bitmap GetImage() => images[(int)TowerType];
-
-        public Point Position => position;
+        public override Bitmap GetImage() => images[(int)TowerType];
 
         public int Damage => damage;
 
         public int Range => range;
-
-        public int Size => size;
-
-        public float Rotation
-        {
-            get { return rotation; }
-
-            set { rotation = value; }
-        }
 
         public Dot Target
         {

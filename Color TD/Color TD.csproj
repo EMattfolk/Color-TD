@@ -51,6 +51,7 @@
     <Compile Include="BoltAttack.cs" />
     <Compile Include="BoltTower.cs" />
     <Compile Include="Dot.cs" />
+    <Compile Include="GameObject.cs" />
     <Compile Include="LaserAttack.cs" />
     <Compile Include="LaserTower.cs" />
     <Compile Include="MainForm.cs">

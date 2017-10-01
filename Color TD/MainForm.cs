@@ -150,7 +150,7 @@ namespace Color_TD
                 if (tower.HasTarget()) continue;
                 foreach (Dot enemy in enemies)
                 {
-                    if (tower.DistanceTo(enemy.Position) < tower.Range)
+                    if (tower.DistanceTo(enemy) < tower.Range)
                     {
                         tower.Target = enemy;
                         break;
