@@ -39,7 +39,7 @@ namespace Color_TD
             DoubleBuffered = true;
             stopWatch = new Stopwatch();
             canvas = new Bitmap(480, 480);
-            enemies = new List<Dot>() { new BlackDot() };
+            enemies = new List<Dot>() { new BlackDot(), new BlackDot() };
             towers = new List<Tower>();
             attacks = new List<Attack>();
             map = new TDMap("..\\..\\Map1.png", new Point[] {
@@ -153,16 +153,17 @@ namespace Color_TD
 
         private void UpdateShots ()
         {
-            foreach (Attack shot in attacks)
+            foreach (Attack attack in attacks)
             {
-                shot.Update(DELTATIME);
-                if (shot.AttackType == AttackType.Bolt)
+                attack.Update(DELTATIME);
+                if (attack.AttackType == AttackType.Bolt)
                 {
                     foreach (Dot enemy in enemies)
                     {
-                        if (shot.DistanceTo(enemy.Position) < enemy.Size * enemy.Scale)
+                        if (attack.DistanceTo(enemy.Position) < enemy.Size * enemy.Scale)
                         {
-                            enemy.ApplyDamage(shot.Damage);
+                            attack.ApplyDamage(enemy);
+                            if (!attack.CanHit) break;
                         }
                     }
                 }

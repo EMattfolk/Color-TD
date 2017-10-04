@@ -19,7 +19,7 @@ namespace Color_TD
             {
                 framesSinceLastShot = 0;
                 TurnToTarget();
-                return new BoltAttack(this, damage, 1, 200, 0.4f);
+                return new BoltAttack(this, damage, 3, 200, 0.4f);
             }
             return null;
         }

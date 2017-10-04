@@ -38,13 +38,24 @@ namespace Color_TD
             hitsLeft = 0;
         }
 
-        public double DistanceTo(PointF other)
+        public void ApplyDamage (Dot enemy)
+        {
+            if (enemy.IsAlive)
+            {
+                enemy.ApplyDamage(damage);
+                hitsLeft--;
+            }
+        }
+
+        public double DistanceTo (PointF other)
         {
             float x = Position.X - other.X, y = Position.Y - other.Y;
             return Math.Sqrt(x * x + y * y);
         }
 
         public bool IsAlive => aliveTime > 0 && hitsLeft > 0;
+
+        public bool CanHit => hitsLeft > 0;
 
         public int Damage => damage;
 

@@ -9,9 +9,17 @@ namespace Color_TD
 {
     abstract class GameObject
     {
+        private static long objectCount = 0;
+        private long Id;
         private PointF position = new PointF();
         private int width = 0, height = 0, size = 0;
         private float rotation = 0, scale = 1;
+
+        public GameObject ()
+        {
+            Id = objectCount;
+            objectCount++;
+        }
 
         public PointF Position
         {
@@ -54,6 +62,8 @@ namespace Color_TD
             float x = Position.X - other.Position.X, y = Position.Y - other.Position.Y;
             return Math.Sqrt(x * x + y * y);
         }
+
+        public long ID => Id;
 
         abstract public Bitmap GetImage ();
     }
