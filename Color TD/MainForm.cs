@@ -39,7 +39,7 @@ namespace Color_TD
             DoubleBuffered = true;
             stopWatch = new Stopwatch();
             canvas = new Bitmap(480, 480);
-            enemies = new List<Dot>() { new BlackDot(), new BlackDot() };
+            enemies = new List<Dot>() { new BlackDot() };
             towers = new List<Tower>();
             attacks = new List<Attack>();
             map = new TDMap("..\\..\\Map1.png", new Point[] {
@@ -193,8 +193,10 @@ namespace Color_TD
             public uint Time;
             public Point Location;
         }
+
         [DllImport("user32.dll")]
         public static extern int PeekMessage(out NativeMessage message, IntPtr window, uint filterMin, uint filterMax, uint remove);
+
         bool ApplicationIsIdle()
         {
             NativeMessage result;

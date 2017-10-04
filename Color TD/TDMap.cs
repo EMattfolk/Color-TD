@@ -38,7 +38,7 @@ namespace Color_TD
             }
         }
 
-        public PointF GetPosition (float distance) //TODO: Optimize
+        public PointF GetPosition (float distance) //TODO: Optimize if needed
         {
             int index = 0;
             for (int i = 0; i < cumulativeDistances.Length; i++)

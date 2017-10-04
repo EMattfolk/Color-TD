@@ -14,9 +14,9 @@ namespace Color_TD
 
     abstract class Dot : GameObject
     {
-        private static Bitmap[] images = { new Bitmap("..\\..\\Black_dot.png") }; 
+        private static Bitmap[] images = { new Bitmap("..\\..\\Black_dot.png") };
 
-        public abstract EnemyType EnemyType { get; }
+        private HashSet<long> hitById;
         protected int speed, hp, regeneration;
         private float distance;
 
@@ -31,6 +31,7 @@ namespace Color_TD
             Height = 64;
             Scale = scale;
             Position = new PointF();
+            hitById = new HashSet<long>();
         }
 
         public float UpdateDistance(float deltaTime)
@@ -39,9 +40,10 @@ namespace Color_TD
             return distance;
         }
 
-        public void ApplyDamage (int damage)
+        public void ApplyDamage (Attack attack)
         {
-            hp -= damage;
+            hp -= attack.Damage;
+            hitById.Add(attack.ID);
         }
 
         public void Kill ()
@@ -49,7 +51,11 @@ namespace Color_TD
             hp = 0;
         }
 
+        public bool HasBeenHitByID (long id) => hitById.Contains(id);
+
         public bool IsAlive => hp > 0;
+
+        public abstract EnemyType EnemyType { get; }
 
         public override Bitmap GetImage() => images[(int)EnemyType];
     }

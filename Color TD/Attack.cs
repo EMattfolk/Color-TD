@@ -40,9 +40,9 @@ namespace Color_TD
 
         public void ApplyDamage (Dot enemy)
         {
-            if (enemy.IsAlive)
+            if (enemy.IsAlive && !enemy.HasBeenHitByID(ID))
             {
-                enemy.ApplyDamage(damage);
+                enemy.ApplyDamage(this);
                 hitsLeft--;
             }
         }

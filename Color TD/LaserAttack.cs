@@ -17,7 +17,7 @@ namespace Color_TD
 
         public override void Update (float deltaTime)
         {
-            target.ApplyDamage(damage);
+            target.ApplyDamage(this);
             aliveTime--;
             hitsLeft--;
         }
