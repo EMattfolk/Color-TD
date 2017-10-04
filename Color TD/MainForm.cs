@@ -91,32 +91,14 @@ namespace Color_TD
                     float correction = enemy.Size * enemy.Scale / 2;
                     g.DrawImage(enemy.GetImage(), enemy.Position.X - correction, enemy.Position.Y - correction, enemy.Size * enemy.Scale, enemy.Size * enemy.Scale);
                 }
+                foreach (Tower tower in towers)
+                {
+                    DrawRotated(tower, g);
+                }
                 foreach (Attack attack in attacks)
                 {
                     if (attack.AttackType == AttackType.Laser) using (Pen p = new Pen(Color.Red)) g.DrawLine(p, attack.Shooter.Position, attack.Target.Position);
-                    if (attack.AttackType == AttackType.Bolt) //TODO: Clean up
-                    {
-                        float xcorrection = attack.Size / 2f;
-                        float ycorrection = attack.Size / 2f;
-                        float xTranslation = attack.Position.X;
-                        float yTranslation = attack.Position.Y;
-                        g.TranslateTransform(xTranslation, yTranslation);
-                        g.RotateTransform(attack.Rotation);
-                        g.TranslateTransform(-xTranslation, -yTranslation);
-                        g.DrawImage(attack.GetImage(), attack.Position.X - xcorrection, attack.Position.Y - ycorrection, attack.Size, attack.Size);
-                        g.ResetTransform();
-                    }
-                }
-                foreach (Tower tower in towers)
-                {
-                    float correction = tower.Size / 2f;
-                    float xTranslation = tower.Position.X;
-                    float yTranslation = tower.Position.Y;
-                    g.TranslateTransform(xTranslation, yTranslation);
-                    g.RotateTransform(tower.Rotation);
-                    g.TranslateTransform(-xTranslation, -yTranslation);
-                    g.DrawImage(tower.GetImage(), tower.Position.X - correction, tower.Position.Y - correction, tower.Size, tower.Size);
-                    g.ResetTransform();
+                    if (attack.AttackType == AttackType.Bolt) DrawRotated(attack, g);
                 }
                 Refresh();
             }
@@ -185,6 +167,19 @@ namespace Color_TD
                     }
                 }
             }
+        }
+
+        private void DrawRotated (GameObject gameObject, Graphics g)
+        {
+            float xcorrection = gameObject.Width * gameObject.Scale / 2;
+            float ycorrection = gameObject.Height * gameObject.Scale / 2;
+            float xTranslation = gameObject.Position.X;
+            float yTranslation = gameObject.Position.Y;
+            g.TranslateTransform(xTranslation, yTranslation);
+            g.RotateTransform(gameObject.Rotation);
+            g.TranslateTransform(-xTranslation, -yTranslation);
+            g.DrawImage(gameObject.GetImage(), gameObject.Position.X - xcorrection, gameObject.Position.Y - ycorrection, gameObject.Width * gameObject.Scale, gameObject.Height * gameObject.Scale);
+            g.ResetTransform();
         }
 
         [StructLayout(LayoutKind.Sequential)]

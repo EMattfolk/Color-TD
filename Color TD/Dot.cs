@@ -27,6 +27,8 @@ namespace Color_TD
             this.regeneration = regeneration;
             this.distance = distance;
             Size = 64;
+            Width = 64;
+            Height = 64;
             Scale = scale;
             Position = new PointF();
         }

@@ -13,13 +13,17 @@ namespace Color_TD
 
         private float xVelocity, yVelocity;
 
-        public BoltAttack(Tower shooter, int damage, int maxHitCount, int speed, int size) : base(null, shooter, damage, 100, maxHitCount)
+        public BoltAttack(Tower shooter, int damage, int maxHitCount, int speed, float scale) : base(null, shooter, damage, 100, maxHitCount)
         {
             Position = shooter.Position;
-            Size = size;
             Rotation = shooter.Rotation;
             xVelocity = (float)Math.Cos(Rotation * Math.PI / 180) * speed;
             yVelocity = (float)Math.Sin(Rotation * Math.PI / 180) * speed;
+
+            Size = 32;
+            Width = 32;
+            Height = 16; //TODO: change
+            Scale = scale;
         }
 
         public override void Update(float deltaTime)

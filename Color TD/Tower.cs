@@ -20,13 +20,16 @@ namespace Color_TD
         protected Dot target;
         protected int fireRate, damage, range, framesSinceLastShot;
 
-        public Tower (Point position, int size, float rotation, int fireRate, int damage, int range)
+        public Tower (Point position, float scale, float rotation, int fireRate, int damage, int range)
         {
             this.fireRate = fireRate;
             this.damage = damage;
             this.range = range;
             Position = position;
-            Size = size;
+            Size = 64;
+            Width = 64;
+            Height = 64;
+            Scale = scale;
             Rotation = rotation;
             framesSinceLastShot = 0;
         }
