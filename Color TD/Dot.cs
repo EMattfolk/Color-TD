@@ -20,13 +20,14 @@ namespace Color_TD
         protected int speed, hp, regeneration;
         private float distance;
 
-        public Dot (int speed, int size, int hp, int regeneration, float distance)
+        public Dot (int speed, float scale, int hp, int regeneration, float distance)
         {
             this.speed = speed;
             this.hp = hp;
             this.regeneration = regeneration;
             this.distance = distance;
-            Size = size;
+            Size = 64;
+            Scale = scale;
             Position = new PointF();
         }
 

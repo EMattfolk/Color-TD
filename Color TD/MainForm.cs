@@ -88,8 +88,8 @@ namespace Color_TD
                 g.DrawImage(map.Map, 0, 0);
                 foreach (Dot enemy in enemies)
                 {
-                    float correction = enemy.Size / 2f;
-                    g.DrawImage(enemy.GetImage(), enemy.Position.X - correction, enemy.Position.Y - correction, enemy.Size, enemy.Size);
+                    float correction = enemy.Size * enemy.Scale / 2;
+                    g.DrawImage(enemy.GetImage(), enemy.Position.X - correction, enemy.Position.Y - correction, enemy.Size * enemy.Scale, enemy.Size * enemy.Scale);
                 }
                 foreach (Attack attack in attacks)
                 {
@@ -178,7 +178,7 @@ namespace Color_TD
                 {
                     foreach (Dot enemy in enemies)
                     {
-                        if (shot.DistanceTo(enemy.Position) < enemy.Size)
+                        if (shot.DistanceTo(enemy.Position) < enemy.Size * enemy.Scale)
                         {
                             enemy.ApplyDamage(shot.Damage);
                         }

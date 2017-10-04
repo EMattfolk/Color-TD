@@ -10,8 +10,8 @@ namespace Color_TD
     abstract class GameObject
     {
         private PointF position = new PointF();
-        private int width = 0, height = 0, size = 0, scale = 1;
-        private float rotation = 0;
+        private int width = 0, height = 0, size = 0;
+        private float rotation = 0, scale = 1;
 
         public PointF Position
         {
@@ -37,7 +37,7 @@ namespace Color_TD
             set { size = value; }
         }
 
-        public int Scale
+        public float Scale
         {
             get { return scale; }
             set { scale = value; }
