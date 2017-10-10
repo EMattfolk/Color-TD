@@ -8,5 +8,19 @@ namespace Color_TD
 {
     class Player
     {
+        private int coins, lives;
+
+        public Player ()
+        {
+            coins = 100;
+            lives = 100;
+        }
+
+        public int Coins
+        {
+            get { return coins; }
+
+            set { coins = value; }
+        }
     }
 }

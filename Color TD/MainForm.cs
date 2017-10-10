@@ -24,6 +24,8 @@ namespace Color_TD
         private Bitmap canvas;
         private TDMap map;
         private Stopwatch stopWatch;
+        private Player player;
+        private UI ui;
         private List<Dot> enemies;
         private List<Tower> towers;
         private List<Attack> attacks;
@@ -37,6 +39,8 @@ namespace Color_TD
         private void MainForm_Load (object sender, EventArgs e)
         {
             DoubleBuffered = true;
+            player = new Player();
+            ui = new UI();
             stopWatch = new Stopwatch();
             canvas = new Bitmap(480, 480);
             enemies = new List<Dot>() { new BlackDot() };
@@ -100,7 +104,15 @@ namespace Color_TD
                     if (attack.AttackType == AttackType.Laser) using (Pen p = new Pen(Color.Red)) g.DrawLine(p, attack.Shooter.Position, attack.Target.Position);
                     if (attack.AttackType == AttackType.Bolt) DrawRotated(attack, g);
                 }
-                Refresh();
+                g.DrawImage(ui.CoinImage, new Point(1, 3));
+                using (Brush b = new SolidBrush(Color.Black))
+                {
+                    using (Font f = new Font("Courier New", 16))
+                    {
+                        g.DrawString(player.Coins.ToString(), f, b, new PointF(16, 0));
+                    }
+                }
+                    Refresh();
             }
         }
 
@@ -206,6 +218,7 @@ namespace Color_TD
         private void MainForm_MouseClick(object sender, MouseEventArgs e)
         {
             towers.Add(new BoltTower(e.Location));
+            player.Coins -= 10;
         }
 
         private void MainForm_Paint(object sender, PaintEventArgs e)

@@ -9,7 +9,7 @@ namespace Color_TD
 {
     class BoltTower : Tower
     {
-        public BoltTower(Point position) : base(position, .5f, 0, 10, 10, 100) { }
+        public BoltTower(Point position) : base(position, .5f, 0, 15, 10, 100) { }
 
         public override TowerType TowerType => TowerType.Bolt;
 
@@ -19,7 +19,7 @@ namespace Color_TD
             {
                 framesSinceLastShot = 0;
                 TurnToTarget();
-                return new BoltAttack(this, damage, 3, 200, 0.4f);
+                return new BoltAttack(this, damage, 2, 200, 0.4f);
             }
             return null;
         }
