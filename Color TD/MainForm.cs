@@ -19,7 +19,7 @@ namespace Color_TD
 {
     public partial class MainForm : Form
     {
-        private static readonly int FPS = 60, SLEEPTIME = 1000/FPS;
+        private static readonly int FPS = 60, SLEEPTIME = 1000/FPS, MAPSIZE = 480, UIWIDTH = 150;
         private static readonly float DELTATIME = 1f / FPS;
         private Bitmap canvas;
         private TDMap map;
@@ -42,7 +42,7 @@ namespace Color_TD
             player = new Player();
             ui = new UI();
             stopWatch = new Stopwatch();
-            canvas = new Bitmap(480, 480);
+            canvas = new Bitmap(MAPSIZE + UIWIDTH, MAPSIZE);
             enemies = new List<Dot>() { new BlackDot() };
             towers = new List<Tower>();
             attacks = new List<Attack>();
@@ -56,7 +56,7 @@ namespace Color_TD
                 new Point(63,417),
                 new Point(490,417)
             });
-            Size = new Size(480+16+150,480+39);
+            Size = new Size(MAPSIZE + 16 + 150, MAPSIZE + 39);
             stopWatch.Start();
         }
 
@@ -105,12 +105,13 @@ namespace Color_TD
                     if (attack.AttackType == AttackType.Laser) using (Pen p = new Pen(Color.Red)) g.DrawLine(p, attack.Shooter.Position, attack.Target.Position);
                     if (attack.AttackType == AttackType.Bolt) DrawRotated(attack, g);
                 }
-                g.DrawImage(ui.CoinImage, new Point(1, 3));
+                g.DrawImage(ui.BackgroundImage, MAPSIZE, 0);
+                g.DrawImage(ui.CoinImage, MAPSIZE + 1, 3);
                 using (Brush b = new SolidBrush(Color.Black))
                 {
                     using (Font f = new Font("Courier New", 16))
                     {
-                        g.DrawString(player.Coins.ToString(), f, b, new PointF(16, 0));
+                        g.DrawString(player.Coins.ToString(), f, b, new PointF(MAPSIZE + 16, 0));
                     }
                 }
                 Refresh();

@@ -9,13 +9,16 @@ namespace Color_TD
 {
     class UI
     {
-        private Bitmap coinImage;
+        private Bitmap coinImage, backgroundImage;
 
         public UI ()
         {
             coinImage = new Bitmap("..\\..\\Coin.png");
+            backgroundImage = new Bitmap("..\\..\\UI_Background.png");
         }
 
         public Bitmap CoinImage => coinImage;
+
+        public Bitmap BackgroundImage => backgroundImage;
     }
 }
