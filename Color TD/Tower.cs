@@ -58,8 +58,6 @@ namespace Color_TD
 
         abstract public Attack Shoot ();
 
-        public static Bitmap[] Images => images;
-
         public override Bitmap GetImage() => images[(int)TowerType];
 
         public int Damage => damage;

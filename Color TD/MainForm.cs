@@ -109,7 +109,7 @@ namespace Color_TD
                 g.DrawImage(ui.CoinImage, MAPSIZE + 1, 3);
                 using (Brush b = new SolidBrush(Color.Black))
                 {
-                    using (Font f = new Font("Courier New", 16))
+                    using (Font f = new Font("Courier New", 16, FontStyle.Bold))
                     {
                         g.DrawString(player.Coins.ToString(), f, b, new PointF(MAPSIZE + 16, 0));
                     }

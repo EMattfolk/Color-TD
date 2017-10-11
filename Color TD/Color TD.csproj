@@ -66,6 +66,7 @@
     <Compile Include="TDMap.cs" />
     <Compile Include="Tower.cs" />
     <Compile Include="UI.cs" />
+    <Compile Include="UIElement.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
