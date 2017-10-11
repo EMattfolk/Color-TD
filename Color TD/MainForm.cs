@@ -40,7 +40,7 @@ namespace Color_TD
         {
             DoubleBuffered = true;
             player = new Player();
-            ui = new UI();
+            ui = new UI(MAPSIZE);
             stopWatch = new Stopwatch();
             canvas = new Bitmap(MAPSIZE + UIWIDTH, MAPSIZE);
             enemies = new List<Dot>() { new BlackDot() };
@@ -105,13 +105,24 @@ namespace Color_TD
                     if (attack.AttackType == AttackType.Laser) using (Pen p = new Pen(Color.Red)) g.DrawLine(p, attack.Shooter.Position, attack.Target.Position);
                     if (attack.AttackType == AttackType.Bolt) DrawRotated(attack, g);
                 }
-                g.DrawImage(ui.BackgroundImage, MAPSIZE, 0);
-                g.DrawImage(ui.CoinImage, MAPSIZE + 1, 3);
-                using (Brush b = new SolidBrush(Color.Black))
+                g.DrawImage(ui.BackgroundImage, ui.XPos, 0);
+                foreach (UIElement element in ui.UIElements)
                 {
-                    using (Font f = new Font("Courier New", 16, FontStyle.Bold))
+                    if (element.Image != null)
                     {
-                        g.DrawString(player.Coins.ToString(), f, b, new PointF(MAPSIZE + 16, 0));
+                        g.DrawImage(element.Image, element.XPos, element.YPos);
+                    }
+                    else if (element.Text != "")
+                    {
+                        string text;
+                        if (element.Text == "PLAYERCOINS") text = player.Coins.ToString();
+                        else if (element.Text == "PLAYERLIFE") text = player.Lives.ToString();
+                        else text = element.Text;
+                        Brush b = new SolidBrush(Color.Black);
+                        Font f = new Font("Courier New", element.TextSize, FontStyle.Bold);
+                        g.DrawString(text, f, b, element.XPos, element.YPos);
+                        b.Dispose();
+                        f.Dispose();
                     }
                 }
                 Refresh();

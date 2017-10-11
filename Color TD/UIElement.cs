@@ -19,18 +19,39 @@ namespace Color_TD
             this.image = image;
             width = image.Width;
             height = image.Height;
+            text = "";
+            textSize = 0;
         }
 
         public UIElement (string text, int textSize, int xPos, int yPos) : this(xPos, yPos, false)
         {
+            image = null;
+            width = 0;
+            height = 0;
             this.text = text;
             this.textSize = textSize;
         }
 
         private UIElement (int xPos, int yPos, bool isClickable)
         {
+            this.xPos = xPos;
+            this.yPos = yPos;
             this.isClickable = isClickable;
         }
+
+        public Bitmap Image => image;
+
+        public string Text => text;
+
+        public int Height => height;
+
+        public int TextSize => textSize;
+
+        public int Width => width;
+
+        public int XPos => xPos;
+
+        public int YPos => yPos;
 
         public bool WasClicked (Point mousePosition)
         {
