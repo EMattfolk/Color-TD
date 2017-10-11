@@ -9,7 +9,7 @@ namespace Color_TD
 {
     class BlackDot : Dot
     {
-        public BlackDot () : base(100, 0.125f, 30, 0, 0) { }
+        public BlackDot () : base(75, 0.125f, 10, 0, 0) { }
 
         public override EnemyType EnemyType => EnemyType.BlackDot;
     }

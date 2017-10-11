@@ -56,6 +56,7 @@ namespace Color_TD
                 new Point(63,417),
                 new Point(490,417)
             });
+            Size = new Size(480+16+150,480+39);
             stopWatch.Start();
         }
 
@@ -71,13 +72,13 @@ namespace Color_TD
                 Render();
 
                 endTime = stopWatch.ElapsedTicks;
-                Thread.Sleep(new TimeSpan(0, 0, 0, 0, SLEEPTIME) - new TimeSpan(endTime - startTime)); //TODO: add if statement
+                Thread.Sleep(new TimeSpan(0, 0, 0, 0, SLEEPTIME) - new TimeSpan(endTime - startTime));
             }
         }
 
         private void GameUpdate ()
         {
-            enemies.Add(new BlackDot());
+            if (ModifierKeys == Keys.Shift)enemies.Add(new BlackDot());
             CleanupDertroyedObjects();
             UpdatePositions(DELTATIME);
             UpdateTargets();
@@ -112,7 +113,7 @@ namespace Color_TD
                         g.DrawString(player.Coins.ToString(), f, b, new PointF(16, 0));
                     }
                 }
-                    Refresh();
+                Refresh();
             }
         }
 
@@ -172,7 +173,7 @@ namespace Color_TD
                 {
                     foreach (Dot enemy in enemies)
                     {
-                        if (attack.DistanceTo(enemy.Position) < enemy.Size * enemy.Scale)
+                        if (attack.DistanceTo(enemy.Position) < enemy.Size * enemy.Scale + attack.Size * attack.Scale)
                         {
                             attack.ApplyDamage(enemy);
                             if (!attack.CanHit) break;
