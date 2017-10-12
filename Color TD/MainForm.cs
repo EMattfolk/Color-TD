@@ -81,7 +81,7 @@ namespace Color_TD
 
         private void GameUpdate ()
         {
-            if (ModifierKeys == Keys.Shift)enemies.Add(new BlackDot());
+            if (ModifierKeys == Keys.Shift) enemies.Add(new BlackDot());
             CleanupDertroyedObjects();
             UpdatePositions(DELTATIME);
             UpdateTargets();
@@ -130,11 +130,8 @@ namespace Color_TD
                 }
                 if (heldTower != null)
                 {
-                    heldTower.Position = PointToClient(MousePosition);
-                    Pen p = new Pen(Color.DarkGreen);
                     DrawRotated(heldTower, g);
-                    g.DrawEllipse(p, heldTower.Position.X - heldTower.Range, heldTower.Position.Y - heldTower.Range, heldTower.Range * 2, heldTower.Range * 2);
-                    p.Dispose();
+                    DrawElipseAroundTower(heldTower, heldTower.HasValidPosition ? Color.ForestGreen : Color.IndianRed, g);
                 }
                 Refresh();
             }
@@ -159,6 +156,19 @@ namespace Color_TD
                 float distance = enemies[i].UpdateDistance(deltaTime);
                 enemies[i].Position = map.GetPosition(distance);
             }
+            if (heldTower != null)
+            {
+                heldTower.Position = PointToClient(MousePosition);
+                heldTower.HasValidPosition = heldTower.Position.X < MAPSIZE;
+                foreach (Tower tower in towers)
+                {
+                    if (heldTower.DistanceTo(tower) < heldTower.Scale * heldTower.Size / 2)
+                    {
+                        heldTower.HasValidPosition = false;
+                        break;
+                    }
+                }
+            }    
         }
 
         private void UpdateTargets ()
@@ -219,6 +229,13 @@ namespace Color_TD
             g.ResetTransform();
         }
 
+        private void DrawElipseAroundTower (Tower tower, Color color, Graphics g)
+        {
+            Pen p = new Pen(color, 2);
+            g.DrawEllipse(p, tower.Position.X - tower.Range, tower.Position.Y - tower.Range, tower.Range * 2, tower.Range * 2);
+            p.Dispose();
+        }
+
         [StructLayout(LayoutKind.Sequential)]
         public struct NativeMessage
         {
@@ -241,7 +258,7 @@ namespace Color_TD
 
         private void MainForm_MouseClick(object sender, MouseEventArgs e)
         {
-            if (heldTower != null)
+            if (heldTower != null && heldTower.HasValidPosition)
             {
                 player.Coins -= heldTower.Cost;
                 towers.Add(Tower.FromTowerType(heldTower.TowerType));

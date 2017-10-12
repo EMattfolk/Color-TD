@@ -21,6 +21,7 @@ namespace Color_TD
         protected Dot target;
         protected float fireDelay, timeSinceLastShot;
         protected int damage, range, cost;
+        private bool hasValidPosition;
 
         public Tower (Point position, float scale, float rotation, float fireDelay, int damage, int range, int cost)
         {
@@ -35,6 +36,7 @@ namespace Color_TD
             Scale = scale;
             Rotation = rotation;
             timeSinceLastShot = 0;
+            hasValidPosition = false;
         }
 
         public static Tower FromTowerType (TowerType type)
@@ -87,6 +89,13 @@ namespace Color_TD
             get { return target; }
 
             set { target = value; }
+        }
+
+        public bool HasValidPosition
+        {
+            get { return hasValidPosition; }
+
+            set { hasValidPosition = value; }
         }
     }
 }
