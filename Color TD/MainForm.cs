@@ -128,6 +128,14 @@ namespace Color_TD
                         f.Dispose();
                     }
                 }
+                if (heldTower != null)
+                {
+                    heldTower.Position = PointToClient(MousePosition);
+                    Pen p = new Pen(Color.DarkGreen);
+                    DrawRotated(heldTower, g);
+                    g.DrawEllipse(p, heldTower.Position.X - heldTower.Range, heldTower.Position.Y - heldTower.Range, heldTower.Range * 2, heldTower.Range * 2);
+                    p.Dispose();
+                }
                 Refresh();
             }
         }
@@ -246,8 +254,6 @@ namespace Color_TD
                 heldTower = Tower.FromTowerType(clickedElement.HeldTowerType);
                 if (player.Coins < heldTower.Cost) heldTower = null;
             }
-            //towers.Add(new BoltTower(e.Location));
-            //player.Coins -= 10;
         }
 
         private void MainForm_Paint(object sender, PaintEventArgs e)
