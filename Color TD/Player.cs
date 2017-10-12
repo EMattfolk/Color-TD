@@ -23,6 +23,11 @@ namespace Color_TD
             set { coins = value; }
         }
 
-        public int Lives => lives;
+        public int Lives
+        {
+            get { return lives; }
+
+            set { lives = value; }
+        }
     }
 }

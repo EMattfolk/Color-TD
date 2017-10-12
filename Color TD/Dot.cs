@@ -36,10 +36,9 @@ namespace Color_TD
             hitById = new HashSet<long>();
         }
 
-        public float UpdateDistance(float deltaTime)
+        public void UpdateDistance(float deltaTime)
         {
             distance += deltaTime * speed;
-            return distance;
         }
 
         public void ApplyDamage (Attack attack)
@@ -57,9 +56,11 @@ namespace Color_TD
 
         public bool IsAlive => hp > 0;
 
-        public abstract EnemyType EnemyType { get; }
-
         public int Worth => worth;
+
+        public float Distance => distance;
+
+        public abstract EnemyType EnemyType { get; }
 
         public override Bitmap GetImage() => images[(int)EnemyType];
     }

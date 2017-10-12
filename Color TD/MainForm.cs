@@ -141,6 +141,11 @@ namespace Color_TD
         {
             for (int i = enemies.Count - 1; i >= 0; i--)
             {
+                if (map.HasFinished(enemies[i].Distance))
+                {
+                    player.Lives -= enemies[i].Worth;
+                    enemies[i].Kill();
+                }
                 if (!enemies[i].IsAlive)
                 {
                     player.Coins += enemies[i].Worth;
@@ -157,8 +162,8 @@ namespace Color_TD
         {
             for (int i = 0; i < enemies.Count; i++)
             {
-                float distance = enemies[i].UpdateDistance(deltaTime);
-                enemies[i].Position = map.GetPosition(distance);
+                enemies[i].UpdateDistance(deltaTime);
+                enemies[i].Position = map.GetPosition(enemies[i].Distance);
             }
             if (heldTower != null)
             {
