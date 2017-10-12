@@ -19,9 +19,11 @@ namespace Color_TD
         private HashSet<long> hitById;
         protected int speed, hp, regeneration;
         private float distance;
+        private int worth;
 
-        public Dot (int speed, float scale, int hp, int regeneration, float distance)
+        public Dot (int worth, int speed, float scale, int hp, int regeneration, float distance)
         {
+            this.worth = worth;
             this.speed = speed;
             this.hp = hp;
             this.regeneration = regeneration;
@@ -56,6 +58,8 @@ namespace Color_TD
         public bool IsAlive => hp > 0;
 
         public abstract EnemyType EnemyType { get; }
+
+        public int Worth => worth;
 
         public override Bitmap GetImage() => images[(int)EnemyType];
     }

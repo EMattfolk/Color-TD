@@ -141,7 +141,11 @@ namespace Color_TD
         {
             for (int i = enemies.Count - 1; i >= 0; i--)
             {
-                if (!enemies[i].IsAlive) enemies.RemoveAt(i);
+                if (!enemies[i].IsAlive)
+                {
+                    player.Coins += enemies[i].Worth;
+                    enemies.RemoveAt(i);
+                }
             }
             for (int i = attacks.Count - 1; i >= 0; i--)
             {
