@@ -9,7 +9,9 @@ namespace Color_TD
 {
     class LaserTower : Tower
     {
-        public LaserTower (Point position) : base(position, .5f, 0, 30, 10, 100) { } //TODO: change attack to make it more effective
+        public LaserTower () : this(new Point()) { }
+
+        public LaserTower (Point position) : base(position, .5f, 0, 30, 10, 100, 100) { } //TODO: change attack to make it more effective
 
         public override TowerType TowerType => TowerType.Laser;
 

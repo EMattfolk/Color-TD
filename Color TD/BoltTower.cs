@@ -9,7 +9,9 @@ namespace Color_TD
 {
     class BoltTower : Tower
     {
-        public BoltTower(Point position) : base(position, .5f, 0, 15, 10, 100) { }
+        public BoltTower() : this(new Point()) { }
+
+        public BoltTower(Point position) : base(position, .5f, 0, 15, 10, 100, 200) { }
 
         public override TowerType TowerType => TowerType.Bolt;
 

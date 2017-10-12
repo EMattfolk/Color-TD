@@ -21,11 +21,20 @@ namespace Color_TD
             heartImage = new Bitmap("..\\..\\Heart.png");
             backgroundImage = new Bitmap("..\\..\\UI_Background.png");
             uiElements = new List<UIElement>() {
-                new UIElement(coinImage, xPos + 1, 3, false),
-                new UIElement(heartImage, xPos + 1, 20, false),
-                new UIElement(boltButton, xPos + 43, 200, true),
+                new UIElement(coinImage, xPos + 1, 3, false, TowerType.None),
+                new UIElement(heartImage, xPos + 1, 20, false, TowerType.None),
+                new UIElement(boltButton, xPos + 43, 200, true, TowerType.Bolt),
                 new UIElement("PLAYERCOINS", 16, xPos + 16, 0),
                 new UIElement("PLAYERLIFE", 16, xPos + 16, 17) };
+        }
+
+        public UIElement GetElementAt (Point p)
+        {
+            foreach (UIElement element in uiElements)
+            {
+                if (element.WasClicked(p)) return element;
+            }
+            return null;
         }
 
         public Bitmap BackgroundImage => backgroundImage;

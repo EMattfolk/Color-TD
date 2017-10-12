@@ -26,6 +26,7 @@ namespace Color_TD
         private Stopwatch stopWatch;
         private Player player;
         private UI ui;
+        private Tower heldTower, clickedTower;
         private List<Dot> enemies;
         private List<Tower> towers;
         private List<Attack> attacks;
@@ -39,6 +40,8 @@ namespace Color_TD
         private void MainForm_Load (object sender, EventArgs e)
         {
             DoubleBuffered = true;
+            heldTower = null;
+            clickedTower = null;
             player = new Player();
             ui = new UI(MAPSIZE);
             stopWatch = new Stopwatch();
@@ -230,8 +233,21 @@ namespace Color_TD
 
         private void MainForm_MouseClick(object sender, MouseEventArgs e)
         {
-            towers.Add(new BoltTower(e.Location));
-            player.Coins -= 10;
+            if (heldTower != null)
+            {
+                player.Coins -= heldTower.Cost;
+                towers.Add(Tower.FromTowerType(heldTower.TowerType));
+                towers[towers.Count - 1].Position = e.Location;
+                if (ModifierKeys != Keys.Shift || player.Coins < heldTower.Cost) heldTower = null;
+            }
+            UIElement clickedElement = ui.GetElementAt(e.Location);
+            if (clickedElement != null)
+            {
+                heldTower = Tower.FromTowerType(clickedElement.HeldTowerType);
+                if (player.Coins < heldTower.Cost) heldTower = null;
+            }
+            //towers.Add(new BoltTower(e.Location));
+            //player.Coins -= 10;
         }
 
         private void MainForm_Paint(object sender, PaintEventArgs e)

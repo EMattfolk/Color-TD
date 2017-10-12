@@ -10,7 +10,8 @@ namespace Color_TD
     enum TowerType
     {
         Laser,
-        Bolt
+        Bolt,
+        None
     }
 
     abstract class Tower : GameObject
@@ -18,13 +19,14 @@ namespace Color_TD
         private static Bitmap[] images = new Bitmap[] { new Bitmap("..\\..\\Tower_laser.png"), new Bitmap("..\\..\\Tower_bolt.png") };
 
         protected Dot target;
-        protected int fireRate, damage, range, framesSinceLastShot;
+        protected int fireRate, damage, range, framesSinceLastShot, cost;
 
-        public Tower (Point position, float scale, float rotation, int fireRate, int damage, int range)
+        public Tower (Point position, float scale, float rotation, int fireRate, int damage, int range, int cost)
         {
             this.fireRate = fireRate;
             this.damage = damage;
             this.range = range;
+            this.cost = cost;
             Position = position;
             Size = 64;
             Width = 64;
@@ -32,6 +34,19 @@ namespace Color_TD
             Scale = scale;
             Rotation = rotation;
             framesSinceLastShot = 0;
+        }
+
+        public static Tower FromTowerType (TowerType type)
+        {
+            switch (type)
+            {
+                case TowerType.Laser:
+                    return new LaserTower();
+                case TowerType.Bolt:
+                    return new BoltTower();
+                default:
+                    return null;
+            }
         }
 
         public bool HasTarget ()
@@ -63,6 +78,8 @@ namespace Color_TD
         public int Damage => damage;
 
         public int Range => range;
+
+        public int Cost => cost;
 
         public Dot Target
         {

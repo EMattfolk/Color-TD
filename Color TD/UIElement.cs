@@ -10,17 +10,19 @@ namespace Color_TD
     class UIElement
     {
         private Bitmap image;
+        private TowerType tower;
         private bool isClickable;
         private string text;
         private int xPos, yPos, width, height, textSize;
 
-        public UIElement (Bitmap image, int xPos, int yPos, bool isClickable) : this(xPos, yPos, isClickable)
+        public UIElement (Bitmap image, int xPos, int yPos, bool isClickable, TowerType tower) : this(xPos, yPos, isClickable)
         {
             this.image = image;
             width = image.Width;
             height = image.Height;
             text = "";
             textSize = 0;
+            this.tower = tower;
         }
 
         public UIElement (string text, int textSize, int xPos, int yPos) : this(xPos, yPos, false)
@@ -30,6 +32,7 @@ namespace Color_TD
             height = 0;
             this.text = text;
             this.textSize = textSize;
+            tower = TowerType.None;
         }
 
         private UIElement (int xPos, int yPos, bool isClickable)
@@ -40,6 +43,8 @@ namespace Color_TD
         }
 
         public Bitmap Image => image;
+
+        public TowerType HeldTowerType => tower;
 
         public string Text => text;
 
