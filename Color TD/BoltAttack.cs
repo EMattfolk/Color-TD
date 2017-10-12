@@ -28,7 +28,7 @@ namespace Color_TD
 
         public override void Update(float deltaTime)
         {
-            aliveTime--;
+            aliveTime -= deltaTime;
             Position = new PointF(Position.X + xVelocity * deltaTime, Position.Y + yVelocity * deltaTime);
         }
 

@@ -17,9 +17,10 @@ namespace Color_TD
     {
         protected Dot target;
         protected Tower shooter;
-        protected int damage, aliveTime, hitsLeft;
+        protected int damage, hitsLeft;
+        protected float aliveTime;
 
-        public Attack (Dot target, Tower shooter, int damage, int aliveTime, int maxHitCount)
+        public Attack (Dot target, Tower shooter, int damage, float aliveTime, int maxHitCount)
         {
             this.target = target;
             this.shooter = shooter;

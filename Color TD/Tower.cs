@@ -19,11 +19,12 @@ namespace Color_TD
         private static Bitmap[] images = new Bitmap[] { new Bitmap("..\\..\\Tower_laser.png"), new Bitmap("..\\..\\Tower_bolt.png") };
 
         protected Dot target;
-        protected int fireRate, damage, range, framesSinceLastShot, cost;
+        protected float fireDelay, timeSinceLastShot;
+        protected int damage, range, cost;
 
-        public Tower (Point position, float scale, float rotation, int fireRate, int damage, int range, int cost)
+        public Tower (Point position, float scale, float rotation, float fireDelay, int damage, int range, int cost)
         {
-            this.fireRate = fireRate;
+            this.fireDelay = fireDelay;
             this.damage = damage;
             this.range = range;
             this.cost = cost;
@@ -33,7 +34,7 @@ namespace Color_TD
             Height = 64;
             Scale = scale;
             Rotation = rotation;
-            framesSinceLastShot = 0;
+            timeSinceLastShot = 0;
         }
 
         public static Tower FromTowerType (TowerType type)
@@ -59,9 +60,9 @@ namespace Color_TD
             return false;
         }
 
-        public void UpdateFrameCount ()
+        public void Update (float deltatime)
         {
-            framesSinceLastShot++;
+            timeSinceLastShot += deltatime;
         }
 
         protected void TurnToTarget ()

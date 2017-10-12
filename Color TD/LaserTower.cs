@@ -11,15 +11,15 @@ namespace Color_TD
     {
         public LaserTower () : this(new Point()) { }
 
-        public LaserTower (Point position) : base(position, .5f, 0, 30, 10, 100, 100) { } //TODO: change attack to make it more effective
+        public LaserTower (Point position) : base(position, .5f, 0, 1/2f, 10, 100, 100) { } //TODO: change attack to make it more effective
 
         public override TowerType TowerType => TowerType.Laser;
 
         public override Attack Shoot()
         {
-            if (framesSinceLastShot >= fireRate && target != null)
+            if (timeSinceLastShot >= fireDelay && target != null)
             {
-                framesSinceLastShot = 0;
+                timeSinceLastShot = 0;
                 TurnToTarget();
                 return new LaserAttack(target, this, damage, 1, 1);
             }

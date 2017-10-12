@@ -19,7 +19,7 @@ namespace Color_TD
 {
     public partial class MainForm : Form
     {
-        private static readonly int FPS = 60, SLEEPTIME = 1000/FPS, MAPSIZE = 480, UIWIDTH = 150;
+        private static readonly int FPS = 144, SLEEPTIME = 1000/FPS, MAPSIZE = 480, UIWIDTH = 150;
         private static readonly float DELTATIME = 1f / FPS;
         private Bitmap canvas;
         private TDMap map;
@@ -181,7 +181,7 @@ namespace Color_TD
         {
             foreach (Tower tower in towers)
             {
-                tower.UpdateFrameCount();
+                tower.Update(DELTATIME);
                 Attack shot = tower.Shoot();
                 if (shot != null) attacks.Add(shot);
             }
