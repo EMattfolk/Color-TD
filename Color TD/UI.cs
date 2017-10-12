@@ -9,7 +9,7 @@ namespace Color_TD
 {
     class UI
     {
-        private Bitmap boltButton, coinImage, backgroundImage;
+        private Bitmap boltButton, coinImage, heartImage, backgroundImage;
         private List<UIElement> uiElements;
         private int xPos;
 
@@ -18,11 +18,15 @@ namespace Color_TD
             this.xPos = xPos;
             boltButton = new Bitmap("..\\..\\Button_Bolt.png");
             coinImage = new Bitmap("..\\..\\Coin.png");
+            heartImage = new Bitmap("..\\..\\Heart.png");
             backgroundImage = new Bitmap("..\\..\\UI_Background.png");
-            uiElements = new List<UIElement>() { new UIElement(coinImage, xPos + 1, 3, false), new UIElement(boltButton, xPos + 43, 200, true), new UIElement("PLAYERCOINS", 16, xPos + 16, 0)};
+            uiElements = new List<UIElement>() {
+                new UIElement(coinImage, xPos + 1, 3, false),
+                new UIElement(heartImage, xPos + 1, 20, false),
+                new UIElement(boltButton, xPos + 43, 200, true),
+                new UIElement("PLAYERCOINS", 16, xPos + 16, 0),
+                new UIElement("PLAYERLIFE", 16, xPos + 16, 17) };
         }
-
-        public Bitmap CoinImage => coinImage;
 
         public Bitmap BackgroundImage => backgroundImage;
 
