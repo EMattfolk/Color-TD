@@ -19,7 +19,7 @@ namespace Color_TD
 {
     public partial class MainForm : Form
     {
-        private static readonly int FPS = 144, SLEEPTIME = 1000/FPS, MAPSIZE = 480, UIWIDTH = 150;
+        private static readonly int FPS = 144, SLEEPTIME = (int)Math.Round(1000f/FPS), MAPSIZE = 480, UIWIDTH = 150;
         private static readonly float DELTATIME = 1f / FPS;
         private Bitmap canvas;
         private TDMap map;
@@ -69,13 +69,21 @@ namespace Color_TD
 
             while (ApplicationIsIdle())
             {
-                startTime = stopWatch.ElapsedTicks;
+                startTime = stopWatch.ElapsedMilliseconds;
 
                 GameUpdate();
                 Render();
 
-                endTime = stopWatch.ElapsedTicks;
-                Thread.Sleep(new TimeSpan(0, 0, 0, 0, SLEEPTIME) - new TimeSpan(endTime - startTime));
+                endTime = stopWatch.ElapsedMilliseconds;
+
+                if (SLEEPTIME - endTime + startTime < 0)
+                {
+                    Console.WriteLine(SLEEPTIME - endTime + startTime);
+                }
+                else
+                {
+                    Thread.Sleep((int)(SLEEPTIME - endTime + startTime));
+                }
             }
         }
 
