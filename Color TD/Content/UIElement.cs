@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -10,17 +9,17 @@ namespace Color_TD
 {
     class UIElement
     {
+        private Bitmap image;
         private TowerType tower;
         private bool isClickable;
         private string text;
-        private int spriteIndex, xPos, yPos, width, height, textSize;
+        private int xPos, yPos, width, height, textSize;
 
-        public UIElement (int spriteIndex, int xPos, int yPos, bool isClickable, TowerType tower) : this(xPos, yPos, isClickable)
+        public UIElement (Bitmap image, int xPos, int yPos, bool isClickable, TowerType tower) : this(xPos, yPos, isClickable)
         {
-            this.spriteIndex = spriteIndex;
-            //TODO
-            //width = image.Width;
-            //height = image.Height;
+            this.image = image;
+            width = image.Width;
+            height = image.Height;
             text = "";
             textSize = 0;
             this.tower = tower;
@@ -28,7 +27,7 @@ namespace Color_TD
 
         public UIElement (string text, int textSize, int xPos, int yPos) : this(xPos, yPos, false)
         {
-            spriteIndex = 0;
+            image = null;
             width = 0;
             height = 0;
             this.text = text;
@@ -43,7 +42,7 @@ namespace Color_TD
             this.isClickable = isClickable;
         }
 
-        public int SpriteIndex => spriteIndex;
+        public Bitmap Image => image;
 
         public TowerType HeldTowerType => tower;
 
@@ -59,7 +58,7 @@ namespace Color_TD
 
         public int YPos => yPos;
 
-        public bool WasClicked (Vector2 mousePosition)
+        public bool WasClicked (Point mousePosition)
         {
             return isClickable && xPos <= mousePosition.X && mousePosition.X <= xPos + width && yPos <= mousePosition.Y && mousePosition.Y <= yPos + height;
         }

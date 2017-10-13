@@ -4,8 +4,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Color_TD
 {
@@ -18,12 +16,14 @@ namespace Color_TD
 
     abstract class Tower : GameObject
     {
+        private static Bitmap[] images = new Bitmap[] { new Bitmap("..\\..\\Tower_laser.png"), new Bitmap("..\\..\\Tower_bolt.png") };
+
         protected Dot target;
         protected float fireDelay, timeSinceLastShot;
         protected int damage, range, cost;
         private bool hasValidPosition;
 
-        public Tower (Vector2 position, float scale, float rotation, float fireDelay, int damage, int range, int cost)
+        public Tower (Point position, float scale, float rotation, float fireDelay, int damage, int range, int cost)
         {
             this.fireDelay = fireDelay;
             this.damage = damage;
@@ -62,9 +62,9 @@ namespace Color_TD
             return false;
         }
 
-        public void Update (GameTime gameTime)
+        public void Update (float deltatime)
         {
-            timeSinceLastShot += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            timeSinceLastShot += deltatime;
         }
 
         protected void TurnToTarget ()
@@ -76,7 +76,7 @@ namespace Color_TD
 
         abstract public Attack Shoot ();
 
-        public override int GetSpriteIndex () => (int)TowerType;
+        public override Bitmap GetImage() => images[(int)TowerType];
 
         public int Damage => damage;
 

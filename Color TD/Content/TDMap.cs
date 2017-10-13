@@ -4,22 +4,20 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Color_TD
 {
     class TDMap
     {
-        private Vector2[] path;
-        private int spriteIndex;
+        private Point[] path;
+        private Bitmap map;
         private float totalDistance;
         private float[] cumulativeDistances;
 
-        public TDMap (int mapIndex, Vector2[] path)
+        public TDMap (string imagePath, Point[] path)
         {
-            this.spriteIndex = mapIndex;
             this.path = path;
+            map = new Bitmap(imagePath);
             SetupDistances();
         }
 
@@ -28,7 +26,7 @@ namespace Color_TD
             totalDistance = 0;
             cumulativeDistances = new float[path.Length];
             cumulativeDistances[0] = 0;
-            float x, y;
+            int x, y;
             float dist;
             for (int i = 0; i < path.Length - 1; i++)
             {
@@ -40,7 +38,7 @@ namespace Color_TD
             }
         }
 
-        public Vector2 GetPosition (float distance) //TODO: Optimize if needed
+        public PointF GetPosition (float distance) //TODO: Optimize if needed
         {
             int index = 0;
             for (int i = 0; i < cumulativeDistances.Length; i++)
@@ -57,16 +55,16 @@ namespace Color_TD
             }
             else
             {
-                float x, y;
+                int x, y;
                 x = path[index + 1].X - path[index].X;
                 y = path[index + 1].Y - path[index].Y;
                 float progress = (distance - cumulativeDistances[index]) / (float) Math.Sqrt(x * x + y * y);
-                return new Vector2(path[index].X + x * progress, path[index].Y + y * progress);
+                return new PointF(path[index].X + x * progress, path[index].Y + y * progress);
             }
         }
 
         public bool HasFinished (float distance) => distance > totalDistance;
 
-        public int SpriteIndex => spriteIndex;
+        public Bitmap Map => map;
     }
 }

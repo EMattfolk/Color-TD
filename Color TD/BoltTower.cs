@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -9,9 +10,9 @@ namespace Color_TD
 {
     class BoltTower : Tower
     {
-        public BoltTower() : this(new Point()) { }
+        public BoltTower() : this(new Vector2()) { }
 
-        public BoltTower(Point position) : base(position, .5f, 0, 1/4f, 10, 100, 200) { }
+        public BoltTower(Vector2 position) : base(position, .5f, 0, 1/4f, 10, 100, 200) { }
 
         public override TowerType TowerType => TowerType.Bolt;
 

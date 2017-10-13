@@ -4,13 +4,13 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Color_TD
 {
     class BoltAttack : Attack
     {
+        private static Bitmap[] images = new Bitmap[] { new Bitmap("..\\..\\Bolt_blue.png") };
+
         private float xVelocity, yVelocity;
 
         public BoltAttack(Tower shooter, int damage, int maxHitCount, int speed, float scale) : base(null, shooter, damage, 100, maxHitCount)
@@ -26,14 +26,14 @@ namespace Color_TD
             Scale = scale;
         }
 
-        public override void Update(GameTime gameTime)
+        public override void Update(float deltaTime)
         {
-            aliveTime -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-            Position += new Vector2((float)(xVelocity * gameTime.ElapsedGameTime.TotalSeconds), (float)(yVelocity * gameTime.ElapsedGameTime.TotalSeconds));
+            aliveTime -= deltaTime;
+            Position = new PointF(Position.X + xVelocity * deltaTime, Position.Y + yVelocity * deltaTime);
         }
 
         public override AttackType AttackType => AttackType.Bolt;
 
-        public override int GetSpriteIndex() => 0;
+        public override Bitmap GetImage () => images[0];
     }
 }

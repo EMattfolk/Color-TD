@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -30,7 +29,7 @@ namespace Color_TD
             hitsLeft = maxHitCount;
         }
 
-        abstract public void Update (GameTime gametime);
+        abstract public void Update (float deltaTime);
 
         abstract public AttackType AttackType { get; }
 
@@ -47,6 +46,12 @@ namespace Color_TD
                 enemy.ApplyDamage(this);
                 hitsLeft--;
             }
+        }
+
+        public double DistanceTo (PointF other)
+        {
+            float x = Position.X - other.X, y = Position.Y - other.Y;
+            return Math.Sqrt(x * x + y * y);
         }
 
         public bool IsAlive => aliveTime > 0 && hitsLeft > 0;

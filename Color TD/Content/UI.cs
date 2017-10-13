@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -10,16 +9,17 @@ namespace Color_TD
 {
     class UI
     {
-        private int boltButton, coinImage, heartImage;
+        private Bitmap boltButton, coinImage, heartImage, backgroundImage;
         private List<UIElement> uiElements;
         private int xPos;
 
         public UI (int xPos)
         {
             this.xPos = xPos;
-            boltButton = 0;
-            coinImage = 1;
-            heartImage = 2;
+            boltButton = new Bitmap("..\\..\\Button_Bolt.png");
+            coinImage = new Bitmap("..\\..\\Coin.png");
+            heartImage = new Bitmap("..\\..\\Heart.png");
+            backgroundImage = new Bitmap("..\\..\\UI_Background.png");
             uiElements = new List<UIElement>() {
                 new UIElement(coinImage, xPos + 1, 3, false, TowerType.None),
                 new UIElement(heartImage, xPos + 1, 20, false, TowerType.None),
@@ -28,7 +28,7 @@ namespace Color_TD
                 new UIElement("PLAYERLIFE", 16, xPos + 16, 17) };
         }
 
-        public UIElement GetElementAt (Vector2 p)
+        public UIElement GetElementAt (Point p)
         {
             foreach (UIElement element in uiElements)
             {
@@ -36,6 +36,8 @@ namespace Color_TD
             }
             return null;
         }
+
+        public Bitmap BackgroundImage => backgroundImage;
 
         public List<UIElement> UIElements => uiElements;
 

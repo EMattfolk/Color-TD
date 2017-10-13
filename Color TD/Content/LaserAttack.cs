@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -14,9 +13,9 @@ namespace Color_TD
 
         public override AttackType AttackType => AttackType.Laser;
 
-        public override int GetSpriteIndex() => 0;
+        public override Bitmap GetImage() => null;
 
-        public override void Update (GameTime gameTime)
+        public override void Update (float deltaTime)
         {
             target.ApplyDamage(this);
             aliveTime--;

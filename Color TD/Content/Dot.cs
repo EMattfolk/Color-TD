@@ -4,8 +4,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Color_TD
 {
@@ -16,28 +14,31 @@ namespace Color_TD
 
     abstract class Dot : GameObject
     {
+        private static Bitmap[] images = { new Bitmap("..\\..\\Black_dot.png") };
+
         private HashSet<long> hitById;
-        protected int hp, regeneration;
-        private float speed, distance;
+        protected int speed, hp, regeneration;
+        private float distance;
         private int worth;
 
-        public Dot (int worth, int speed, float scale, int hp, int regeneration)
+        public Dot (int worth, int speed, float scale, int hp, int regeneration, float distance)
         {
             this.worth = worth;
             this.speed = speed;
             this.hp = hp;
             this.regeneration = regeneration;
-            distance = 0;
+            this.distance = distance;
             Size = 64;
             Width = 64;
             Height = 64;
             Scale = scale;
+            Position = new PointF();
             hitById = new HashSet<long>();
         }
 
-        public void UpdateDistance(GameTime gameTime)
+        public void UpdateDistance(float deltaTime)
         {
-            distance += (float)(gameTime.ElapsedGameTime.TotalSeconds * speed);
+            distance += deltaTime * speed;
         }
 
         public void ApplyDamage (Attack attack)
@@ -61,6 +62,6 @@ namespace Color_TD
 
         public abstract EnemyType EnemyType { get; }
 
-        public override int GetSpriteIndex() => (int)EnemyType;
+        public override Bitmap GetImage() => images[(int)EnemyType];
     }
 }

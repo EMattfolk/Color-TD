@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -8,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Color_TD
 {
-    class LaserTower : Tower
+    class BoltTower : Tower
     {
-        public LaserTower () : this(new Vector2()) { }
+        public BoltTower() : this(new Point()) { }
 
-        public LaserTower (Vector2 position) : base(position, .5f, 0, 1/2f, 10, 100, 100) { } //TODO: change attack to make it more effective
+        public BoltTower(Point position) : base(position, .5f, 0, 1/4f, 10, 100, 200) { }
 
-        public override TowerType TowerType => TowerType.Laser;
+        public override TowerType TowerType => TowerType.Bolt;
 
         public override Attack Shoot()
         {
@@ -22,7 +21,7 @@ namespace Color_TD
             {
                 timeSinceLastShot = 0;
                 TurnToTarget();
-                return new LaserAttack(target, this, damage, 1, 1);
+                return new BoltAttack(this, damage, 2, 400, 0.5f);
             }
             return null;
         }

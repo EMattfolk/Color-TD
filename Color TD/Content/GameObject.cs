@@ -4,8 +4,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Color_TD
 {
@@ -13,7 +11,7 @@ namespace Color_TD
     {
         private static long objectCount = 0;
         private long Id;
-        private Vector2 position = new Vector2();
+        private PointF position = new PointF();
         private int width = 0, height = 0, size = 0;
         private float rotation = 0, scale = 1;
 
@@ -23,7 +21,7 @@ namespace Color_TD
             objectCount++;
         }
 
-        public Vector2 Position
+        public PointF Position
         {
             get { return position; }
             set { position = value; }
@@ -67,6 +65,6 @@ namespace Color_TD
 
         public long ID => Id;
 
-        abstract public int GetSpriteIndex ();
+        abstract public Bitmap GetImage ();
     }
 }
