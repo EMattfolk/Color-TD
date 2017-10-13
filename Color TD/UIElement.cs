@@ -11,24 +11,24 @@ namespace Color_TD
     class UIElement
     {
         private TowerType tower;
+        private Vector2 position;
         private bool isClickable;
         private string text;
-        private int spriteIndex, xPos, yPos, width, height, textSize;
+        private int spriteIndex, width, height, textSize;
 
-        public UIElement (int spriteIndex, int xPos, int yPos, bool isClickable, TowerType tower) : this(xPos, yPos, isClickable)
+        public UIElement (int spriteIndex, Vector2 position, int width, int height, bool isClickable, TowerType tower) : this(position, isClickable)
         {
             this.spriteIndex = spriteIndex;
-            //TODO
-            //width = image.Width;
-            //height = image.Height;
+            this.width = width;
+            this.height = height;
             text = "";
             textSize = 0;
             this.tower = tower;
         }
 
-        public UIElement (string text, int textSize, int xPos, int yPos) : this(xPos, yPos, false)
+        public UIElement (string text, int textSize, Vector2 position) : this(position, false)
         {
-            spriteIndex = 0;
+            spriteIndex = -1;
             width = 0;
             height = 0;
             this.text = text;
@@ -36,10 +36,9 @@ namespace Color_TD
             tower = TowerType.None;
         }
 
-        private UIElement (int xPos, int yPos, bool isClickable)
+        private UIElement(Vector2 position, bool isClickable)
         {
-            this.xPos = xPos;
-            this.yPos = yPos;
+            this.position = position;
             this.isClickable = isClickable;
         }
 
@@ -55,13 +54,11 @@ namespace Color_TD
 
         public int Width => width;
 
-        public int XPos => xPos;
-
-        public int YPos => yPos;
+        public Vector2 Position => position;
 
         public bool WasClicked (Vector2 mousePosition)
         {
-            return isClickable && xPos <= mousePosition.X && mousePosition.X <= xPos + width && yPos <= mousePosition.Y && mousePosition.Y <= yPos + height;
+            return isClickable && position.X <= mousePosition.X && mousePosition.X <= position.X + width && position.Y <= mousePosition.Y && mousePosition.Y <= position.Y + height;
         }
     }
 }

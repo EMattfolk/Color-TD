@@ -21,11 +21,11 @@ namespace Color_TD
             coinImage = 1;
             heartImage = 2;
             uiElements = new List<UIElement>() {
-                new UIElement(coinImage, xPos + 1, 3, false, TowerType.None),
-                new UIElement(heartImage, xPos + 1, 20, false, TowerType.None),
-                new UIElement(boltButton, xPos + 43, 200, true, TowerType.Bolt),
-                new UIElement("PLAYERCOINS", 16, xPos + 16, 0),
-                new UIElement("PLAYERLIFE", 16, xPos + 16, 17) };
+                new UIElement(coinImage, new Vector2(xPos + 1, 3), 16, 16, false, TowerType.None),
+                new UIElement(heartImage,  new Vector2(xPos + 1, 20), 16, 16, false, TowerType.None),
+                new UIElement(boltButton,  new Vector2(xPos + 43, 200), 64, 96, true, TowerType.Bolt),
+                new UIElement("PLAYERCOINS",  16,  new Vector2(xPos + 20, 0)),
+                new UIElement("PLAYERLIFE",  16,  new Vector2(xPos + 20, 17)) };
         }
 
         public UIElement GetElementAt (Vector2 p)

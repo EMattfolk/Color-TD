@@ -69,7 +69,7 @@ namespace Color_TD
 
         protected void TurnToTarget ()
         {
-            Rotation = (float)Math.Atan2(target.Position.Y - Position.Y, target.Position.X - Position.X) * 180 / (float)Math.PI;
+            Rotation = (float)Math.Atan2(target.Position.Y - Position.Y, target.Position.X - Position.X);
         }
 
         abstract public TowerType TowerType { get; }
