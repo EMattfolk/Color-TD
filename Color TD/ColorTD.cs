@@ -14,6 +14,7 @@ namespace Color_TD
         private Player player;
         private UI ui;
         private Tower heldTower, clickedTower;
+        private WaveSpawner spawner;
         private List<Dot> enemies;
         private List<Tower> towers;
         private List<Attack> attacks;
@@ -35,6 +36,7 @@ namespace Color_TD
             clickedTower = null;
             player = new Player();
             ui = new UI(MAPSIZE);
+            spawner = new WaveSpawner();
             enemies = new List<Dot>() { new BlackDot() };
             towers = new List<Tower>();
             attacks = new List<Attack>();
@@ -96,9 +98,9 @@ namespace Color_TD
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            if (Keyboard.GetState().IsKeyDown(Keys.LeftShift)) enemies.Add(new BlackDot());
             CheckForMouseInput();
             CleanupDertroyedObjects();
+            SpawnEnemies(gameTime);
             UpdatePositions(gameTime);
             UpdateTargets();
             FireAtTargets(gameTime);
@@ -218,6 +220,13 @@ namespace Color_TD
             {
                 if (!attacks[i].IsAlive) attacks.RemoveAt(i);
             }
+        }
+
+        private void SpawnEnemies (GameTime gameTime)
+        {
+            spawner.Update(gameTime);
+            enemies.AddRange(spawner.QueuedEnemies);
+            spawner.QueuedEnemies.Clear();
         }
 
         private void UpdatePositions (GameTime gameTime)

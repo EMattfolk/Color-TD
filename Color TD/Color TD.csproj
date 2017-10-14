@@ -58,6 +58,7 @@
     <Compile Include="Tower.cs" />
     <Compile Include="UI.cs" />
     <Compile Include="UIElement.cs" />
+    <Compile Include="WaveSpawner.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
