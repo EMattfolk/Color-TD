@@ -12,13 +12,14 @@ namespace Color_TD
     class TDMap
     {
         private Vector2[] path;
+        private Line[] lines;
         private int spriteIndex;
         private float totalDistance;
         private float[] cumulativeDistances;
 
         public TDMap (int mapIndex, Vector2[] path)
         {
-            this.spriteIndex = mapIndex;
+            spriteIndex = mapIndex;
             this.path = path;
             SetupDistances();
         }
@@ -26,12 +27,14 @@ namespace Color_TD
         private void SetupDistances ()
         {
             totalDistance = 0;
+            lines = new Line[path.Length - 1];
             cumulativeDistances = new float[path.Length];
             cumulativeDistances[0] = 0;
             float x, y;
             float dist;
             for (int i = 0; i < path.Length - 1; i++)
             {
+                lines[i] = new Line(path[i], path[i + 1]);
                 x = path[i].X - path[i + 1].X;
                 y = path[i].Y - path[i + 1].Y;
                 dist = (float) Math.Sqrt(x * x + y * y);
@@ -63,6 +66,17 @@ namespace Color_TD
                 float progress = (distance - cumulativeDistances[index]) / (float) Math.Sqrt(x * x + y * y);
                 return new Vector2(path[index].X + x * progress, path[index].Y + y * progress);
             }
+        }
+
+        public float DistanceToPath (Vector2 fromPosition)
+        {
+            float dist, min = float.MaxValue;
+            foreach (Line l in lines)
+            {
+                dist = l.DistanceToPoint(fromPosition);
+                min = min > dist ? dist : min;
+            }
+            return min;
         }
 
         public bool HasFinished (float distance) => distance > totalDistance;

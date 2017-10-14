@@ -9,7 +9,7 @@ namespace Color_TD
 {
     public class ColorTD : Game
     {
-        private static readonly int MAPSIZE = 480, UIWIDTH = 150;
+        private static readonly int MAPSIZE = 480, UIWIDTH = 150, PATHWIDTH = 20;
         private TDMap map;
         private Player player;
         private UI ui;
@@ -48,14 +48,14 @@ namespace Color_TD
             currentMouseState = Mouse.GetState();
             previousMouseState = currentMouseState;
             map = new TDMap(1, new Vector2[] {
-                new Vector2(490,69),
-                new Vector2(67,69),
-                new Vector2(67,175),
-                new Vector2(395,175),
-                new Vector2(395,280),
-                new Vector2(63,280),
-                new Vector2(63,417),
-                new Vector2(490,417)
+                new Vector2(490,65),
+                new Vector2(65,65),
+                new Vector2(65,185),
+                new Vector2(395,185),
+                new Vector2(395,285),
+                new Vector2(65,285),
+                new Vector2(65,415),
+                new Vector2(490,415)
             });
             graphics.PreferredBackBufferWidth = MAPSIZE + UIWIDTH;
             graphics.PreferredBackBufferHeight = MAPSIZE;
@@ -224,7 +224,7 @@ namespace Color_TD
             if (heldTower != null)
             {
                 heldTower.Position = Mouse.GetState().Position.ToVector2();
-                heldTower.HasValidPosition = heldTower.Position.X < MAPSIZE;
+                heldTower.HasValidPosition = heldTower.Position.X < MAPSIZE && map.DistanceToPath(heldTower.Position) > PATHWIDTH;
                 foreach (Tower tower in towers)
                 {
                     if (heldTower.DistanceTo(tower) < heldTower.Scale * heldTower.Size / 2)
