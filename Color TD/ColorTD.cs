@@ -9,7 +9,7 @@ namespace Color_TD
 {
     public class ColorTD : Game
     {
-        private static readonly int MAPSIZE = 480, UIWIDTH = 150, PATHWIDTH = 20;
+        private static readonly int MAPSIZE = 480, UIWIDTH = 150, PATHWIDTH = 15;
         private TDMap map;
         private Player player;
         private UI ui;
@@ -75,9 +75,10 @@ namespace Color_TD
             towerSprites.Add(Content.Load<Texture2D>("Graphics\\Tower_bolt"));
             boltSprites.Add(Content.Load<Texture2D>("Graphics\\Bolt_blue"));
             laserSprites.Add(Content.Load<Texture2D>("Graphics\\Laser"));
-            uiSprites.Add(Content.Load<Texture2D>("Graphics\\Button_Bolt"));
             uiSprites.Add(Content.Load<Texture2D>("Graphics\\Coin"));
             uiSprites.Add(Content.Load<Texture2D>("Graphics\\Heart"));
+            uiSprites.Add(Content.Load<Texture2D>("Graphics\\Button_Laser"));
+            uiSprites.Add(Content.Load<Texture2D>("Graphics\\Button_Bolt"));
             mapSprites.Add(Content.Load<Texture2D>("Graphics\\UI_Background"));
             mapSprites.Add(Content.Load<Texture2D>("Graphics\\Map1"));
             circleSprites.Add(Content.Load<Texture2D>("Graphics\\Circle_red"));
@@ -172,6 +173,11 @@ namespace Color_TD
         private void CheckForMouseInput ()
         {
             currentMouseState = Mouse.GetState();
+
+            if (currentMouseState.RightButton == ButtonState.Pressed && previousMouseState.RightButton == ButtonState.Released)
+            {
+                heldTower = null;
+            }
 
             if (currentMouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton == ButtonState.Released)
             {

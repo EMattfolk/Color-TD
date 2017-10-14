@@ -10,20 +10,22 @@ namespace Color_TD
 {
     class UI
     {
-        private int boltButton, coinImage, heartImage;
+        private int coin, heart, boltButton, laserButton;
         private List<UIElement> uiElements;
         private int xPos;
 
         public UI (int xPos)
         {
             this.xPos = xPos;
-            boltButton = 0;
-            coinImage = 1;
-            heartImage = 2;
+            coin = 0;
+            heart = 1;
+            laserButton = 2;
+            boltButton = 3;
             uiElements = new List<UIElement>() {
-                new UIElement(coinImage, new Vector2(xPos + 1, 3), 16, 16, false, TowerType.None),
-                new UIElement(heartImage,  new Vector2(xPos + 1, 20), 16, 16, false, TowerType.None),
-                new UIElement(boltButton,  new Vector2(xPos + 43, 200), 64, 96, true, TowerType.Bolt),
+                new UIElement(coin, new Vector2(xPos + 1, 3), 16, 16, false, TowerType.None),
+                new UIElement(heart,  new Vector2(xPos + 1, 20), 16, 16, false, TowerType.None),
+                new UIElement(laserButton,  new Vector2(xPos + 43, 100), 64, 96, true, TowerType.Laser),
+                new UIElement(boltButton,  new Vector2(xPos + 43, 300), 64, 96, true, TowerType.Bolt),
                 new UIElement("PLAYERCOINS",  16,  new Vector2(xPos + 20, 0)),
                 new UIElement("PLAYERLIFE",  16,  new Vector2(xPos + 20, 17)) };
         }

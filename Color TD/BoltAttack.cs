@@ -13,7 +13,7 @@ namespace Color_TD
     {
         private Vector2 velocity;
 
-        public BoltAttack(Tower shooter, int damage, int maxHitCount, int speed, float scale) : base(null, shooter, damage, 100, maxHitCount)
+        public BoltAttack(Tower shooter, int damage, int maxHitCount, int speed, float scale) : base(null, shooter, damage, 2, maxHitCount)
         {
             Position = shooter.Position;
             Rotation = shooter.Rotation;

@@ -12,7 +12,7 @@ namespace Color_TD
     {
         public BoltTower() : this(new Vector2()) { }
 
-        public BoltTower(Vector2 position) : base(position, .5f, 0, 1/4f, 10, 100, 200) { }
+        public BoltTower(Vector2 position) : base(position, .5f, 0, 1/4f, 10, 80, 200) { }
 
         public override TowerType TowerType => TowerType.Bolt;
 
