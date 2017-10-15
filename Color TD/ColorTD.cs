@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Color_TD.Enemies;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -37,7 +38,7 @@ namespace Color_TD
             player = new Player();
             ui = new UI(MAPSIZE);
             spawner = new WaveSpawner();
-            enemies = new List<Dot>() { new BlackDot() };
+            enemies = new List<Dot>();
             towers = new List<Tower>();
             attacks = new List<Attack>();
             enemySprites = new List<Texture2D>();
@@ -72,7 +73,14 @@ namespace Color_TD
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            enemySprites.Add(Content.Load<Texture2D>("Graphics\\Black_dot"));
+            enemySprites.Add(Content.Load<Texture2D>("Graphics\\Dot_Black"));
+            enemySprites.Add(Content.Load<Texture2D>("Graphics\\Dot_Blue"));
+            enemySprites.Add(Content.Load<Texture2D>("Graphics\\Dot_Purple"));
+            enemySprites.Add(Content.Load<Texture2D>("Graphics\\Dot_Green"));
+            enemySprites.Add(Content.Load<Texture2D>("Graphics\\Dot_Red"));
+            enemySprites.Add(Content.Load<Texture2D>("Graphics\\Dot_Yellow"));
+            enemySprites.Add(Content.Load<Texture2D>("Graphics\\Dot_Cyan"));
+            enemySprites.Add(Content.Load<Texture2D>("Graphics\\Dot_White"));
             towerSprites.Add(Content.Load<Texture2D>("Graphics\\Tower_laser"));
             towerSprites.Add(Content.Load<Texture2D>("Graphics\\Tower_bolt"));
             boltSprites.Add(Content.Load<Texture2D>("Graphics\\Bolt_blue"));

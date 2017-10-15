@@ -44,6 +44,13 @@
     <Compile Include="Attacks\Attack.cs" />
     <Compile Include="Enemies\BlackDot.cs" />
     <Compile Include="Attacks\BoltAttack.cs" />
+    <Compile Include="Enemies\BlueDot.cs" />
+    <Compile Include="Enemies\CyanDot.cs" />
+    <Compile Include="Enemies\GreenDot.cs" />
+    <Compile Include="Enemies\PurpleDot.cs" />
+    <Compile Include="Enemies\RedDot.cs" />
+    <Compile Include="Enemies\WhiteDot.cs" />
+    <Compile Include="Enemies\YellowDot.cs" />
     <Compile Include="Towers\BoltTower.cs" />
     <Compile Include="ColorTD.cs" />
     <Compile Include="Enemies\Dot.cs" />

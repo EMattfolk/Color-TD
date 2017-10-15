@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Color_TD.Enemies;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace Color_TD
             time += (float)gameTime.ElapsedGameTime.TotalSeconds;
             while (time > spawnDelay)
             {
-                queuedEnemies.Add(new BlackDot());
+                queuedEnemies.Add(new WhiteDot());
                 time -= spawnDelay;
             }
         }

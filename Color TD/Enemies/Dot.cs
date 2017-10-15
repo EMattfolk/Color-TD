@@ -11,21 +11,29 @@ namespace Color_TD
 {
     enum EnemyType
     {
-        BlackDot
+        BlackDot,
+        BlueDot,
+        PurpleDot,
+        GreenDot,
+        RedDot,
+        YellowDot,
+        CyanDot,
+        WhiteDot
     }
 
     abstract class Dot : GameObject
     {
         private HashSet<long> hitById;
-        protected int hp, regeneration;
-        private float speed, distance;
+        private int regeneration;
+        private float speed, distance, hp, maxhp;
         private int worth;
 
-        public Dot (int worth, int speed, float scale, int hp, int regeneration)
+        public Dot (int worth, int speed, float scale, float hp, int regeneration)
         {
             this.worth = worth;
             this.speed = speed;
             this.hp = hp;
+            maxhp = hp;
             this.regeneration = regeneration;
             distance = 0;
             Size = 64;
@@ -38,6 +46,7 @@ namespace Color_TD
         public void UpdateDistance(GameTime gameTime)
         {
             distance += (float)(gameTime.ElapsedGameTime.TotalSeconds * speed);
+            hp = MathHelper.Clamp(hp + (float)(gameTime.ElapsedGameTime.TotalSeconds * regeneration), 0, maxhp);
         }
 
         public void ApplyDamage (Attack attack)
