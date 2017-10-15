@@ -41,24 +41,24 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Attack.cs" />
-    <Compile Include="BlackDot.cs" />
-    <Compile Include="BoltAttack.cs" />
-    <Compile Include="BoltTower.cs" />
+    <Compile Include="Attacks\Attack.cs" />
+    <Compile Include="Enemies\BlackDot.cs" />
+    <Compile Include="Attacks\BoltAttack.cs" />
+    <Compile Include="Towers\BoltTower.cs" />
     <Compile Include="ColorTD.cs" />
-    <Compile Include="Dot.cs" />
-    <Compile Include="GameObject.cs" />
-    <Compile Include="LaserAttack.cs" />
-    <Compile Include="LaserTower.cs" />
-    <Compile Include="Line.cs" />
+    <Compile Include="Enemies\Dot.cs" />
+    <Compile Include="Engine\GameObject.cs" />
+    <Compile Include="Attacks\LaserAttack.cs" />
+    <Compile Include="Towers\LaserTower.cs" />
+    <Compile Include="Engine\Line.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TDMap.cs" />
-    <Compile Include="Tower.cs" />
-    <Compile Include="UI.cs" />
-    <Compile Include="UIElement.cs" />
-    <Compile Include="WaveSpawner.cs" />
+    <Compile Include="Engine\TDMap.cs" />
+    <Compile Include="Towers\Tower.cs" />
+    <Compile Include="Engine\UI.cs" />
+    <Compile Include="Engine\UIElement.cs" />
+    <Compile Include="Enemies\WaveSpawner.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -74,6 +74,7 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
