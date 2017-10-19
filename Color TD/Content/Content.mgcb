@@ -260,3 +260,9 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Dot_Blue.png
 
+#begin Sounds/Death.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Death.wav
+

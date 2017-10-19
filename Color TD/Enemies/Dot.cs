@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Color_TD.Enemies;
 
 namespace Color_TD
 {
@@ -42,6 +43,31 @@ namespace Color_TD
             Scale = scale;
             hitById = new HashSet<long>();
         }
+
+        public static Dot FromType (EnemyType type)
+        {
+            switch (type)
+            {
+                case EnemyType.BlackDot:
+                    return new BlackDot();
+                case EnemyType.BlueDot:
+                    return new BlueDot();
+                case EnemyType.PurpleDot:
+                    return new PurpleDot();
+                case EnemyType.GreenDot:
+                    return new GreenDot();
+                case EnemyType.RedDot:
+                    return new RedDot();
+                case EnemyType.YellowDot:
+                    return new YellowDot();
+                case EnemyType.CyanDot:
+                    return new CyanDot();
+                case EnemyType.WhiteDot:
+                    return new WhiteDot();
+                default:
+                    return null;
+            }
+        } 
 
         public void UpdateDistance(GameTime gameTime)
         {
