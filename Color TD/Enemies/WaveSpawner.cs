@@ -36,6 +36,11 @@ namespace Color_TD
                 "0 20 Black 0.1",
                 "0 10 Blue 0.2",
                 "0 20 Blue 0.2",
+                "0 10 Purple 0.3",
+                "0 30 Blue 0.1",
+                "0 20 Purple 0.2",
+                "0 20 Green 0.2",
+                "0 20 Black 0.1, 0 20 Blue 0.1, 0 20 Purple 0.1, 0 20 Green 0.1"
             };
             waves = new List<Wave>();
             foreach (string str in waveStrings)

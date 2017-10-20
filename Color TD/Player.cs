@@ -12,7 +12,7 @@ namespace Color_TD
 
         public Player ()
         {
-            coins = 1000;
+            coins = 100;
             lives = 100;
         }
 
