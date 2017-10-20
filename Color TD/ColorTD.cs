@@ -90,6 +90,7 @@ namespace Color_TD
             uiSprites.Add(Content.Load<Texture2D>("Graphics\\Heart"));
             uiSprites.Add(Content.Load<Texture2D>("Graphics\\Button_Laser"));
             uiSprites.Add(Content.Load<Texture2D>("Graphics\\Button_Bolt"));
+            uiSprites.Add(Content.Load<Texture2D>("Graphics\\Button_Start"));
             mapSprites.Add(Content.Load<Texture2D>("Graphics\\UI_Background"));
             mapSprites.Add(Content.Load<Texture2D>("Graphics\\Map1"));
             circleSprites.Add(Content.Load<Texture2D>("Graphics\\Circle_red"));
@@ -202,8 +203,15 @@ namespace Color_TD
                 UIElement clickedElement = ui.GetElementAt(currentMouseState.Position.ToVector2());
                 if (clickedElement != null)
                 {
-                    heldTower = Tower.FromTowerType(clickedElement.HeldTowerType);
-                    if (player.Coins < heldTower.Cost) heldTower = null;
+                    if (clickedElement.SpriteIndex == UI.StartButton)
+                    {
+                        spawner.SpawnNextWave();
+                    }
+                    else
+                    {
+                        heldTower = Tower.FromTowerType(clickedElement.HeldTowerType);
+                        if (player.Coins < heldTower.Cost) heldTower = null;
+                    }
                 }
             }
 
@@ -233,6 +241,7 @@ namespace Color_TD
 
         private void SpawnEnemies (GameTime gameTime)
         {
+            if (spawner.IsIdle) return;
             spawner.Update(gameTime);
             enemies.AddRange(spawner.QueuedEnemies);
             spawner.QueuedEnemies.Clear();

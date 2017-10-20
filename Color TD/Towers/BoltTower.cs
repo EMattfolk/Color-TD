@@ -22,7 +22,7 @@ namespace Color_TD
             {
                 timeSinceLastShot = 0;
                 TurnToTarget();
-                return new BoltAttack(this, damage, 2, 400, 0.5f);
+                return new BoltAttack(this, damage, 2, 600, 0.5f);
             }
             return null;
         }

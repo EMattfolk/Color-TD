@@ -21,27 +21,36 @@ namespace Color_TD
         private int currentWave;
         private float spawnDelay, time;
         private string[] waveStrings;
+        private bool isIdle;
 
         public WaveSpawner ()
         {
             queuedEnemies = new List<Dot>();
             currentCluster = null;
-            currentWave = 0;
+            currentWave = -1;
             spawnDelay = .01f;
             time = 0;
+            isIdle = true;
             waveStrings = new string[] {
-                "5 10 Black 0.2 , 1 10 Blue 0.5"
+                "0 10 Black 0.2",
+                "0 20 Black 0.1",
+                "0 10 Blue 0.2",
+                "0 20 Blue 0.2",
             };
-            waves = new List<Wave>() {
-                new Wave(waveStrings[0])
-            };
+            waves = new List<Wave>();
+            foreach (string str in waveStrings)
+            {
+                waves.Add(new Wave(str));
+            }
         }
 
         public void Update (GameTime gameTime)
         {
             time += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            isIdle = true;
             if (currentCluster != null || !waves[currentWave].IsDone)
             {
+                isIdle = false;
                 if (currentCluster == null)
                 {
                     currentCluster = waves[currentWave].GetNextCluster();
@@ -58,9 +67,20 @@ namespace Color_TD
                     currentCluster = null;
                 }
             }
-            else if (waves[currentWave].IsDone && currentWave < waves.Count - 1) currentWave++;
+        }
+
+        public void SpawnNextWave ()
+        {
+            if (isIdle && currentWave + 1 < waves.Count)
+            {
+                currentWave++;
+                isIdle = false;
+                time = 0;
+            }
         }
 
         public List<Dot> QueuedEnemies => queuedEnemies;
+
+        public bool IsIdle => isIdle;
     }
 }
