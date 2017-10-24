@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 /*
  * Spawner syntax
  * waittime enemycount enemytype spawndelay , waittime enemycount enemytype spawndelay ...
+ * 
+ * Wavecomp
+ * hp/spawntime > dps to lose
+ * 
  */
 
 namespace Color_TD
@@ -33,14 +37,33 @@ namespace Color_TD
             isIdle = true;
             waveStrings = new string[] {
                 "0 10 Black 0.2",
-                "0 20 Black 0.1",
+                "0 20 Black 0.2",
                 "0 10 Blue 0.2",
                 "0 20 Blue 0.2",
                 "0 10 Purple 0.3",
-                "0 30 Blue 0.1",
+                "0 30 Blue 0.15",
                 "0 20 Purple 0.2",
+                "0 20 Black 0.15, 2 20 Blue 0.15, 2 20 Purple 0.2",
                 "0 20 Green 0.2",
-                "0 20 Black 0.1, 0 20 Blue 0.1, 0 20 Purple 0.1, 0 20 Green 0.1"
+                "0 60 Blue 0.15",
+                "0 30 Purple 0.2",
+                "0 20 Black 0.1, 0.5 20 Blue 0.1, 0.5 20 Purple 0.1, 0.5 20 Green 0.1",
+                "0 1 Red 0",
+                "0 10 Red 0.3",
+                "0 30 Green 0.1",
+                "0 25 Black 0.05, 0.5 25 Blue 0.1, 0.5 25 Purple 0.1, 0.5 25 Green 0.1, 0.5 10 Red 0.3",
+                "0 1 Yellow 0",
+                "0 10 Yellow 0.25",
+                "0 100 Purple 0.1",
+                "0 20 Yellow 0.05",
+                "0 5 Cyan 0.4, 0.5 1 Red 0, 0.5 1 Green 0, 0.5 1 Purple 0, 0.5 1 Blue 0, 0.5 1 Black 0",
+                "0 10 Cyan 0.2",
+                "0 20 Red 0.1",
+                "0 3 Cyan 0.03, 2 3 Cyan 0.03, 2 3 Cyan 0.03, 2 3 Cyan 0.03",
+                "0 3 Cyan 0.2, 0 3 Yellow 0.2, 0 3 Cyan 0.2, 0 3 Yellow 0.2, 0 3 Cyan 0.2, 0 3 Yellow 0.2, 0 3 Cyan 0.2, 0 3 Yellow 0.2",
+                "0 1 White 0",
+                "0 10 Cyan 0.1",
+                "0 5 White 0.3"
             };
             waves = new List<Wave>();
             foreach (string str in waveStrings)
