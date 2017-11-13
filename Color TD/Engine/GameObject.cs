@@ -67,6 +67,6 @@ namespace Color_TD
 
         public long ID => Id;
 
-        abstract public int GetSpriteIndex ();
+        abstract public Texture2D GetSprite ();
     }
 }

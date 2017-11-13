@@ -11,14 +11,16 @@ namespace Color_TD
 {
     class BoltAttack : Attack
     {
+        private static List<Texture2D> sprites = new List<Texture2D>();
         private Vector2 velocity;
+        private int level;
 
-        public BoltAttack(Tower shooter, int damage, int maxHitCount, int speed, float scale) : base(null, shooter, damage, 2, maxHitCount)
+        public BoltAttack(Tower shooter, int damage, int maxHitCount, int speed, float scale, int level) : base(null, shooter, damage, 2, maxHitCount)
         {
             Position = shooter.Position;
             Rotation = shooter.Rotation;
             velocity = new Vector2((float)Math.Cos(Rotation) * speed, (float)Math.Sin(Rotation) * speed);
-
+            this.level = level;
             Size = 32;
             Width = 32;
             Height = 16; //TODO: change
@@ -33,6 +35,8 @@ namespace Color_TD
 
         public override AttackType AttackType => AttackType.Bolt;
 
-        public override int GetSpriteIndex() => 0;
+        public override Texture2D GetSprite() => sprites[level];
+
+        public static List<Texture2D> Sprites => sprites;
     }
 }

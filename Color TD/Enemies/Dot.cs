@@ -24,6 +24,7 @@ namespace Color_TD
 
     abstract class Dot : GameObject
     {
+        private static List<Texture2D> sprites = new List<Texture2D>(); 
         private HashSet<long> hitById;
         private int regeneration;
         private float speed, distance, hp, maxhp;
@@ -86,6 +87,8 @@ namespace Color_TD
             hp = 0;
         }
 
+        public static List<Texture2D> Sprites => sprites;
+
         public bool HasBeenHitByID (long id) => hitById.Contains(id);
 
         public bool IsAlive => hp > 0;
@@ -96,6 +99,6 @@ namespace Color_TD
 
         public abstract EnemyType EnemyType { get; }
 
-        public override int GetSpriteIndex() => (int)EnemyType;
+        public override Texture2D GetSprite() => sprites[(int)EnemyType];
     }
 }

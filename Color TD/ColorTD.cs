@@ -20,7 +20,7 @@ namespace Color_TD
         private List<Dot> enemies;
         private List<Tower> towers;
         private List<Attack> attacks;
-        private List<Texture2D> enemySprites, towerSprites, boltSprites, laserSprites, uiSprites, mapSprites, circleSprites;
+        private List<Texture2D> mapSprites, circleSprites;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         MouseState currentMouseState, previousMouseState;
@@ -42,11 +42,6 @@ namespace Color_TD
             enemies = new List<Dot>();
             towers = new List<Tower>();
             attacks = new List<Attack>();
-            enemySprites = new List<Texture2D>();
-            towerSprites = new List<Texture2D>();
-            boltSprites = new List<Texture2D>();
-            laserSprites = new List<Texture2D>();
-            uiSprites = new List<Texture2D>();
             mapSprites = new List<Texture2D>();
             circleSprites = new List<Texture2D>();
             currentMouseState = Mouse.GetState();
@@ -74,23 +69,23 @@ namespace Color_TD
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            enemySprites.Add(Content.Load<Texture2D>("Graphics\\Dot_Black"));
-            enemySprites.Add(Content.Load<Texture2D>("Graphics\\Dot_Blue"));
-            enemySprites.Add(Content.Load<Texture2D>("Graphics\\Dot_Purple"));
-            enemySprites.Add(Content.Load<Texture2D>("Graphics\\Dot_Green"));
-            enemySprites.Add(Content.Load<Texture2D>("Graphics\\Dot_Red"));
-            enemySprites.Add(Content.Load<Texture2D>("Graphics\\Dot_Yellow"));
-            enemySprites.Add(Content.Load<Texture2D>("Graphics\\Dot_Cyan"));
-            enemySprites.Add(Content.Load<Texture2D>("Graphics\\Dot_White"));
-            towerSprites.Add(Content.Load<Texture2D>("Graphics\\Tower_laser"));
-            towerSprites.Add(Content.Load<Texture2D>("Graphics\\Tower_bolt"));
-            boltSprites.Add(Content.Load<Texture2D>("Graphics\\Bolt_blue"));
-            laserSprites.Add(Content.Load<Texture2D>("Graphics\\Laser"));
-            uiSprites.Add(Content.Load<Texture2D>("Graphics\\Coin"));
-            uiSprites.Add(Content.Load<Texture2D>("Graphics\\Heart"));
-            uiSprites.Add(Content.Load<Texture2D>("Graphics\\Button_Laser"));
-            uiSprites.Add(Content.Load<Texture2D>("Graphics\\Button_Bolt"));
-            uiSprites.Add(Content.Load<Texture2D>("Graphics\\Button_Start"));
+            Dot.Sprites.Add(Content.Load<Texture2D>("Graphics\\Dot_Black"));
+            Dot.Sprites.Add(Content.Load<Texture2D>("Graphics\\Dot_Blue"));
+            Dot.Sprites.Add(Content.Load<Texture2D>("Graphics\\Dot_Purple"));
+            Dot.Sprites.Add(Content.Load<Texture2D>("Graphics\\Dot_Green"));
+            Dot.Sprites.Add(Content.Load<Texture2D>("Graphics\\Dot_Red"));
+            Dot.Sprites.Add(Content.Load<Texture2D>("Graphics\\Dot_Yellow"));
+            Dot.Sprites.Add(Content.Load<Texture2D>("Graphics\\Dot_Cyan"));
+            Dot.Sprites.Add(Content.Load<Texture2D>("Graphics\\Dot_White"));
+            BoltTower.Sprites.Add(Content.Load<Texture2D>("Graphics\\Tower_bolt"));
+            LaserTower.Sprites.Add(Content.Load<Texture2D>("Graphics\\Tower_laser"));
+            BoltAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Bolt_blue"));
+            LaserAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Laser"));
+            UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Coin"));
+            UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Heart"));
+            UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Button_Laser"));
+            UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Button_Bolt"));
+            UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Button_Start"));
             mapSprites.Add(Content.Load<Texture2D>("Graphics\\UI_Background"));
             mapSprites.Add(Content.Load<Texture2D>("Graphics\\Map1"));
             circleSprites.Add(Content.Load<Texture2D>("Graphics\\Circle_red"));
@@ -129,18 +124,18 @@ namespace Color_TD
             foreach (Dot enemy in enemies)
             {
                 Vector2 correction = new Vector2(enemy.Size * enemy.Scale / 2);
-                spriteBatch.Draw(enemySprites[enemy.GetSpriteIndex()], enemy.Position - correction, null, Color.White, 0, Vector2.Zero, enemy.Scale, SpriteEffects.None, 0);
+                spriteBatch.Draw(enemy.GetSprite(), enemy.Position - correction, null, Color.White, 0, Vector2.Zero, enemy.Scale, SpriteEffects.None, 0);
             }
             foreach (Tower tower in towers)
             {
                 Vector2 correction = new Vector2(tower.Size * tower.Scale);
-                spriteBatch.Draw(towerSprites[tower.GetSpriteIndex()], tower.Position, null, Color.White, tower.Rotation, correction, tower.Scale, SpriteEffects.None, 0);
+                spriteBatch.Draw(tower.GetSprite(), tower.Position, null, Color.White, tower.Rotation, correction, tower.Scale, SpriteEffects.None, 0);
             }
             foreach (Attack attack in attacks)
             {
                 if (attack.AttackType == AttackType.Laser)
                 {
-                    spriteBatch.Draw(laserSprites[0],
+                    spriteBatch.Draw(attack.GetSprite(),
                         new Rectangle((int)attack.Shooter.Position.X, (int)attack.Shooter.Position.Y, (int)attack.Shooter.DistanceTo(attack.Target), 1),
                         null,
                         Color.White,
@@ -152,17 +147,17 @@ namespace Color_TD
                 if (attack.AttackType == AttackType.Bolt)
                 {
                     Vector2 correction = new Vector2(attack.Width * attack.Scale, attack.Height * attack.Scale);
-                    spriteBatch.Draw(boltSprites[attack.GetSpriteIndex()], attack.Position, null, Color.White, attack.Rotation, correction, attack.Scale, SpriteEffects.None, 0);
+                    spriteBatch.Draw(attack.GetSprite(), attack.Position, null, Color.White, attack.Rotation, correction, attack.Scale, SpriteEffects.None, 0);
                 }
             }
             spriteBatch.Draw(mapSprites[0], new Vector2(MAPSIZE, 0), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             foreach (UIElement element in ui.UIElements)
             {
-                if (element.SpriteIndex != -1)
+                if (element.Type == UIElementType.Image)
                 {
-                    spriteBatch.Draw(uiSprites[element.SpriteIndex], element.Position, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                    spriteBatch.Draw(element.GetSprite(), element.Position, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
                 }
-                else if (element.Text != "")
+                else if (element.Type == UIElementType.Text)
                 {
                     string text;
                     if (element.Text == "PLAYERCOINS") text = player.Coins.ToString();
@@ -174,9 +169,10 @@ namespace Color_TD
             if (heldTower != null)
             {
                 Vector2 correction = new Vector2(heldTower.Size * heldTower.Scale);
-                spriteBatch.Draw(towerSprites[heldTower.GetSpriteIndex()], heldTower.Position, null, Color.White, heldTower.Rotation, correction, heldTower.Scale, SpriteEffects.None, 0);
+                spriteBatch.Draw(heldTower.GetSprite(), heldTower.Position, null, Color.White, heldTower.Rotation, correction, heldTower.Scale, SpriteEffects.None, 0);
                 spriteBatch.Draw(circleSprites[heldTower.HasValidPosition ? 1 : 0], heldTower.Position - new Vector2(heldTower.Range), null, Color.White, 0, Vector2.Zero, heldTower.Range/100f, SpriteEffects.None, 0);
             }
+
             spriteBatch.End();
 
             base.Draw(gameTime);

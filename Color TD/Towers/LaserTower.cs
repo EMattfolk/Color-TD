@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -10,11 +11,17 @@ namespace Color_TD
 {
     class LaserTower : Tower
     {
+        private static List<Texture2D> sprites = new List<Texture2D>();
+
         public LaserTower () : this(new Vector2()) { }
 
         public LaserTower (Vector2 position) : base(position, .5f, 0, 1/2f, 10, 100, 50) { } //TODO: change attack to make it more effective
 
+        public static List<Texture2D> Sprites => sprites;
+
         public override TowerType TowerType => TowerType.Laser;
+
+        public override Texture2D GetSprite() => sprites[level];
 
         public override Attack Shoot()
         {

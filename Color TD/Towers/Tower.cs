@@ -20,7 +20,7 @@ namespace Color_TD
     {
         protected Dot target;
         protected float fireDelay, timeSinceLastShot;
-        protected int damage, range, cost;
+        protected int damage, range, cost, level;
         private bool hasValidPosition;
 
         public Tower (Vector2 position, float scale, float rotation, float fireDelay, int damage, int range, int cost)
@@ -34,6 +34,7 @@ namespace Color_TD
             Width = 64;
             Height = 64;
             Scale = scale;
+            level = 0;
             Rotation = rotation;
             timeSinceLastShot = 0;
             hasValidPosition = false;
@@ -76,13 +77,13 @@ namespace Color_TD
 
         abstract public Attack Shoot ();
 
-        public override int GetSpriteIndex () => (int)TowerType;
-
         public int Damage => damage;
 
         public int Range => range;
 
         public int Cost => cost;
+
+        public int Level => level;
 
         public Dot Target
         {
