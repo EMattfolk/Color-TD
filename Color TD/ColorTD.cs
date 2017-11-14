@@ -77,10 +77,14 @@ namespace Color_TD
             Dot.Sprites.Add(Content.Load<Texture2D>("Graphics\\Dot_Yellow"));
             Dot.Sprites.Add(Content.Load<Texture2D>("Graphics\\Dot_Cyan"));
             Dot.Sprites.Add(Content.Load<Texture2D>("Graphics\\Dot_White"));
-            BoltTower.Sprites.Add(Content.Load<Texture2D>("Graphics\\Tower_bolt"));
-            LaserTower.Sprites.Add(Content.Load<Texture2D>("Graphics\\Tower_laser"));
-            BoltAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Bolt_blue"));
-            LaserAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Laser"));
+            BoltTower.Sprites.Add(Content.Load<Texture2D>("Graphics\\Tower_bolt1"));
+            BoltTower.Sprites.Add(Content.Load<Texture2D>("Graphics\\Tower_bolt2"));
+            BoltTower.Sprites.Add(Content.Load<Texture2D>("Graphics\\Tower_bolt3"));
+            LaserTower.Sprites.Add(Content.Load<Texture2D>("Graphics\\Tower_laser1"));
+            BoltAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Bolt1"));
+            BoltAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Bolt2"));
+            BoltAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Bolt3"));
+            LaserAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Laser1"));
             UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Coin"));
             UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Heart"));
             UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Button_Laser"));
