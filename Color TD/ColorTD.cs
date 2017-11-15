@@ -11,7 +11,7 @@ namespace Color_TD
 {
     public class ColorTD : Game
     {
-        private static readonly int MAPSIZE = 480, UIWIDTH = 150, PATHWIDTH = 15;
+        private static readonly int MAPSIZE = 480, UIWIDTH = 150, PATHWIDTH = 30;
         private TDMap map;
         private Player player;
         private UI ui;
@@ -273,10 +273,10 @@ namespace Color_TD
             if (heldTower != null)
             {
                 heldTower.Position = Mouse.GetState().Position.ToVector2();
-                heldTower.HasValidPosition = heldTower.Position.X < MAPSIZE && map.DistanceToPath(heldTower.Position) > PATHWIDTH;
+                heldTower.HasValidPosition = heldTower.Position.X < MAPSIZE && map.DistanceToPath(heldTower.Position) > PATHWIDTH * .8f;
                 foreach (Tower tower in towers)
                 {
-                    if (heldTower.DistanceTo(tower) < heldTower.Scale * heldTower.Size / 2)
+                    if (heldTower.DistanceTo(tower) < heldTower.Scale * heldTower.Size * .8f)
                     {
                         heldTower.HasValidPosition = false;
                         break;
