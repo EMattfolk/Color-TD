@@ -65,6 +65,12 @@ namespace Color_TD
             return Math.Sqrt(x * x + y * y);
         }
 
+        public double DistanceTo(Vector2 other)
+        {
+            float x = Position.X - other.X, y = Position.Y - other.Y;
+            return Math.Sqrt(x * x + y * y);
+        }
+
         public long ID => Id;
 
         abstract public Texture2D GetSprite ();

@@ -166,6 +166,7 @@ namespace Color_TD
                     string text;
                     if (element.Text == "PLAYERCOINS") text = player.Coins.ToString();
                     else if (element.Text == "PLAYERLIFE") text = player.Lives.ToString();
+                    else if (element.Text == "TOWERINFO") text = clickedTower.GetInfo();
                     else text = element.Text;
                     spriteBatch.DrawString(font, text, element.Position, Color.Black);
                 }
@@ -193,6 +194,9 @@ namespace Color_TD
 
             if (currentMouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton == ButtonState.Released)
             {
+                UIElement clickedElement = ui.GetElementAt(currentMouseState.Position.ToVector2());
+                if (clickedElement == null) clickedTower = ClickedTower(currentMouseState.Position.ToVector2());
+
                 if (heldTower != null && heldTower.HasValidPosition)
                 {
                     player.Coins -= heldTower.Cost;
@@ -200,8 +204,7 @@ namespace Color_TD
                     towers[towers.Count - 1].Position = currentMouseState.Position.ToVector2();
                     if (!Keyboard.GetState().IsKeyDown(Keys.LeftShift) || player.Coins < heldTower.Cost) heldTower = null;
                 }
-                UIElement clickedElement = ui.GetElementAt(currentMouseState.Position.ToVector2());
-                if (clickedElement != null)
+                else if (clickedElement != null)
                 {
                     if (clickedElement.SpriteIndex == UI.StartButton)
                     {
@@ -212,6 +215,14 @@ namespace Color_TD
                         heldTower = Tower.FromTowerType(clickedElement.HeldTowerType);
                         if (player.Coins < heldTower.Cost) heldTower = null;
                     }
+                }
+                else if (heldTower == null && clickedTower != null)
+                {
+                    ui.SetLayout("towerinfo");
+                }
+                else
+                {
+                    ui.SetLayout("standard");
                 }
             }
 
@@ -312,6 +323,18 @@ namespace Color_TD
                     }
                 }
             }
+        }
+
+        private Tower ClickedTower (Vector2 mousePosition)
+        {
+            foreach (Tower tower in towers)
+            {
+                if (tower.DistanceTo(mousePosition) < tower.Size * tower.Scale / 2)
+                {
+                    return tower;
+                }
+            }
+            return null;
         }
     }
 }

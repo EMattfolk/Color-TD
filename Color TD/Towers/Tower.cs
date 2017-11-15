@@ -77,6 +77,8 @@ namespace Color_TD
 
         abstract public Attack Shoot ();
 
+        abstract public string GetInfo();
+
         public int Damage => damage;
 
         public int Range => range;

@@ -12,6 +12,7 @@ namespace Color_TD
     class BoltTower : Tower
     {
         private static List<Texture2D> sprites = new List<Texture2D>();
+        private int pierceCount = 2, projectileSpeed = 600;
 
         public BoltTower() : this(new Vector2()) { }
 
@@ -29,9 +30,14 @@ namespace Color_TD
             {
                 timeSinceLastShot = 0;
                 TurnToTarget();
-                return new BoltAttack(this, damage, 2, 600, 0.5f, level);
+                return new BoltAttack(this, damage, pierceCount, projectileSpeed, 0.5f, level);
             }
             return null;
+        }
+
+        public override string GetInfo()
+        {
+            return "Damage: " + damage.ToString() + Environment.NewLine + "Firerate: " + Math.Round(1 / fireDelay, 2).ToString() + Environment.NewLine + "Pierce: " + pierceCount;
         }
     }
 }
