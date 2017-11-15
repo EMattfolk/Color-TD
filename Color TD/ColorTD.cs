@@ -90,11 +90,12 @@ namespace Color_TD
             UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Button_Laser"));
             UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Button_Bolt"));
             UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Button_Start"));
+            UIElement.Fonts.Add(Content.Load<SpriteFont>("Fonts\\Courier New16"));
+            UIElement.Fonts.Add(Content.Load<SpriteFont>("Fonts\\Courier New12"));
             mapSprites.Add(Content.Load<Texture2D>("Graphics\\UI_Background"));
             mapSprites.Add(Content.Load<Texture2D>("Graphics\\Map1"));
             circleSprites.Add(Content.Load<Texture2D>("Graphics\\Circle_red"));
             circleSprites.Add(Content.Load<Texture2D>("Graphics\\Circle_green"));
-            font = Content.Load<SpriteFont>("Fonts\\Courier New");
         }
 
         protected override void UnloadContent()
@@ -168,7 +169,7 @@ namespace Color_TD
                     else if (element.Text == "PLAYERLIFE") text = player.Lives.ToString();
                     else if (element.Text == "TOWERINFO") text = clickedTower.GetInfo();
                     else text = element.Text;
-                    spriteBatch.DrawString(font, text, element.Position, Color.Black);
+                    spriteBatch.DrawString(element.Font, text, element.Position, Color.Black);
                 }
             }
             if (heldTower != null)

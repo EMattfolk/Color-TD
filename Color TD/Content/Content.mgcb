@@ -73,13 +73,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/UI_Background.png
 
-#begin Fonts/Courier New.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:Fonts/Courier New.spritefont
-
 #begin Graphics/Circle_green.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -325,4 +318,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Tower_bolt3.png
+
+#begin Fonts/Courier New12.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/Courier New12.spritefont
+
+#begin Fonts/Courier New16.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/Courier New16.spritefont
 

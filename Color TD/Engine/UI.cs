@@ -20,8 +20,8 @@ namespace Color_TD
             standardLayout = new List<UIElement>() {
                 new UIElement(Coin, new Vector2(xPos + 1, 3), 16, 16, false, TowerType.None),
                 new UIElement(Heart,  new Vector2(xPos + 1, 20), 16, 16, false, TowerType.None),
-                new UIElement("PLAYERCOINS",  16,  new Vector2(xPos + 20, 0)),
-                new UIElement("PLAYERLIFE",  16,  new Vector2(xPos + 20, 17)),
+                new UIElement("PLAYERCOINS",  0,  new Vector2(xPos + 20, 0)),
+                new UIElement("PLAYERLIFE",  0,  new Vector2(xPos + 20, 17)),
                 new UIElement(LaserButton,  new Vector2(xPos + 43, 100), 64, 96, true, TowerType.Laser),
                 new UIElement(BoltButton,  new Vector2(xPos + 43, 300), 64, 96, true, TowerType.Bolt),
                 new UIElement(StartButton,  new Vector2(xPos, 416), 150, 64, true, TowerType.None)
@@ -29,9 +29,9 @@ namespace Color_TD
             towerInfoLayout = new List<UIElement>() {
                 new UIElement(Coin, new Vector2(xPos + 1, 3), 16, 16, false, TowerType.None),
                 new UIElement(Heart,  new Vector2(xPos + 1, 20), 16, 16, false, TowerType.None),
-                new UIElement("PLAYERCOINS",  16,  new Vector2(xPos + 20, 0)),
-                new UIElement("PLAYERLIFE",  16,  new Vector2(xPos + 20, 17)),
-                new UIElement("TOWERINFO",  16,  new Vector2(xPos, 50)),
+                new UIElement("PLAYERCOINS",  0,  new Vector2(xPos + 20, 0)),
+                new UIElement("PLAYERLIFE",  0,  new Vector2(xPos + 20, 17)),
+                new UIElement("TOWERINFO",  1,  new Vector2(xPos + 5, 50)),
                 new UIElement(StartButton,  new Vector2(xPos, 416), 150, 64, true, TowerType.None)
             };
             uiElements = standardLayout;

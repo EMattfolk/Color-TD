@@ -33,10 +33,5 @@ namespace Color_TD
             }
             return null;
         }
-
-        public override string GetInfo()
-        {
-            return "Damage: " + damage.ToString() + Environment.NewLine + "Firerate: " + Math.Round(1 / fireDelay, 2).ToString();
-        }
     }
 }

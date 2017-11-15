@@ -37,7 +37,7 @@ namespace Color_TD
 
         public override string GetInfo()
         {
-            return "Damage: " + damage.ToString() + Environment.NewLine + "Firerate: " + Math.Round(1 / fireDelay, 2).ToString() + Environment.NewLine + "Pierce: " + pierceCount;
+            return base.GetInfo() + Environment.NewLine + "Pierce: " + pierceCount;
         }
     }
 }

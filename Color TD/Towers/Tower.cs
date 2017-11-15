@@ -77,7 +77,10 @@ namespace Color_TD
 
         abstract public Attack Shoot ();
 
-        abstract public string GetInfo();
+        virtual public string GetInfo()
+        {
+            return "Level: " + (level + 1).ToString() + Environment.NewLine + "Damage: " + damage.ToString() + Environment.NewLine + "Firerate: " + Math.Round(1 / fireDelay, 2).ToString();
+        }
 
         public int Damage => damage;
 
