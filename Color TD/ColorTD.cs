@@ -175,7 +175,11 @@ namespace Color_TD
             {
                 Vector2 correction = new Vector2(heldTower.Size * heldTower.Scale);
                 spriteBatch.Draw(heldTower.GetSprite(), heldTower.Position, null, Color.White, heldTower.Rotation, correction, heldTower.Scale, SpriteEffects.None, 0);
-                spriteBatch.Draw(circleSprites[heldTower.HasValidPosition ? 1 : 0], heldTower.Position - new Vector2(heldTower.Range), null, Color.White, 0, Vector2.Zero, heldTower.Range/100f, SpriteEffects.None, 0);
+                DrawCircleAroundTower(heldTower, heldTower.HasValidPosition);
+            }
+            if (clickedTower != null)
+            {
+                DrawCircleAroundTower(clickedTower, true);
             }
 
             spriteBatch.End();
@@ -223,6 +227,7 @@ namespace Color_TD
                 else
                 {
                     ui.SetLayout("standard");
+                    clickedTower = null;
                 }
             }
 
@@ -323,6 +328,11 @@ namespace Color_TD
                     }
                 }
             }
+        }
+
+        private void DrawCircleAroundTower (Tower tower, bool isValid)
+        {
+            spriteBatch.Draw(circleSprites[isValid ? 1 : 0], tower.Position - new Vector2(tower.Range), null, Color.White, 0, Vector2.Zero, tower.Range / 100f, SpriteEffects.None, 0);
         }
 
         private Tower ClickedTower (Vector2 mousePosition)
