@@ -21,6 +21,7 @@ namespace Color_TD
         protected Dot target;
         protected float fireDelay, timeSinceLastShot;
         protected int damage, range, cost, level;
+        protected List<int> UpgradeCosts;
         private bool hasValidPosition;
 
         public Tower (Vector2 position, float scale, float rotation, float fireDelay, int damage, int range, int cost)
@@ -77,6 +78,8 @@ namespace Color_TD
 
         abstract public Attack Shoot ();
 
+        abstract public void Upgrade();
+
         virtual public string GetInfo()
         {
             return "Level: " + (level + 1).ToString() + Environment.NewLine + "Damage: " + damage.ToString() + Environment.NewLine + "Firerate: " + Math.Round(1 / fireDelay, 2).ToString();
@@ -89,6 +92,10 @@ namespace Color_TD
         public int Cost => cost;
 
         public int Level => level;
+
+        public int UpgradeCost => UpgradeCosts[level];
+
+        public bool CanUpgrade => UpgradeCosts[level] != 0;
 
         public Dot Target
         {

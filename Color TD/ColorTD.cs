@@ -90,6 +90,7 @@ namespace Color_TD
             UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Button_Laser"));
             UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Button_Bolt"));
             UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Button_Start"));
+            UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Button_Upgrade"));
             UIElement.Fonts.Add(Content.Load<SpriteFont>("Fonts\\Courier New16"));
             UIElement.Fonts.Add(Content.Load<SpriteFont>("Fonts\\Courier New12"));
             mapSprites.Add(Content.Load<Texture2D>("Graphics\\UI_Background"));
@@ -168,6 +169,7 @@ namespace Color_TD
                     if (element.Text == "PLAYERCOINS") text = player.Coins.ToString();
                     else if (element.Text == "PLAYERLIFE") text = player.Lives.ToString();
                     else if (element.Text == "TOWERINFO") text = clickedTower.GetInfo();
+                    else if (element.Text == "TOWERUPGRADECOST") text = clickedTower.GetInfo();
                     else text = element.Text;
                     spriteBatch.DrawString(element.Font, text, element.Position, Color.Black);
                 }
@@ -180,6 +182,7 @@ namespace Color_TD
             }
             if (clickedTower != null)
             {
+                spriteBatch.Draw(clickedTower.GetSprite(), new Vector2(MAPSIZE + UIWIDTH / 2 - 32, MAPSIZE / 2 - 32), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
                 DrawCircleAroundTower(clickedTower, true);
             }
 
@@ -214,6 +217,14 @@ namespace Color_TD
                     if (clickedElement.SpriteIndex == UI.StartButton)
                     {
                         spawner.SpawnNextWave();
+                    }
+                    else if (clickedElement.SpriteIndex == UI.UpgradeButton)
+                    {
+                        if (clickedTower.CanUpgrade && clickedTower.UpgradeCost <= player.Coins)
+                        {
+                            clickedTower.Upgrade();
+                            player.Coins -= clickedTower.UpgradeCost;
+                        }
                     }
                     else
                     {

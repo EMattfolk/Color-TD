@@ -16,7 +16,10 @@ namespace Color_TD
 
         public BoltTower() : this(new Vector2()) { }
 
-        public BoltTower(Vector2 position) : base(position, .5f, 0, 1/4f, 10, 80, 200) { }
+        public BoltTower(Vector2 position) : base(position, .5f, 0, 1/4f, 10, 80, 200)
+        {
+            UpgradeCosts = new List<int>() { 1, 1, 0 };
+        }
 
         public static List<Texture2D> Sprites => sprites;
 
@@ -35,9 +38,14 @@ namespace Color_TD
             return null;
         }
 
+        public override void Upgrade()
+        {
+            level++;
+        }
+
         public override string GetInfo()
         {
-            return base.GetInfo() + Environment.NewLine + "Pierce: " + pierceCount;
+            return base.GetInfo() + Environment.NewLine + "Pierce: " + (pierceCount - 1);
         }
     }
 }

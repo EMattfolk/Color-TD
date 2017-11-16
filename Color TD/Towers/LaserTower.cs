@@ -15,7 +15,10 @@ namespace Color_TD
 
         public LaserTower () : this(new Vector2()) { }
 
-        public LaserTower (Vector2 position) : base(position, .5f, 0, 1/2f, 10, 100, 50) { } //TODO: change attack to make it more effective
+        public LaserTower (Vector2 position) : base(position, .5f, 0, 1/2f, 10, 100, 50)
+        {
+            UpgradeCosts = new List<int>() { 1, 1, 0 };
+        } //TODO: change attack to make it more effective
 
         public static List<Texture2D> Sprites => sprites;
 
@@ -32,6 +35,11 @@ namespace Color_TD
                 return new LaserAttack(target, this, damage, 1, 1);
             }
             return null;
+        }
+
+        public override void Upgrade()
+        {
+            level++;
         }
     }
 }
