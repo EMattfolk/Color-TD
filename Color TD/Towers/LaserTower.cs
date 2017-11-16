@@ -17,7 +17,7 @@ namespace Color_TD
 
         public LaserTower (Vector2 position) : base(position, .5f, 0, 1/2f, 10, 100, 50)
         {
-            UpgradeCosts = new List<int>() { 100, 600, 0 };
+            UpgradeCosts = new List<int>() { 110, 620, 0 };
         } //TODO: change attack to make it more effective
 
         public static List<Texture2D> Sprites => sprites;

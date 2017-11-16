@@ -18,7 +18,7 @@ namespace Color_TD
 
         public BoltTower(Vector2 position) : base(position, .5f, 0, 1/4f, 10, 80, 200)
         {
-            UpgradeCosts = new List<int>() { 250, 520, 0 };
+            UpgradeCosts = new List<int>() { 260, 540, 0 };
         }
 
         public static List<Texture2D> Sprites => sprites;
