@@ -81,6 +81,8 @@ namespace Color_TD
             BoltTower.Sprites.Add(Content.Load<Texture2D>("Graphics\\Tower_bolt2"));
             BoltTower.Sprites.Add(Content.Load<Texture2D>("Graphics\\Tower_bolt3"));
             LaserTower.Sprites.Add(Content.Load<Texture2D>("Graphics\\Tower_laser1"));
+            LaserTower.Sprites.Add(Content.Load<Texture2D>("Graphics\\Tower_laser2"));
+            LaserTower.Sprites.Add(Content.Load<Texture2D>("Graphics\\Tower_laser3"));
             BoltAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Bolt1"));
             BoltAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Bolt2"));
             BoltAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Bolt3"));
@@ -169,7 +171,7 @@ namespace Color_TD
                     if (element.Text == "PLAYERCOINS") text = player.Coins.ToString();
                     else if (element.Text == "PLAYERLIFE") text = player.Lives.ToString();
                     else if (element.Text == "TOWERINFO") text = clickedTower.GetInfo();
-                    else if (element.Text == "TOWERUPGRADECOST") text = clickedTower.GetInfo();
+                    else if (element.Text == "TOWERUPGRADECOST") text = clickedTower.UpgradeCost.ToString();
                     else text = element.Text;
                     spriteBatch.DrawString(element.Font, text, element.Position, Color.Black);
                 }
@@ -222,8 +224,8 @@ namespace Color_TD
                     {
                         if (clickedTower.CanUpgrade && clickedTower.UpgradeCost <= player.Coins)
                         {
-                            clickedTower.Upgrade();
                             player.Coins -= clickedTower.UpgradeCost;
+                            clickedTower.Upgrade();
                         }
                     }
                     else

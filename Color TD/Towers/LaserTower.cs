@@ -17,7 +17,7 @@ namespace Color_TD
 
         public LaserTower (Vector2 position) : base(position, .5f, 0, 1/2f, 10, 100, 50)
         {
-            UpgradeCosts = new List<int>() { 1, 1, 0 };
+            UpgradeCosts = new List<int>() { 100, 600, 0 };
         } //TODO: change attack to make it more effective
 
         public static List<Texture2D> Sprites => sprites;
@@ -40,6 +40,16 @@ namespace Color_TD
         public override void Upgrade()
         {
             level++;
+            if (level == 1)
+            {
+                fireDelay = 1 / 6f;
+                range += 20;
+            }
+            else if (level == 2)
+            {
+                fireDelay = 1 / 30f;
+                range += 20;
+            }
         }
     }
 }

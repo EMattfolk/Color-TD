@@ -18,7 +18,7 @@ namespace Color_TD
 
         public BoltTower(Vector2 position) : base(position, .5f, 0, 1/4f, 10, 80, 200)
         {
-            UpgradeCosts = new List<int>() { 1, 1, 0 };
+            UpgradeCosts = new List<int>() { 250, 520, 0 };
         }
 
         public static List<Texture2D> Sprites => sprites;
@@ -41,6 +41,18 @@ namespace Color_TD
         public override void Upgrade()
         {
             level++;
+            if (level == 1)
+            {
+                pierceCount++;
+                damage += 5;
+                range += 20;
+            }
+            else if (level == 2)
+            {
+                pierceCount += 3;
+                damage += 5;
+                range += 20;
+            }
         }
 
         public override string GetInfo()
