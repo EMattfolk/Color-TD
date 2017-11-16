@@ -13,7 +13,7 @@ namespace Color_TD
     {
         private static long objectCount = 0;
         private long Id;
-        private Vector2 position = new Vector2();
+        private Vector2 position = new Vector2(), velocity = new Vector2();
         private int width = 0, height = 0, size = 0;
         private float rotation = 0, scale = 1;
 
@@ -57,6 +57,18 @@ namespace Color_TD
         {
             get { return rotation; }
             set { rotation = value; }
+        }
+
+        public Vector2 Velocity
+        {
+            get { return velocity; }
+            set { velocity = value; }
+        }
+
+        public void MoveTo (Vector2 destination, GameTime gameTime)
+        {
+            velocity = (destination - position) / (float)gameTime.ElapsedGameTime.TotalSeconds;
+            position = destination;
         }
 
         public double DistanceTo (GameObject other)

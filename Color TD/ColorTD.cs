@@ -282,7 +282,7 @@ namespace Color_TD
             for (int i = 0; i < enemies.Count; i++)
             {
                 enemies[i].UpdateDistance(gameTime);
-                enemies[i].Position = map.GetPosition(enemies[i].Distance);
+                enemies[i].MoveTo(map.GetPosition(enemies[i].Distance), gameTime);
             }
             if (heldTower != null)
             {

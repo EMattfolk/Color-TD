@@ -59,5 +59,19 @@ namespace Color_TD
         {
             return base.GetInfo() + Environment.NewLine + "Pierce: " + (pierceCount - 1);
         }
+
+        protected override void TurnToTarget()
+        {
+            float t = 0.5f;
+            Vector2 v = (target.Position - Position) / t + target.Velocity;
+            float speed = (int)(v.Length());
+            for (int i = 0; i < 5; i++)
+            {
+                t *= speed * 1f / projectileSpeed;
+                v = (target.Position - Position) / t + target.Velocity;
+                speed = v.Length();
+            }
+            Rotation = (float)Math.Atan2(v.Y,v.X);
+        }
     }
 }

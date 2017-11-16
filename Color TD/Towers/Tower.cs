@@ -69,7 +69,7 @@ namespace Color_TD
             timeSinceLastShot += (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
-        protected void TurnToTarget ()
+        protected virtual void TurnToTarget ()
         {
             Rotation = (float)Math.Atan2(target.Position.Y - Position.Y, target.Position.X - Position.X);
         }
