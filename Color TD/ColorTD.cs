@@ -369,7 +369,7 @@ namespace Color_TD
                 {
                     foreach (Dot enemy in enemies)
                     {
-                        if (attack.DistanceTo(enemy) < enemy.Size * enemy.Scale + attack.Size * attack.Scale)
+                        if (attack.DistanceTo(enemy) < (enemy.Size * enemy.Scale + attack.Size * attack.Scale) / 2)
                         {
                             attack.ApplyDamage(enemy);
                             if (!attack.CanHit) break;
@@ -400,7 +400,7 @@ namespace Color_TD
         {
             foreach (Dot enemy in enemies)
             {
-                if (enemy.DistanceTo(mousePosition) < enemy.Size * enemy.Scale / 2)
+                if (enemy.DistanceTo(mousePosition) < enemy.Size * enemy.Scale / 2 + 5)
                 {
                     return enemy;
                 }
