@@ -11,7 +11,7 @@ namespace Color_TD
     class UI
     {
         public static readonly int Coin = 0, Heart = 1, LaserButton = 2, BoltButton = 3, StartButton = 4, UpgradeButton = 5;
-        private List<UIElement> uiElements, standardLayout, towerInfoLayout;
+        private List<UIElement> uiElements, standardLayout, towerInfoLayout, enemyInfoLayout;
         private int xPos;
 
         public UI (int xPos)
@@ -36,6 +36,14 @@ namespace Color_TD
                 new UIElement("TOWERUPGRADECOST",  1,  new Vector2(xPos + 50, 390)),
                 new UIElement(StartButton,  new Vector2(xPos, 416), 150, 64, true, TowerType.None)
             };
+            enemyInfoLayout = new List<UIElement>() {
+                new UIElement(Coin, new Vector2(xPos + 1, 3), 16, 16, false, TowerType.None),
+                new UIElement(Heart,  new Vector2(xPos + 1, 20), 16, 16, false, TowerType.None),
+                new UIElement("PLAYERCOINS",  0,  new Vector2(xPos + 20, 0)),
+                new UIElement("PLAYERLIFE",  0,  new Vector2(xPos + 20, 17)),
+                new UIElement("ENEMYINFO",  1,  new Vector2(xPos + 5, 50)),
+                new UIElement(StartButton,  new Vector2(xPos, 416), 150, 64, true, TowerType.None)
+            };
             uiElements = standardLayout;
         }
 
@@ -49,6 +57,9 @@ namespace Color_TD
                     break;
                 case "towerinfo":
                     uiElements = towerInfoLayout;
+                    break;
+                case "enemyinfo":
+                    uiElements = enemyInfoLayout;
                     break;
                 default:
                     break;

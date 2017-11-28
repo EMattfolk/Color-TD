@@ -16,6 +16,7 @@ namespace Color_TD
         private Player player;
         private UI ui;
         private Tower heldTower, clickedTower;
+        private Dot clickedEnemy;
         private WaveSpawner spawner;
         private List<Dot> enemies;
         private List<Tower> towers;
@@ -36,6 +37,7 @@ namespace Color_TD
         {
             heldTower = null;
             clickedTower = null;
+            clickedEnemy = null;
             player = new Player();
             ui = new UI(MAPSIZE);
             spawner = new WaveSpawner();
@@ -168,11 +170,27 @@ namespace Color_TD
                 else if (element.Type == UIElementType.Text)
                 {
                     string text;
-                    if (element.Text == "PLAYERCOINS") text = player.Coins.ToString();
-                    else if (element.Text == "PLAYERLIFE") text = player.Lives.ToString();
-                    else if (element.Text == "TOWERINFO") text = clickedTower.GetInfo();
-                    else if (element.Text == "TOWERUPGRADECOST") text = clickedTower.UpgradeCost.ToString();
-                    else text = element.Text;
+                    switch (element.Text)
+                    {
+                        case "PLAYERCOINS":
+                            text = player.Coins.ToString();
+                            break;
+                        case "PLAYERLIFE":
+                            text = player.Lives.ToString();
+                            break;
+                        case "TOWERINFO":
+                            text = clickedTower.GetInfo();
+                            break;
+                        case "TOWERUPGRADECOST":
+                            text = clickedTower.UpgradeCost.ToString();
+                            break;
+                        case "ENEMYINFO":
+                            text = clickedEnemy.GetInfo();
+                            break;
+                        default:
+                            text = element.Text;
+                            break;
+                    }
                     spriteBatch.DrawString(element.Font, text, element.Position, Color.Black);
                 }
             }
@@ -188,6 +206,11 @@ namespace Color_TD
                 DrawCircleAroundTower(clickedTower, true);
             }
 
+            if (clickedEnemy != null)
+            {
+                spriteBatch.Draw(clickedEnemy.GetSprite(), new Vector2(MAPSIZE + UIWIDTH / 2 - 32, MAPSIZE / 2 - 32), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            }
+
             spriteBatch.End();
 
             base.Draw(gameTime);
@@ -200,12 +223,19 @@ namespace Color_TD
             if (currentMouseState.RightButton == ButtonState.Pressed && previousMouseState.RightButton == ButtonState.Released)
             {
                 heldTower = null;
+                clickedTower = null;
+                clickedEnemy = null;
+                ui.SetLayout("standard");
             }
 
             if (currentMouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton == ButtonState.Released)
             {
                 UIElement clickedElement = ui.GetElementAt(currentMouseState.Position.ToVector2());
-                if (clickedElement == null) clickedTower = ClickedTower(currentMouseState.Position.ToVector2());
+                if (clickedElement == null)
+                {
+                    clickedEnemy = ClickedEnemy(currentMouseState.Position.ToVector2());
+                    clickedTower = ClickedTower(currentMouseState.Position.ToVector2());
+                }
 
                 if (heldTower != null && heldTower.HasValidPosition)
                 {
@@ -234,6 +264,10 @@ namespace Color_TD
                         if (player.Coins < heldTower.Cost) heldTower = null;
                     }
                 }
+                else if (heldTower == null && clickedEnemy != null)
+                {
+                    ui.SetLayout("enemyinfo");
+                }
                 else if (heldTower == null && clickedTower != null)
                 {
                     ui.SetLayout("towerinfo");
@@ -242,6 +276,7 @@ namespace Color_TD
                 {
                     ui.SetLayout("standard");
                     clickedTower = null;
+                    clickedEnemy = null;
                 }
             }
 
@@ -356,6 +391,18 @@ namespace Color_TD
                 if (tower.DistanceTo(mousePosition) < tower.Size * tower.Scale / 2)
                 {
                     return tower;
+                }
+            }
+            return null;
+        }
+
+        private Dot ClickedEnemy(Vector2 mousePosition)
+        {
+            foreach (Dot enemy in enemies)
+            {
+                if (enemy.DistanceTo(mousePosition) < enemy.Size * enemy.Scale / 2)
+                {
+                    return enemy;
                 }
             }
             return null;

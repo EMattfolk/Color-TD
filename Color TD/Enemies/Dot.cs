@@ -87,6 +87,11 @@ namespace Color_TD
             hp = 0;
         }
 
+        public string GetInfo ()
+        {
+            return "HP: " + ((int)hp).ToString() + "/" + ((int)maxhp).ToString() + Environment.NewLine + "Regen: " + regeneration.ToString() + Environment.NewLine + "Speed: " + speed.ToString();
+        }
+
         public static List<Texture2D> Sprites => sprites;
 
         public bool HasBeenHitByID (long id) => hitById.Contains(id);
