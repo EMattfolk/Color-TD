@@ -312,7 +312,7 @@ namespace Color_TD
             spawner.QueuedEnemies.Clear();
         }
 
-        private void UpdatePositions (GameTime gameTime)
+        private void UpdatePositions (GameTime gameTime) // TODO: fixa ordning
         {
             for (int i = 0; i < enemies.Count; i++)
             {

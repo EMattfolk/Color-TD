@@ -55,7 +55,11 @@ namespace Color_TD
 
         public int Damage => damage;
 
-        public Dot Target => target;
+        public Dot Target
+        {
+            get { return target; }
+            set { target = value; }
+        }
 
         public Tower Shooter => shooter;
     }
