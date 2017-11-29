@@ -41,6 +41,7 @@ namespace Color_TD
                 totalDistance += dist;
                 cumulativeDistances[i + 1] = totalDistance;
             }
+            Console.WriteLine(totalDistance);
         }
 
         public Vector2 GetPosition (float distance) //TODO: Optimize if needed
@@ -63,7 +64,7 @@ namespace Color_TD
                 float x, y;
                 x = path[index + 1].X - path[index].X;
                 y = path[index + 1].Y - path[index].Y;
-                float progress = (distance - cumulativeDistances[index]) / (float) Math.Sqrt(x * x + y * y);
+                float progress = (distance - cumulativeDistances[index]) / (cumulativeDistances[index + 1] - cumulativeDistances[index]);
                 return new Vector2(path[index].X + x * progress, path[index].Y + y * progress);
             }
         }
