@@ -21,7 +21,7 @@ namespace Color_TD
         protected Dot target;
         protected float fireDelay, timeSinceLastShot;
         protected int damage, range, cost, level;
-        protected List<int> UpgradeCosts;
+        protected List<int> UpgradeCosts, SellValues;
         private bool hasValidPosition;
 
         public Tower (Vector2 position, float scale, float rotation, float fireDelay, int damage, int range, int cost)
@@ -94,6 +94,8 @@ namespace Color_TD
         public int Level => level;
 
         public int UpgradeCost => UpgradeCosts[level];
+
+        public int SellValue => SellValues[level];
 
         public bool CanUpgrade => UpgradeCosts[level] != 0;
 

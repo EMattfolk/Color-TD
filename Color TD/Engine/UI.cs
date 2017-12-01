@@ -10,7 +10,7 @@ namespace Color_TD
 {
     class UI
     {
-        public static readonly int Coin = 0, Heart = 1, LaserButton = 2, BoltButton = 3, StartButton = 4, UpgradeButton = 5;
+        public static readonly int Coin = 0, Heart = 1, LaserButton = 2, BoltButton = 3, StartButton = 4, UpgradeButton = 5, SellButton = 6;
         private List<UIElement> uiElements, standardLayout, towerInfoLayout, enemyInfoLayout;
         private int xPos;
 
@@ -32,8 +32,10 @@ namespace Color_TD
                 new UIElement("PLAYERCOINS",  0,  new Vector2(xPos + 20, 0)),
                 new UIElement("PLAYERLIFE",  0,  new Vector2(xPos + 20, 17)),
                 new UIElement("TOWERINFO",  1,  new Vector2(xPos + 5, 50)),
+                new UIElement(SellButton,  new Vector2(xPos, 288), 150, 64, true, TowerType.None),
+                new UIElement("TOWERSELLVALUE",  2,  new Vector2(xPos + 55, 321)),
                 new UIElement(UpgradeButton,  new Vector2(xPos, 352), 150, 64, true, TowerType.None),
-                new UIElement("TOWERUPGRADECOST",  1,  new Vector2(xPos + 50, 390)),
+                new UIElement("TOWERUPGRADECOST",  2,  new Vector2(xPos + 55, 385)),
                 new UIElement(StartButton,  new Vector2(xPos, 416), 150, 64, true, TowerType.None)
             };
             enemyInfoLayout = new List<UIElement>() {

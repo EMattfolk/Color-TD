@@ -22,6 +22,7 @@ namespace Color_TD
         private List<Tower> towers;
         private List<Attack> attacks;
         private List<Texture2D> mapSprites, circleSprites;
+        private bool gameOver;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         MouseState currentMouseState, previousMouseState;
@@ -63,6 +64,7 @@ namespace Color_TD
             graphics.ApplyChanges();
             IsMouseVisible = true;
             IsFixedTimeStep = false;
+            gameOver = false;
             base.Initialize();
         }
 
@@ -95,8 +97,10 @@ namespace Color_TD
             UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Button_Bolt"));
             UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Button_Start"));
             UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Button_Upgrade"));
+            UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Button_Sell"));
             UIElement.Fonts.Add(Content.Load<SpriteFont>("Fonts\\Courier New16"));
             UIElement.Fonts.Add(Content.Load<SpriteFont>("Fonts\\Courier New12"));
+            UIElement.Fonts.Add(Content.Load<SpriteFont>("Fonts\\Calibri16"));
             mapSprites.Add(Content.Load<Texture2D>("Graphics\\UI_Background"));
             mapSprites.Add(Content.Load<Texture2D>("Graphics\\Map1"));
             circleSprites.Add(Content.Load<Texture2D>("Graphics\\Circle_red"));
@@ -187,6 +191,9 @@ namespace Color_TD
                         case "ENEMYINFO":
                             text = clickedEnemy.GetInfo();
                             break;
+                        case "TOWERSELLVALUE":
+                            text = clickedTower.SellValue.ToString();
+                            break;
                         default:
                             text = element.Text;
                             break;
@@ -202,7 +209,7 @@ namespace Color_TD
             }
             if (clickedTower != null)
             {
-                spriteBatch.Draw(clickedTower.GetSprite(), new Vector2(MAPSIZE + UIWIDTH / 2 - 32, MAPSIZE / 2 - 32), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                spriteBatch.Draw(clickedTower.GetSprite(), new Vector2(MAPSIZE + UIWIDTH / 2 - 32, MAPSIZE / 3), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
                 DrawCircleAroundTower(clickedTower, true);
             }
 
@@ -257,6 +264,13 @@ namespace Color_TD
                             player.Coins -= clickedTower.UpgradeCost;
                             clickedTower.Upgrade();
                         }
+                    }
+                    else if (clickedElement.SpriteIndex == UI.SellButton)
+                    {
+                        player.Coins += clickedTower.SellValue;
+                        towers.Remove(clickedTower);
+                        clickedTower = null;
+                        ui.SetLayout("standard");
                     }
                     else
                     {
