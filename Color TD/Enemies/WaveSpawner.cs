@@ -23,7 +23,7 @@ namespace Color_TD
         private List<Dot> queuedEnemies;
         private WaveCluster currentCluster;
         private int currentWave;
-        private float spawnDelay, time;
+        private float time;
         private string[] waveStrings;
         private bool isIdle;
 
@@ -32,7 +32,6 @@ namespace Color_TD
             queuedEnemies = new List<Dot>();
             currentCluster = null;
             currentWave = -1;
-            spawnDelay = .01f;
             time = 0;
             isIdle = true;
             waveStrings = new string[] {
@@ -57,6 +56,7 @@ namespace Color_TD
                 "0 100 Purple 0.1",
                 "0 20 Yellow 0.05",
                 "0 5 Cyan 0.4, 0.5 1 Red 0, 0.5 1 Green 0, 0.5 1 Purple 0, 0.5 1 Blue 0, 0.5 1 Black 0",
+                "0 10 Yellow 0.04, 3 10 Yellow 0.04",
                 "0 10 Cyan 0.2",
                 "0 20 Red 0.1",
                 "0 3 Cyan 0.03, 2 3 Cyan 0.03, 2 3 Cyan 0.03, 2 3 Cyan 0.03",
@@ -110,5 +110,7 @@ namespace Color_TD
         public List<Dot> QueuedEnemies => queuedEnemies;
 
         public bool IsIdle => isIdle;
+
+        public bool IsEmpty => waves[waves.Count - 1].IsDone;
     }
 }

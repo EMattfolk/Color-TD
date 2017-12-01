@@ -22,7 +22,6 @@ namespace Color_TD
         private List<Tower> towers;
         private List<Attack> attacks;
         private List<Texture2D> mapSprites, circleSprites;
-        private bool gameOver;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         MouseState currentMouseState, previousMouseState;
@@ -64,7 +63,6 @@ namespace Color_TD
             graphics.ApplyChanges();
             IsMouseVisible = true;
             IsFixedTimeStep = false;
-            gameOver = false;
             base.Initialize();
         }
 
@@ -98,6 +96,7 @@ namespace Color_TD
             UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Button_Start"));
             UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Button_Upgrade"));
             UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Button_Sell"));
+            UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Game_Over"));
             UIElement.Fonts.Add(Content.Load<SpriteFont>("Fonts\\Courier New16"));
             UIElement.Fonts.Add(Content.Load<SpriteFont>("Fonts\\Courier New12"));
             UIElement.Fonts.Add(Content.Load<SpriteFont>("Fonts\\Calibri16"));
@@ -117,13 +116,21 @@ namespace Color_TD
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            CheckForMouseInput();
-            CleanupDertroyedObjects();
-            SpawnEnemies(gameTime);
-            UpdatePositions(gameTime);
-            UpdateTargets();
-            FireAtTargets(gameTime);
-            UpdateShots(gameTime);
+            if (!IsGameOver())
+            {
+                CheckForMouseInput();
+                CleanupDertroyedObjects();
+                SpawnEnemies(gameTime);
+                UpdatePositions(gameTime);
+                UpdateTargets();
+                FireAtTargets(gameTime);
+                UpdateShots(gameTime);
+            }
+            else
+            {
+                UpdatePositions(gameTime);
+                UpdateShots(gameTime);
+            }
 
             base.Update(gameTime);
         }
@@ -212,15 +219,28 @@ namespace Color_TD
                 spriteBatch.Draw(clickedTower.GetSprite(), new Vector2(MAPSIZE + UIWIDTH / 2 - 32, MAPSIZE / 3), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
                 DrawCircleAroundTower(clickedTower, true);
             }
-
             if (clickedEnemy != null)
             {
                 spriteBatch.Draw(clickedEnemy.GetSprite(), new Vector2(MAPSIZE + UIWIDTH / 2 - 32, MAPSIZE / 2 - 32), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            }
+            if (IsGameOver())
+            {
+                spriteBatch.Draw(UIElement.Sprites[UI.GameOver], new Vector2(160,200), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             }
 
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        private bool IsGameOver ()
+        {
+            if (player.Lives <= 0)
+            {
+                player.Lives = 0;
+                return true;
+            }
+            return spawner.IsEmpty;
         }
 
         private void CheckForMouseInput ()

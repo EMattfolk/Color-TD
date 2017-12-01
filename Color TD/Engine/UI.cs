@@ -10,7 +10,7 @@ namespace Color_TD
 {
     class UI
     {
-        public static readonly int Coin = 0, Heart = 1, LaserButton = 2, BoltButton = 3, StartButton = 4, UpgradeButton = 5, SellButton = 6;
+        public static readonly int Coin = 0, Heart = 1, LaserButton = 2, BoltButton = 3, StartButton = 4, UpgradeButton = 5, SellButton = 6, GameOver = 7;
         private List<UIElement> uiElements, standardLayout, towerInfoLayout, enemyInfoLayout;
         private int xPos;
 
