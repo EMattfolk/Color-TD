@@ -24,25 +24,27 @@ namespace Color_TD
 
     abstract class Dot : GameObject
     {
+        private static bool upgraded = false;
         private static List<Texture2D> sprites = new List<Texture2D>(); 
-        private HashSet<long> hitById;
-        private int regeneration;
+        private HashSet<long> hitById, lastHitById;
+        private int regeneration, worth;
         private float speed, distance, hp, maxhp;
-        private int worth;
 
         public Dot (int worth, int speed, float scale, float hp, int regeneration)
         {
+            int modifier = upgraded ? 2 : 1;
             this.worth = worth;
             this.speed = speed;
-            this.hp = hp;
-            maxhp = hp;
-            this.regeneration = regeneration;
+            this.hp = hp * modifier;
+            maxhp = hp * modifier;
+            this.regeneration = regeneration * modifier;
             distance = 0;
             Size = 64;
             Width = 64;
             Height = 64;
-            Scale = scale;
+            Scale = scale * modifier;
             hitById = new HashSet<long>();
+            lastHitById = new HashSet<long>();
         }
 
         public static Dot FromType (EnemyType type)
@@ -74,12 +76,20 @@ namespace Color_TD
         {
             distance += (float)(gameTime.ElapsedGameTime.TotalSeconds * speed);
             hp = MathHelper.Clamp(hp + (float)(gameTime.ElapsedGameTime.TotalSeconds * regeneration), 0, maxhp);
+            lastHitById = hitById;
+            hitById = new HashSet<long>();
         }
 
-        public void ApplyDamage (Attack attack)
+        public bool ApplyDamage (Attack attack)
         {
-            hp -= attack.Damage;
+            if (HasBeenHitByID(attack.ID))
+            {
+                hitById.Add(attack.ID);
+                return false;
+            }
             hitById.Add(attack.ID);
+            hp -= attack.Damage;
+            return true;
         }
 
         public void Kill ()
@@ -94,7 +104,12 @@ namespace Color_TD
 
         public static List<Texture2D> Sprites => sprites;
 
-        public bool HasBeenHitByID (long id) => hitById.Contains(id);
+        public static void Upgrade()
+        {
+            upgraded = true;
+        }
+
+        public bool HasBeenHitByID (long id) => lastHitById.Contains(id);
 
         public bool IsAlive => hp > 0;
 

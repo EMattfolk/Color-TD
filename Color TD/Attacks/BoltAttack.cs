@@ -11,7 +11,6 @@ namespace Color_TD
 {
     class BoltAttack : Attack
     {
-        public readonly int Range = 400;
         private static List<Texture2D> sprites = new List<Texture2D>();
         private Vector2 velocity;
         private int speed, rotationSpeed, level;
@@ -33,7 +32,7 @@ namespace Color_TD
         public override void Update(GameTime gameTime)
         {
             aliveTime -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (shooter.Target != null && !shooter.Target.HasBeenHitByID(ID))
+            if (shooter.Target != null)
             {
                 float desiredRotation = (float)Math.Atan2(shooter.Target.Position.Y - Position.Y, shooter.Target.Position.X - Position.X);
                 Rotation += (desiredRotation - Rotation) / Math.Abs(desiredRotation - Rotation) * rotationSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;

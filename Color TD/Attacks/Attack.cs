@@ -42,11 +42,7 @@ namespace Color_TD
 
         public void ApplyDamage (Dot enemy)
         {
-            if (enemy.IsAlive && !enemy.HasBeenHitByID(ID))
-            {
-                enemy.ApplyDamage(this);
-                hitsLeft--;
-            }
+            if (enemy.IsAlive && enemy.ApplyDamage(this)) hitsLeft--;
         }
 
         public bool IsAlive => aliveTime > 0 && hitsLeft > 0;
