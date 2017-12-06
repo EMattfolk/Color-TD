@@ -23,9 +23,12 @@ namespace Color_TD
 
         public override void Update (GameTime gameTime)
         {
-            target.ApplyDamage(this);
-            aliveTime--;
-            hitsLeft--;
+            if (IsAlive)
+            {
+                target.ApplyDamage(this);
+                aliveTime--;
+                hitsLeft--;
+            }
         }
     }
 }

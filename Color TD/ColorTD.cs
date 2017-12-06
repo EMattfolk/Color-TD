@@ -240,7 +240,7 @@ namespace Color_TD
                 player.Lives = 0;
                 return true;
             }
-            return spawner.IsEmpty;
+            return spawner.IsEmpty && spawner.IsIdle && enemies.Count == 0;
         }
 
         private void CheckForMouseInput ()
