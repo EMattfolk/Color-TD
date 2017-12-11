@@ -13,9 +13,10 @@ namespace Color_TD
     {
         private static List<Texture2D> sprites = new List<Texture2D>();
         private Vector2 velocity;
-        private int speed, rotationSpeed, level;
+        private int speed, level;
+        private float rotationSpeed;
 
-        public BoltAttack(Tower shooter, int damage, int maxHitCount, int speed, int rotationSpeed, float scale, int level) : base(null, shooter, damage, 1, maxHitCount)
+        public BoltAttack(Tower shooter, int damage, int maxHitCount, int speed, float rotationSpeed, float scale, int level) : base(null, shooter, damage, 1, maxHitCount)
         {
             Position = shooter.Position;
             Rotation = shooter.Rotation;
@@ -34,8 +35,11 @@ namespace Color_TD
             aliveTime -= (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (shooter.Target != null)
             {
-                float desiredRotation = (float)Math.Atan2(shooter.Target.Position.Y - Position.Y, shooter.Target.Position.X - Position.X);
-                Rotation += (desiredRotation - Rotation) / Math.Abs(desiredRotation - Rotation) * rotationSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                Vector2 direction = new Vector2(shooter.Target.Position.X - Position.X, shooter.Target.Position.Y - Position.Y);
+                direction.Normalize();
+                velocity.Normalize();
+                direction = Vector2.Lerp(velocity, direction, rotationSpeed);
+                Rotation = (float)Math.Atan2(direction.Y, direction.X);
                 velocity = new Vector2((float)Math.Cos(Rotation) * speed, (float)Math.Sin(Rotation) * speed);
             }
             Position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;

@@ -12,7 +12,8 @@ namespace Color_TD
     class BoltTower : Tower
     {
         private static List<Texture2D> sprites = new List<Texture2D>();
-        private int pierceCount = 2, projectileSpeed = 600, projectileRotationSpeed = 0;
+        private int pierceCount = 2, projectileSpeed = 600;
+        private float projectileRotationSpeed = 0;
 
         public BoltTower() : this(new Vector2()) { }
 
@@ -45,14 +46,14 @@ namespace Color_TD
             if (level == 1)
             {
                 pierceCount++;
-                projectileRotationSpeed += 10;
+                projectileRotationSpeed += .1f;
                 damage += 5;
                 range += 20;
             }
             else if (level == 2)
             {
                 pierceCount += 3;
-                projectileRotationSpeed += 10;
+                projectileRotationSpeed += .1f;
                 damage += 5;
                 range += 20;
             }

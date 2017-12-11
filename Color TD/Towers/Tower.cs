@@ -37,7 +37,7 @@ namespace Color_TD
             Scale = scale;
             level = 0;
             Rotation = rotation;
-            timeSinceLastShot = 0;
+            timeSinceLastShot = 1000;
             hasValidPosition = false;
         }
 
