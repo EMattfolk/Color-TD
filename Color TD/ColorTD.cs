@@ -89,6 +89,7 @@ namespace Color_TD
             BoltAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Bolt2"));
             BoltAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Bolt3"));
             LaserAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Laser1"));
+            LaserAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Laser2"));
             UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Coin"));
             UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Heart"));
             UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Button_Laser"));
@@ -156,14 +157,19 @@ namespace Color_TD
             {
                 if (attack.AttackType == AttackType.Laser)
                 {
+                    float rotation = (float)Math.Atan2(attack.Target.Position.Y - attack.Shooter.Position.Y, attack.Target.Position.X - attack.Shooter.Position.X);
+
                     spriteBatch.Draw(attack.GetSprite(),
-                        new Rectangle((int)attack.Shooter.Position.X, (int)attack.Shooter.Position.Y, (int)attack.Shooter.DistanceTo(attack.Target), 1),
+                        new Rectangle((int)(attack.Shooter.Position.X + Math.Sin(rotation)), (int)(attack.Shooter.Position.Y + Math.Cos(rotation)), (int)attack.Shooter.DistanceTo(attack.Target), 2),
                         null,
                         Color.White,
-                        (float)Math.Atan2(attack.Target.Position.Y - attack.Shooter.Position.Y, attack.Target.Position.X - attack.Shooter.Position.X),
+                        rotation,
                         Vector2.Zero,
                         SpriteEffects.None,
                         0);
+
+                    Vector2 correction = new Vector2(-attack.Shooter.Size * attack.Shooter.Scale / 2, LaserAttack.Sprites[1].Width / 2);
+                    spriteBatch.Draw(LaserAttack.Sprites[1], attack.Shooter.Position, null, Color.White, attack.Shooter.Rotation, correction, 1, SpriteEffects.None, 0);
                 }
                 if (attack.AttackType == AttackType.Bolt)
                 {
