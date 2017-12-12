@@ -83,6 +83,8 @@ namespace Color_TD.Enemies
                     return EnemyType.CyanDot;
                 case "white":
                     return EnemyType.WhiteDot;
+                case "rainbow":
+                    return EnemyType.RainbowDot;
                 default:
                     return EnemyType.BlackDot;
             }

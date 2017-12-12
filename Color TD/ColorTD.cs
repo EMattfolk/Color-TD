@@ -79,6 +79,7 @@ namespace Color_TD
             Dot.Sprites.Add(Content.Load<Texture2D>("Graphics\\Dot_Yellow"));
             Dot.Sprites.Add(Content.Load<Texture2D>("Graphics\\Dot_Cyan"));
             Dot.Sprites.Add(Content.Load<Texture2D>("Graphics\\Dot_White"));
+            Dot.Sprites.Add(Content.Load<Texture2D>("Graphics\\Dot_Rainbow"));
             BoltTower.Sprites.Add(Content.Load<Texture2D>("Graphics\\Tower_bolt1"));
             BoltTower.Sprites.Add(Content.Load<Texture2D>("Graphics\\Tower_bolt2"));
             BoltTower.Sprites.Add(Content.Load<Texture2D>("Graphics\\Tower_bolt3"));
@@ -134,6 +135,7 @@ namespace Color_TD
             }
             else
             {
+                CleanupDertroyedObjects();
                 UpdatePositions(gameTime);
                 UpdateShots(gameTime);
             }

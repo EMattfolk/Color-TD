@@ -19,7 +19,8 @@ namespace Color_TD
         RedDot,
         YellowDot,
         CyanDot,
-        WhiteDot
+        WhiteDot,
+        RainbowDot
     }
 
     abstract class Dot : GameObject
@@ -67,6 +68,8 @@ namespace Color_TD
                     return new CyanDot();
                 case EnemyType.WhiteDot:
                     return new WhiteDot();
+                case EnemyType.RainbowDot:
+                    return new RainbowDot();
                 default:
                     return null;
             }

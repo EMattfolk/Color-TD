@@ -48,6 +48,7 @@
     <Compile Include="Enemies\CyanDot.cs" />
     <Compile Include="Enemies\GreenDot.cs" />
     <Compile Include="Enemies\PurpleDot.cs" />
+    <Compile Include="Enemies\RainbowDot.cs" />
     <Compile Include="Enemies\RedDot.cs" />
     <Compile Include="Enemies\Wave.cs" />
     <Compile Include="Enemies\WaveCluster.cs" />

@@ -13,6 +13,9 @@ using System.Threading.Tasks;
  * Wavecomp
  * hp/spawntime > dps to lose
  * 
+ * Tower DPS
+ * 20 dps for around 50 coins
+ * 0.4 dps/coin
  */
 
 namespace Color_TD
@@ -63,7 +66,9 @@ namespace Color_TD
                 "0 3 Cyan 0.2, 0 3 Yellow 0.2, 0 3 Cyan 0.2, 0 3 Yellow 0.2, 0 3 Cyan 0.2, 0 3 Yellow 0.2, 0 3 Cyan 0.2, 0 3 Yellow 0.2",
                 "0 1 White 0",
                 "0 10 Cyan 0.1",
-                "0 5 White 0.3"
+                "0 5 White 0.3", // Total coins: 3630 DPS: 1452
+                "0 10 White 0.3", // Total coins: 3930 DPS: 1572
+                "0 1 Rainbow 0" // Total coins: 4430 DPS: 1772
             };
             waves = new List<Wave>();
             foreach (string str in waveStrings)
