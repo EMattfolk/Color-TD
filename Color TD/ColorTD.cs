@@ -82,14 +82,19 @@ namespace Color_TD
             BoltTower.Sprites.Add(Content.Load<Texture2D>("Graphics\\Tower_bolt1"));
             BoltTower.Sprites.Add(Content.Load<Texture2D>("Graphics\\Tower_bolt2"));
             BoltTower.Sprites.Add(Content.Load<Texture2D>("Graphics\\Tower_bolt3"));
+            BoltTower.Sprites.Add(Content.Load<Texture2D>("Graphics\\Tower_bolt4"));
             LaserTower.Sprites.Add(Content.Load<Texture2D>("Graphics\\Tower_laser1"));
             LaserTower.Sprites.Add(Content.Load<Texture2D>("Graphics\\Tower_laser2"));
             LaserTower.Sprites.Add(Content.Load<Texture2D>("Graphics\\Tower_laser3"));
+            LaserTower.Sprites.Add(Content.Load<Texture2D>("Graphics\\Tower_laser4"));
             BoltAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Bolt1"));
             BoltAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Bolt2"));
             BoltAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Bolt3"));
+            BoltAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Bolt4"));
             LaserAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Laser1"));
             LaserAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Laser2"));
+            LaserAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Laser3"));
+            LaserAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Laser4"));
             UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Coin"));
             UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Heart"));
             UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Button_Laser"));
@@ -157,6 +162,7 @@ namespace Color_TD
             {
                 if (attack.AttackType == AttackType.Laser)
                 {
+                    LaserAttack a = (LaserAttack) attack;
                     float rotation = (float)Math.Atan2(attack.Target.Position.Y - attack.Shooter.Position.Y, attack.Target.Position.X - attack.Shooter.Position.X);
 
                     spriteBatch.Draw(attack.GetSprite(),
@@ -168,8 +174,8 @@ namespace Color_TD
                         SpriteEffects.None,
                         0);
 
-                    Vector2 correction = new Vector2(-attack.Shooter.Size * attack.Shooter.Scale / 2, LaserAttack.Sprites[1].Width / 2);
-                    spriteBatch.Draw(LaserAttack.Sprites[1], attack.Shooter.Position, null, Color.White, attack.Shooter.Rotation, correction, 1, SpriteEffects.None, 0);
+                    Vector2 correction = new Vector2(-attack.Shooter.Size * attack.Shooter.Scale / 2, a.GetSplashSprite().Width / 2);
+                    spriteBatch.Draw(a.GetSplashSprite(), attack.Shooter.Position, null, Color.White, attack.Shooter.Rotation, correction, 1, SpriteEffects.None, 0);
                 }
                 if (attack.AttackType == AttackType.Bolt)
                 {

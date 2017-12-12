@@ -19,8 +19,8 @@ namespace Color_TD
 
         public BoltTower(Vector2 position) : base(position, .5f, 0, 1/4f, 10, 80, 200)
         {
-            UpgradeCosts = new List<int>() { 260, 540, 0 };
-            SellValues = new List<int>() { 180, 414, 900 };
+            UpgradeCosts = new List<int>() { 260, 540, 3000, 0 };
+            SellValues = new List<int>() { 180, 414, 900, 3600 };
         }
 
         public static List<Texture2D> Sprites => sprites;
@@ -55,6 +55,12 @@ namespace Color_TD
                 pierceCount += 3;
                 projectileRotationSpeed += .1f;
                 damage += 5;
+                range += 20;
+            }
+            else if (level == 3)
+            {
+                fireDelay = 1 / 8f;
+                damage *= 2;
                 range += 20;
             }
         }
