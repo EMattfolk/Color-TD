@@ -23,7 +23,7 @@ namespace Color_TD
                 new UIElement("PLAYERCOINS",  0,  new Vector2(xPos + 20, 0)),
                 new UIElement("PLAYERLIFE",  0,  new Vector2(xPos + 20, 17)),
                 new UIElement(LaserButton,  new Vector2(xPos + 43, 100), 64, 96, true, TowerType.Laser),
-                new UIElement(BoltButton,  new Vector2(xPos + 43, 300), 64, 96, true, TowerType.Bolt),
+                new UIElement(BoltButton,  new Vector2(xPos + 43, 250), 64, 96, true, TowerType.Bolt),
                 new UIElement(StartButton,  new Vector2(xPos, 416), 150, 64, true, TowerType.None)
             };
             towerInfoLayout = new List<UIElement>() {

@@ -42,7 +42,11 @@ namespace Color_TD
                 if ((p.X > p1.X && p.X > p2.X) || (p.X < p1.X && p.X < p2.X)) return MathHelper.Min(Vector2.Distance(p, p1), Vector2.Distance(p, p2));
                 else return Math.Abs(p.Y - p1.Y);
             }
-            return Math.Abs((p2.Y - p1.Y) * p.X - (p2.X - p1.X) * p.Y + p2.X * p1.Y - p2.Y * p1.X) / Vector2.Distance(p1, p2);
+            else
+            {
+                if ((p.Y > p1.Y && p.Y > p2.Y) || (p.Y < p1.Y && p.Y < p2.Y) || (p.X > p1.X && p.X > p2.X) || (p.X < p1.X && p.X < p2.X)) return MathHelper.Min(Vector2.Distance(p, p1), Vector2.Distance(p, p2));
+                return Math.Abs((p2.Y - p1.Y) * p.X - (p2.X - p1.X) * p.Y + p2.X * p1.Y - p2.Y * p1.X) / Vector2.Distance(p1, p2);
+            }
         }
     }
 }

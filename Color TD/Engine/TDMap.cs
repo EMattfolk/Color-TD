@@ -41,7 +41,6 @@ namespace Color_TD
                 totalDistance += dist;
                 cumulativeDistances[i + 1] = totalDistance;
             }
-            Console.WriteLine(totalDistance);
         }
 
         public Vector2 GetPosition (float distance) //TODO: Optimize if needed

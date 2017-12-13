@@ -11,7 +11,7 @@ namespace Color_TD
 {
     public class ColorTD : Game
     {
-        private static readonly int MAPSIZE = 480, UIWIDTH = 150, PATHWIDTH = 30;
+        private static readonly int MAPSIZE = 480, UIWIDTH = 150, PATHWIDTH = 40;
         private TDMap map;
         private Player player;
         private UI ui;
@@ -49,14 +49,39 @@ namespace Color_TD
             currentMouseState = Mouse.GetState();
             previousMouseState = currentMouseState;
             map = new TDMap(1, new Vector2[] {
-                new Vector2(490,65),
-                new Vector2(65,65),
-                new Vector2(65,185),
-                new Vector2(395,185),
-                new Vector2(395,285),
-                new Vector2(65,285),
-                new Vector2(65,415),
-                new Vector2(490,415)
+                new Vector2(505, 7),
+                new Vector2(448, 28),
+                new Vector2(375, 48),
+                new Vector2(327, 69),
+                new Vector2(314, 83),
+                new Vector2(326, 103),
+                new Vector2(359, 132),
+                new Vector2(380, 150),
+                new Vector2(378, 160),
+                new Vector2(357, 168),
+                new Vector2(287, 176),
+                new Vector2(141, 180),
+                new Vector2(85, 189),
+                new Vector2(62, 209),
+                new Vector2(70, 245),
+                new Vector2(110, 279),
+                new Vector2(153, 297),
+                new Vector2(209, 299),
+                new Vector2(261, 290),
+                new Vector2(382, 258),
+                new Vector2(418, 259),
+                new Vector2(434, 288),
+                new Vector2(427, 333),
+                new Vector2(401, 369),
+                new Vector2(369, 396),
+                new Vector2(320, 408),
+                new Vector2(256, 406),
+                new Vector2(103, 372),
+                new Vector2(49, 361),
+                new Vector2(25, 371),
+                new Vector2(45, 391),
+                new Vector2(273, 477),
+                new Vector2(325, 497)
             });
             graphics.PreferredBackBufferWidth = MAPSIZE + UIWIDTH;
             graphics.PreferredBackBufferHeight = MAPSIZE;
@@ -149,7 +174,7 @@ namespace Color_TD
 
             spriteBatch.Begin();
 
-            spriteBatch.Draw(mapSprites[map.SpriteIndex],Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            spriteBatch.Draw(mapSprites[map.SpriteIndex], Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             foreach (Dot enemy in enemies)
             {
                 Vector2 correction = new Vector2(enemy.Size * enemy.Scale / 2);
@@ -164,7 +189,7 @@ namespace Color_TD
             {
                 if (attack.AttackType == AttackType.Laser)
                 {
-                    LaserAttack a = (LaserAttack) attack;
+                    LaserAttack a = (LaserAttack)attack;
                     float rotation = (float)Math.Atan2(attack.Target.Position.Y - attack.Shooter.Position.Y, attack.Target.Position.X - attack.Shooter.Position.X);
 
                     spriteBatch.Draw(attack.GetSprite(),
@@ -239,7 +264,7 @@ namespace Color_TD
             }
             if (IsGameOver())
             {
-                spriteBatch.Draw(UIElement.Sprites[UI.GameOver], new Vector2(160,200), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                spriteBatch.Draw(UIElement.Sprites[UI.GameOver], new Vector2(160, 200), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             }
 
             spriteBatch.End();
@@ -247,7 +272,7 @@ namespace Color_TD
             base.Draw(gameTime);
         }
 
-        private bool IsGameOver ()
+        private bool IsGameOver()
         {
             if (player.Lives <= 0)
             {
@@ -257,7 +282,7 @@ namespace Color_TD
             return spawner.IsEmpty && spawner.IsIdle && enemies.Count == 0;
         }
 
-        private void CheckForMouseInput ()
+        private void CheckForMouseInput()
         {
             currentMouseState = Mouse.GetState();
 
@@ -331,7 +356,7 @@ namespace Color_TD
             previousMouseState = currentMouseState;
         }
 
-        private void CleanupDertroyedObjects ()
+        private void CleanupDertroyedObjects()
         {
             for (int i = enemies.Count - 1; i >= 0; i--)
             {
@@ -352,7 +377,7 @@ namespace Color_TD
             }
         }
 
-        private void SpawnEnemies (GameTime gameTime)
+        private void SpawnEnemies(GameTime gameTime)
         {
             if (spawner.IsIdle) return;
             spawner.Update(gameTime);
@@ -360,7 +385,7 @@ namespace Color_TD
             spawner.QueuedEnemies.Clear();
         }
 
-        private void UpdatePositions (GameTime gameTime) // TODO: fixa ordning
+        private void UpdatePositions(GameTime gameTime) // TODO: fixa ordning
         {
             for (int i = 0; i < enemies.Count; i++)
             {
@@ -427,12 +452,12 @@ namespace Color_TD
             }
         }
 
-        private void DrawCircleAroundTower (Tower tower, bool isValid)
+        private void DrawCircleAroundTower(Tower tower, bool isValid)
         {
             spriteBatch.Draw(circleSprites[isValid ? 1 : 0], tower.Position - new Vector2(tower.Range), null, Color.White, 0, Vector2.Zero, tower.Range / 100f, SpriteEffects.None, 0);
         }
 
-        private Tower ClickedTower (Vector2 mousePosition)
+        private Tower ClickedTower(Vector2 mousePosition)
         {
             foreach (Tower tower in towers)
             {

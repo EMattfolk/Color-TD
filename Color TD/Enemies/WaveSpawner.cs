@@ -68,7 +68,16 @@ namespace Color_TD
                 "0 10 Cyan 0.1",
                 "0 5 White 0.3", // Total coins: 3630 DPS: 1452
                 "0 10 White 0.3", // Total coins: 3930 DPS: 1572
-                "0 1 Rainbow 0" // Total coins: 4430 DPS: 1772
+                "0 1 Rainbow 0", // Total coins: 4430 DPS: 1772
+                "0 200 Black 0.02, 1 100 Blue 0.02",
+                "0 200 Blue 0.02, 1 100 Purple 0.02",
+                "0 200 Purple 0.03, 1 100 Green 0.03",
+                "0 10 Yellow 0.2",
+                "0 200 Green 0.02, 1 50 Red 0.03",
+                "0 100 Red 0.03",
+                "0 3 White 0.05",
+                "0 100 Yellow 0.1",
+                "0 50 Cyan 0.2"
             };
             waves = new List<Wave>();
             foreach (string str in waveStrings)
