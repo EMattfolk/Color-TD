@@ -279,12 +279,7 @@ namespace Color_TD
 
         private bool IsGameOver()
         {
-            if (player.Lives <= 0)
-            {
-                player.Lives = 0;
-                return true;
-            }
-            return spawner.IsEmpty && spawner.IsIdle && enemies.Count == 0;
+            return (player.Lives <= 0) || (spawner.IsEmpty && spawner.IsIdle && enemies.Count == 0);
         }
 
         private void CheckForMouseInput()

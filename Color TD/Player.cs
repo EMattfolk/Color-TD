@@ -27,7 +27,7 @@ namespace Color_TD
         {
             get { return lives; }
 
-            set { lives = value; }
+            set { lives = value < 0 ? 0 : value; }
         }
     }
 }
