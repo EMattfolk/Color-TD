@@ -38,7 +38,7 @@ namespace Color_TD
             time = 0;
             isIdle = true;
             waveStrings = new string[] {
-                "0 10 Black 0.2",
+                /*"0 10 Black 0.2",
                 "0 20 Black 0.2",
                 "0 10 Blue 0.2",
                 "0 20 Blue 0.2",
@@ -78,9 +78,14 @@ namespace Color_TD
                 "0 3 White 0.05",
                 "0 100 Yellow 0.1",
                 "0 50 Cyan 0.2",
-                "0 20 White 0.1",
-                "0 30 White 0.8",
-                "0 50 White 0.6"
+                "0 20 White 1",
+                "0 50 White 0.5", */// Total coins: 12370 DPS: 4948
+                "0 100 Yellow 0.025",
+                "0 10 Cyan 0.7, 0.5 10 Cyan 0.6, 0.5 10 Cyan 0.5, 0.5 10 Cyan 0.4, 0.5 10 Cyan 0.3, 0.5 10 Cyan 0.2",
+                "0 1000 Black 0.001",
+                "0 500 Red 0.0175",
+                "0 100 Cyan 0.03",
+                "0 100 White 0.1"
             };
             waves = new List<Wave>();
             foreach (string str in waveStrings)

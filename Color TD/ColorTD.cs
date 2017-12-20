@@ -198,7 +198,7 @@ namespace Color_TD
                     float rotation = (float)Math.Atan2(attack.Target.Position.Y - attack.Shooter.Position.Y, attack.Target.Position.X - attack.Shooter.Position.X);
 
                     spriteBatch.Draw(attack.GetSprite(),
-                        new Rectangle((int)(attack.Shooter.Position.X + Math.Sin(rotation)), (int)(attack.Shooter.Position.Y + Math.Cos(rotation)), (int)attack.Shooter.DistanceTo(attack.Target), 2),
+                        new Rectangle((int)(attack.Shooter.Position.X - Math.Sin(rotation)), (int)(attack.Shooter.Position.Y - Math.Cos(rotation)), (int)attack.Shooter.DistanceTo(attack.Target), 2),
                         null,
                         Color.White,
                         rotation,
