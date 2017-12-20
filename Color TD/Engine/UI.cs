@@ -18,7 +18,7 @@ namespace Color_TD
         public UI (int xPos)
         {
             this.xPos = xPos;
-            FFButton = new UIElement(FFDisabled, new Vector2(xPos + 117, 0), 32, 16, true, TowerType.None);
+            FFButton = new UIElement(FFDisabled, new Vector2(xPos + 75, 416), 75, 64, true, TowerType.None);
             standardLayout = new List<UIElement>() {
                 new UIElement(Coin, new Vector2(xPos + 1, 3), 16, 16, false, TowerType.None),
                 new UIElement(Heart,  new Vector2(xPos + 1, 20), 16, 16, false, TowerType.None),
@@ -27,7 +27,7 @@ namespace Color_TD
                 FFButton,
                 new UIElement(LaserButton,  new Vector2(xPos + 43, 100), 64, 96, true, TowerType.Laser),
                 new UIElement(BoltButton,  new Vector2(xPos + 43, 250), 64, 96, true, TowerType.Bolt),
-                new UIElement(StartButton,  new Vector2(xPos, 416), 150, 64, true, TowerType.None)
+                new UIElement(StartButton,  new Vector2(xPos, 416), 75, 64, true, TowerType.None)
             };
             towerInfoLayout = new List<UIElement>() {
                 new UIElement(Coin, new Vector2(xPos + 1, 3), 16, 16, false, TowerType.None),
@@ -40,7 +40,7 @@ namespace Color_TD
                 new UIElement("TOWERSELLVALUE",  2,  new Vector2(xPos + 55, 321)),
                 new UIElement(UpgradeButton,  new Vector2(xPos, 352), 150, 64, true, TowerType.None),
                 new UIElement("TOWERUPGRADECOST",  2,  new Vector2(xPos + 55, 385)),
-                new UIElement(StartButton,  new Vector2(xPos, 416), 150, 64, true, TowerType.None)
+                new UIElement(StartButton,  new Vector2(xPos, 416), 75, 64, true, TowerType.None)
             };
             enemyInfoLayout = new List<UIElement>() {
                 new UIElement(Coin, new Vector2(xPos + 1, 3), 16, 16, false, TowerType.None),
@@ -49,7 +49,7 @@ namespace Color_TD
                 new UIElement("PLAYERLIFE",  0,  new Vector2(xPos + 20, 17)),
                 FFButton,
                 new UIElement("ENEMYINFO",  1,  new Vector2(xPos + 5, 50)),
-                new UIElement(StartButton,  new Vector2(xPos, 416), 150, 64, true, TowerType.None)
+                new UIElement(StartButton,  new Vector2(xPos, 416), 75, 64, true, TowerType.None)
             };
             uiElements = standardLayout;
         }
