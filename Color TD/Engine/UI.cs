@@ -10,18 +10,21 @@ namespace Color_TD
 {
     class UI
     {
-        public static readonly int Coin = 0, Heart = 1, LaserButton = 2, BoltButton = 3, StartButton = 4, UpgradeButton = 5, SellButton = 6, GameOver = 7;
+        public static readonly int Coin = 0, Heart = 1, LaserButton = 2, BoltButton = 3, StartButton = 4, UpgradeButton = 5, SellButton = 6, GameOver = 7, FFDisabled = 8, FFEnabled = 9;
         private List<UIElement> uiElements, standardLayout, towerInfoLayout, enemyInfoLayout;
+        private UIElement FFButton;
         private int xPos;
 
         public UI (int xPos)
         {
             this.xPos = xPos;
+            FFButton = new UIElement(FFDisabled, new Vector2(xPos + 117, 0), 32, 16, true, TowerType.None);
             standardLayout = new List<UIElement>() {
                 new UIElement(Coin, new Vector2(xPos + 1, 3), 16, 16, false, TowerType.None),
                 new UIElement(Heart,  new Vector2(xPos + 1, 20), 16, 16, false, TowerType.None),
                 new UIElement("PLAYERCOINS",  0,  new Vector2(xPos + 20, 0)),
                 new UIElement("PLAYERLIFE",  0,  new Vector2(xPos + 20, 17)),
+                FFButton,
                 new UIElement(LaserButton,  new Vector2(xPos + 43, 100), 64, 96, true, TowerType.Laser),
                 new UIElement(BoltButton,  new Vector2(xPos + 43, 250), 64, 96, true, TowerType.Bolt),
                 new UIElement(StartButton,  new Vector2(xPos, 416), 150, 64, true, TowerType.None)
@@ -31,6 +34,7 @@ namespace Color_TD
                 new UIElement(Heart,  new Vector2(xPos + 1, 20), 16, 16, false, TowerType.None),
                 new UIElement("PLAYERCOINS",  0,  new Vector2(xPos + 20, 0)),
                 new UIElement("PLAYERLIFE",  0,  new Vector2(xPos + 20, 17)),
+                FFButton,
                 new UIElement("TOWERINFO",  1,  new Vector2(xPos + 5, 50)),
                 new UIElement(SellButton,  new Vector2(xPos, 288), 150, 64, true, TowerType.None),
                 new UIElement("TOWERSELLVALUE",  2,  new Vector2(xPos + 55, 321)),
@@ -43,6 +47,7 @@ namespace Color_TD
                 new UIElement(Heart,  new Vector2(xPos + 1, 20), 16, 16, false, TowerType.None),
                 new UIElement("PLAYERCOINS",  0,  new Vector2(xPos + 20, 0)),
                 new UIElement("PLAYERLIFE",  0,  new Vector2(xPos + 20, 17)),
+                FFButton,
                 new UIElement("ENEMYINFO",  1,  new Vector2(xPos + 5, 50)),
                 new UIElement(StartButton,  new Vector2(xPos, 416), 150, 64, true, TowerType.None)
             };
@@ -66,6 +71,11 @@ namespace Color_TD
                 default:
                     break;
             }
+        }
+
+        public void SetFastForwardState (bool state)
+        {
+            FFButton.SpriteIndex = state ? FFEnabled : FFDisabled;
         }
 
         public UIElement GetElementAt (Vector2 p)

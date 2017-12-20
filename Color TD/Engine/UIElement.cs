@@ -67,7 +67,11 @@ namespace Color_TD
 
         public string Text => text;
 
-        public int SpriteIndex => spriteIndex;
+        public int SpriteIndex
+        {
+            set { spriteIndex = value; }
+            get { return spriteIndex; }
+        }
 
         public bool WasClicked (Vector2 mousePosition)
         {

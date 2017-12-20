@@ -77,7 +77,10 @@ namespace Color_TD
                 "0 100 Red 0.03",
                 "0 3 White 0.05",
                 "0 100 Yellow 0.1",
-                "0 50 Cyan 0.2"
+                "0 50 Cyan 0.2",
+                "0 20 White 0.1",
+                "0 30 White 0.8",
+                "0 50 White 0.6"
             };
             waves = new List<Wave>();
             foreach (string str in waveStrings)

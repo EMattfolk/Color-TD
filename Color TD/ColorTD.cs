@@ -22,10 +22,10 @@ namespace Color_TD
         private List<Tower> towers;
         private List<Attack> attacks;
         private List<Texture2D> mapSprites, circleSprites;
+        private bool fastForward;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         MouseState currentMouseState, previousMouseState;
-        SpriteFont font;
 
         public ColorTD()
         {
@@ -88,6 +88,7 @@ namespace Color_TD
             graphics.ApplyChanges();
             IsMouseVisible = true;
             IsFixedTimeStep = false;
+            fastForward = false;
             base.Initialize();
         }
 
@@ -129,6 +130,8 @@ namespace Color_TD
             UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Button_Upgrade"));
             UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Button_Sell"));
             UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Game_Over"));
+            UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Button_FF_Disabled"));
+            UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Button_FF_Enabled"));
             UIElement.Fonts.Add(Content.Load<SpriteFont>("Fonts\\Courier New16"));
             UIElement.Fonts.Add(Content.Load<SpriteFont>("Fonts\\Courier New12"));
             UIElement.Fonts.Add(Content.Load<SpriteFont>("Fonts\\Calibri16"));
@@ -147,6 +150,8 @@ namespace Color_TD
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            if (fastForward) gameTime.ElapsedGameTime += gameTime.ElapsedGameTime;
 
             if (!IsGameOver())
             {
@@ -331,7 +336,17 @@ namespace Color_TD
                         clickedTower = null;
                         ui.SetLayout("standard");
                     }
-                    else
+                    else if (clickedElement.SpriteIndex == UI.FFDisabled)
+                    {
+                        fastForward = true;
+                        ui.SetFastForwardState(fastForward);
+                    }
+                    else if (clickedElement.SpriteIndex == UI.FFEnabled)
+                    {
+                        fastForward = false;
+                        ui.SetFastForwardState(fastForward);
+                    }
+                    else if (clickedElement.HeldTowerType != TowerType.None)
                     {
                         heldTower = Tower.FromTowerType(clickedElement.HeldTowerType);
                         if (player.Coins < heldTower.Cost) heldTower = null;
