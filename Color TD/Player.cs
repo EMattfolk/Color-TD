@@ -12,8 +12,7 @@ namespace Color_TD
 
         public Player ()
         {
-            Dot.Upgrade();
-            coins = 12370;
+            coins = 100;
             lives = 100;
         }
 

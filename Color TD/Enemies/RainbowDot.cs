@@ -8,7 +8,15 @@ namespace Color_TD.Enemies
 {
     class RainbowDot : Dot
     {
-        public RainbowDot() : base(500, 100, 0.5f, 5000, 0) { Upgrade(); }
+        public RainbowDot() : base(500, 100, 0.5f, 5000, 0)
+        {
+            if (IsUpgraded)
+            {
+                maxhp *= 4;
+                hp *= 4;
+            }
+            Upgrade();
+        }
 
         public override EnemyType EnemyType => EnemyType.RainbowDot;
     }

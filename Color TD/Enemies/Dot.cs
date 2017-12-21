@@ -29,7 +29,8 @@ namespace Color_TD
         private static List<Texture2D> sprites = new List<Texture2D>(); 
         private HashSet<long> hitById, lastHitById;
         private int regeneration, worth;
-        private float speed, distance, hp, maxhp;
+        private float speed, distance;
+        protected float hp, maxhp;
 
         public Dot (int worth, int speed, float scale, float hp, int regeneration)
         {
@@ -115,6 +116,8 @@ namespace Color_TD
         public bool HasBeenHitByID (long id) => lastHitById.Contains(id);
 
         public bool IsAlive => hp > 0;
+
+        public bool IsUpgraded => upgraded;
 
         public int Worth => worth;
 
