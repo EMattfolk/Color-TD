@@ -23,6 +23,7 @@ namespace Color_TD
         private List<Tower> towers;
         private List<Attack> attacks;
         private List<Texture2D> mapSprites, circleSprites;
+        private Random rng;
         private bool fastForward;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -47,6 +48,7 @@ namespace Color_TD
             attacks = new List<Attack>();
             mapSprites = new List<Texture2D>();
             circleSprites = new List<Texture2D>();
+            rng = new Random();
             currentMouseState = Mouse.GetState();
             previousMouseState = currentMouseState;
             map = new TDMap(1, new Vector2[] {
@@ -119,9 +121,9 @@ namespace Color_TD
             BoltAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Bolt2"));
             BoltAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Bolt3"));
             BoltAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Bolt4"));
-            LaserAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Laser1"));
+            //LaserAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Laser1"));
             LaserAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Laser2"));
-            LaserAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Laser3"));
+            //LaserAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Laser3"));
             LaserAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Laser4"));
             UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Coin"));
             UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Heart"));
@@ -183,32 +185,23 @@ namespace Color_TD
             spriteBatch.Draw(mapSprites[map.SpriteIndex], Vector2.Zero, null, Color.White, 0, Vector2.Zero, GAMESCALE, SpriteEffects.None, 0);
             foreach (Dot enemy in enemies)
             {
-                Vector2 correction = new Vector2(enemy.Size * enemy.Scale / 2);
-                spriteBatch.Draw(enemy.GetSprite(), (enemy.Position - correction) * GAMESCALE, null, Color.White, 0, Vector2.Zero, enemy.Scale * GAMESCALE, SpriteEffects.None, 0);
+                Vector2 correction = new Vector2(enemy.Size / 2f);
+                spriteBatch.Draw(enemy.GetSprite(), enemy.Position * GAMESCALE, null, Color.White, 0, correction, enemy.Scale * GAMESCALE, SpriteEffects.None, 0);
             }
             foreach (Tower tower in towers)
             {
-                Vector2 correction = new Vector2(tower.Size * tower.Scale);
+                Vector2 correction = new Vector2(tower.Size / 2f);
                 spriteBatch.Draw(tower.GetSprite(), tower.Position * GAMESCALE, null, Color.White, tower.Rotation, correction, tower.Scale * GAMESCALE, SpriteEffects.None, 0);
             }
             foreach (Attack attack in attacks)
             {
                 if (attack.AttackType == AttackType.Laser)
                 {
-                    LaserAttack a = (LaserAttack)attack;
-                    float rotation = (float)Math.Atan2(attack.Target.Position.Y - attack.Shooter.Position.Y, attack.Target.Position.X - attack.Shooter.Position.X);
+                    Vector2 correction = new Vector2(attack.GetSprite().Width / 2f);
+                    spriteBatch.Draw(attack.GetSprite(), attack.Target.Position * GAMESCALE, null, Color.White, 0, correction, attack.Scale * GAMESCALE, SpriteEffects.None, 0);
 
-                    spriteBatch.Draw(attack.GetSprite(),
-                        new Rectangle((int)((attack.Shooter.Position.X - Math.Sin(rotation)) * GAMESCALE), (int)((attack.Shooter.Position.Y - Math.Cos(rotation)) * GAMESCALE), (int)(attack.Shooter.DistanceTo(attack.Target) * GAMESCALE), (int)(2 * GAMESCALE)),
-                        null,
-                        Color.White,
-                        rotation,
-                        Vector2.Zero,
-                        SpriteEffects.None,
-                        0);
-
-                    Vector2 correction = new Vector2(-attack.Shooter.Size * attack.Shooter.Scale / 2, a.GetSplashSprite().Width / 2);
-                    spriteBatch.Draw(a.GetSplashSprite(), attack.Shooter.Position * GAMESCALE, null, Color.White, attack.Shooter.Rotation, correction, GAMESCALE, SpriteEffects.None, 0);
+                    correction = new Vector2(-attack.Shooter.Size * attack.Shooter.Scale / 2, attack.GetSprite().Width / 2);
+                    spriteBatch.Draw(attack.GetSprite(), attack.Shooter.Position * GAMESCALE, null, Color.White, attack.Shooter.Rotation, correction, GAMESCALE, SpriteEffects.None, 0);
                 }
                 if (attack.AttackType == AttackType.Bolt)
                 {
@@ -255,7 +248,7 @@ namespace Color_TD
             }
             if (heldTower != null)
             {
-                Vector2 correction = new Vector2(heldTower.Size * heldTower.Scale);
+                Vector2 correction = new Vector2(heldTower.Size / 2f);
                 spriteBatch.Draw(heldTower.GetSprite(), heldTower.Position * GAMESCALE, null, Color.White, heldTower.Rotation, correction, heldTower.Scale * GAMESCALE, SpriteEffects.None, 0);
                 DrawCircleAroundTower(heldTower, heldTower.HasValidPosition);
             }

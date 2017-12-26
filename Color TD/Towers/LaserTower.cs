@@ -16,7 +16,7 @@ namespace Color_TD
 
         public LaserTower () : this(new Vector2()) { }
 
-        public LaserTower (Vector2 position) : base(position, .5f, 0, 1/2f, 10, 100, 50)
+        public LaserTower (Vector2 position) : base(position, 1/2f, 0, 1/2f, 10, 100, 50)
         {
             UpgradeCosts = new List<int>() { 100, 600, 2250, 0 };
             SellValues = new List<int>() { 45, 135, 675, 2700 };

@@ -17,7 +17,7 @@ namespace Color_TD
 
         public BoltTower() : this(new Vector2()) { }
 
-        public BoltTower(Vector2 position) : base(position, .5f, 0, 1/4f, 10, 80, 200)
+        public BoltTower(Vector2 position) : base(position, 1/2f, 0, 1/4f, 10, 80, 200)
         {
             UpgradeCosts = new List<int>() { 250, 550, 3000, 0 };
             SellValues = new List<int>() { 180, 405, 900, 3600 };

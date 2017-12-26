@@ -23,9 +23,7 @@ namespace Color_TD
 
         public override AttackType AttackType => AttackType.Laser;
 
-        public override Texture2D GetSprite() => sprites[laserIndex * 2];
-
-        public Texture2D GetSplashSprite() => sprites[laserIndex * 2 + 1];
+        public override Texture2D GetSprite() => sprites[laserIndex];
 
         public override void Update (GameTime gameTime)
         {
