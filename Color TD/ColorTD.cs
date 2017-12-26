@@ -12,6 +12,7 @@ namespace Color_TD
     public class ColorTD : Game
     {
         private static readonly int MAPSIZE = 480, UIWIDTH = 150, PATHWIDTH = 40;
+        private static readonly float GAMESCALE = 1.5f;
         private TDMap map;
         private Player player;
         private UI ui;
@@ -83,8 +84,8 @@ namespace Color_TD
                 new Vector2(273, 477),
                 new Vector2(325, 497)
             });
-            graphics.PreferredBackBufferWidth = MAPSIZE + UIWIDTH;
-            graphics.PreferredBackBufferHeight = MAPSIZE;
+            graphics.PreferredBackBufferWidth = (int)((MAPSIZE + UIWIDTH) * GAMESCALE);
+            graphics.PreferredBackBufferHeight = (int)(MAPSIZE * GAMESCALE);
             graphics.ApplyChanges();
             IsMouseVisible = true;
             IsFixedTimeStep = false;
@@ -179,16 +180,16 @@ namespace Color_TD
 
             spriteBatch.Begin();
 
-            spriteBatch.Draw(mapSprites[map.SpriteIndex], Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            spriteBatch.Draw(mapSprites[map.SpriteIndex], Vector2.Zero, null, Color.White, 0, Vector2.Zero, GAMESCALE, SpriteEffects.None, 0);
             foreach (Dot enemy in enemies)
             {
                 Vector2 correction = new Vector2(enemy.Size * enemy.Scale / 2);
-                spriteBatch.Draw(enemy.GetSprite(), enemy.Position - correction, null, Color.White, 0, Vector2.Zero, enemy.Scale, SpriteEffects.None, 0);
+                spriteBatch.Draw(enemy.GetSprite(), (enemy.Position - correction) * GAMESCALE, null, Color.White, 0, Vector2.Zero, enemy.Scale * GAMESCALE, SpriteEffects.None, 0);
             }
             foreach (Tower tower in towers)
             {
                 Vector2 correction = new Vector2(tower.Size * tower.Scale);
-                spriteBatch.Draw(tower.GetSprite(), tower.Position, null, Color.White, tower.Rotation, correction, tower.Scale, SpriteEffects.None, 0);
+                spriteBatch.Draw(tower.GetSprite(), tower.Position * GAMESCALE, null, Color.White, tower.Rotation, correction, tower.Scale * GAMESCALE, SpriteEffects.None, 0);
             }
             foreach (Attack attack in attacks)
             {
@@ -198,7 +199,7 @@ namespace Color_TD
                     float rotation = (float)Math.Atan2(attack.Target.Position.Y - attack.Shooter.Position.Y, attack.Target.Position.X - attack.Shooter.Position.X);
 
                     spriteBatch.Draw(attack.GetSprite(),
-                        new Rectangle((int)(attack.Shooter.Position.X - Math.Sin(rotation)), (int)(attack.Shooter.Position.Y - Math.Cos(rotation)), (int)attack.Shooter.DistanceTo(attack.Target), 2),
+                        new Rectangle((int)((attack.Shooter.Position.X - Math.Sin(rotation)) * GAMESCALE), (int)((attack.Shooter.Position.Y - Math.Cos(rotation)) * GAMESCALE), (int)(attack.Shooter.DistanceTo(attack.Target) * GAMESCALE), (int)(2 * GAMESCALE)),
                         null,
                         Color.White,
                         rotation,
@@ -207,20 +208,20 @@ namespace Color_TD
                         0);
 
                     Vector2 correction = new Vector2(-attack.Shooter.Size * attack.Shooter.Scale / 2, a.GetSplashSprite().Width / 2);
-                    spriteBatch.Draw(a.GetSplashSprite(), attack.Shooter.Position, null, Color.White, attack.Shooter.Rotation, correction, 1, SpriteEffects.None, 0);
+                    spriteBatch.Draw(a.GetSplashSprite(), attack.Shooter.Position * GAMESCALE, null, Color.White, attack.Shooter.Rotation, correction, GAMESCALE, SpriteEffects.None, 0);
                 }
                 if (attack.AttackType == AttackType.Bolt)
                 {
                     Vector2 correction = new Vector2(attack.Width * attack.Scale, attack.Height * attack.Scale);
-                    spriteBatch.Draw(attack.GetSprite(), attack.Position, null, Color.White, attack.Rotation, correction, attack.Scale, SpriteEffects.None, 0);
+                    spriteBatch.Draw(attack.GetSprite(), attack.Position * GAMESCALE, null, Color.White, attack.Rotation, correction, attack.Scale * GAMESCALE, SpriteEffects.None, 0);
                 }
             }
-            spriteBatch.Draw(mapSprites[0], new Vector2(MAPSIZE, 0), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            spriteBatch.Draw(mapSprites[0], new Vector2(MAPSIZE, 0) * GAMESCALE, null, Color.White, 0, Vector2.Zero, GAMESCALE, SpriteEffects.None, 0);
             foreach (UIElement element in ui.UIElements)
             {
                 if (element.Type == UIElementType.Image)
                 {
-                    spriteBatch.Draw(element.GetSprite(), element.Position, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                    spriteBatch.Draw(element.GetSprite(), element.Position * GAMESCALE, null, Color.White, 0, Vector2.Zero, GAMESCALE, SpriteEffects.None, 0);
                 }
                 else if (element.Type == UIElementType.Text)
                 {
@@ -249,27 +250,27 @@ namespace Color_TD
                             text = element.Text;
                             break;
                     }
-                    spriteBatch.DrawString(element.Font, text, element.Position, Color.Black);
+                    spriteBatch.DrawString(element.Font, text, element.Position * GAMESCALE, Color.Black, 0, Vector2.Zero, GAMESCALE, SpriteEffects.None, 0);
                 }
             }
             if (heldTower != null)
             {
                 Vector2 correction = new Vector2(heldTower.Size * heldTower.Scale);
-                spriteBatch.Draw(heldTower.GetSprite(), heldTower.Position, null, Color.White, heldTower.Rotation, correction, heldTower.Scale, SpriteEffects.None, 0);
+                spriteBatch.Draw(heldTower.GetSprite(), heldTower.Position * GAMESCALE, null, Color.White, heldTower.Rotation, correction, heldTower.Scale * GAMESCALE, SpriteEffects.None, 0);
                 DrawCircleAroundTower(heldTower, heldTower.HasValidPosition);
             }
             if (clickedTower != null)
             {
-                spriteBatch.Draw(clickedTower.GetSprite(), new Vector2(MAPSIZE + UIWIDTH / 2 - 32, MAPSIZE / 3), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                spriteBatch.Draw(clickedTower.GetSprite(), new Vector2(MAPSIZE + UIWIDTH / 2 - 32, MAPSIZE / 3) * GAMESCALE, null, Color.White, 0, Vector2.Zero, GAMESCALE, SpriteEffects.None, 0);
                 DrawCircleAroundTower(clickedTower, true);
             }
             if (clickedEnemy != null)
             {
-                spriteBatch.Draw(clickedEnemy.GetSprite(), new Vector2(MAPSIZE + UIWIDTH / 2 - 32, MAPSIZE / 2 - 32), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                spriteBatch.Draw(clickedEnemy.GetSprite(), new Vector2(MAPSIZE + UIWIDTH / 2 - 32, MAPSIZE / 2 - 32) * GAMESCALE, null, Color.White, 0, Vector2.Zero, GAMESCALE, SpriteEffects.None, 0);
             }
             if (IsGameOver())
             {
-                spriteBatch.Draw(UIElement.Sprites[UI.GameOver], new Vector2(160, 200), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                spriteBatch.Draw(UIElement.Sprites[UI.GameOver], new Vector2(160, 200) * GAMESCALE, null, Color.White, 0, Vector2.Zero, GAMESCALE, SpriteEffects.None, 0);
             }
 
             spriteBatch.End();
@@ -284,6 +285,7 @@ namespace Color_TD
 
         private void CheckForMouseInput()
         {
+            Vector2 mousePos = currentMouseState.Position.ToVector2() / GAMESCALE;
             currentMouseState = Mouse.GetState();
 
             if (currentMouseState.RightButton == ButtonState.Pressed && previousMouseState.RightButton == ButtonState.Released)
@@ -296,18 +298,18 @@ namespace Color_TD
 
             if (currentMouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton == ButtonState.Released)
             {
-                UIElement clickedElement = ui.GetElementAt(currentMouseState.Position.ToVector2());
+                UIElement clickedElement = ui.GetElementAt(mousePos);
                 if (clickedElement == null)
                 {
-                    clickedEnemy = ClickedEnemy(currentMouseState.Position.ToVector2());
-                    clickedTower = ClickedTower(currentMouseState.Position.ToVector2());
+                    clickedEnemy = ClickedEnemy(mousePos);
+                    clickedTower = ClickedTower(mousePos);
                 }
 
                 if (heldTower != null && heldTower.HasValidPosition)
                 {
                     player.Coins -= heldTower.Cost;
                     towers.Add(Tower.FromTowerType(heldTower.TowerType));
-                    towers[towers.Count - 1].Position = currentMouseState.Position.ToVector2();
+                    towers[towers.Count - 1].Position = mousePos;
                     if (!Keyboard.GetState().IsKeyDown(Keys.LeftShift) || player.Coins < heldTower.Cost) heldTower = null;
                 }
                 else if (clickedElement != null)
@@ -404,7 +406,7 @@ namespace Color_TD
             }
             if (heldTower != null)
             {
-                heldTower.Position = Mouse.GetState().Position.ToVector2();
+                heldTower.Position = Mouse.GetState().Position.ToVector2() / GAMESCALE;
                 heldTower.HasValidPosition = heldTower.Position.X < MAPSIZE && map.DistanceToPath(heldTower.Position) > PATHWIDTH * .8f;
                 foreach (Tower tower in towers)
                 {
@@ -464,7 +466,7 @@ namespace Color_TD
 
         private void DrawCircleAroundTower(Tower tower, bool isValid)
         {
-            spriteBatch.Draw(circleSprites[isValid ? 1 : 0], tower.Position - new Vector2(tower.Range), null, Color.White, 0, Vector2.Zero, tower.Range / 100f, SpriteEffects.None, 0);
+            spriteBatch.Draw(circleSprites[isValid ? 1 : 0], (tower.Position - new Vector2(tower.Range)) * GAMESCALE, null, Color.White, 0, Vector2.Zero, tower.Range / 100f * GAMESCALE, SpriteEffects.None, 0);
         }
 
         private Tower ClickedTower(Vector2 mousePosition)
