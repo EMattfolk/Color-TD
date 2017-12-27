@@ -31,11 +31,18 @@ namespace Color_TD
 
         public override Attack Shoot()
         {
-            if (timeSinceLastShot >= fireDelay && target != null)
+            if (target == null)
             {
-                timeSinceLastShot = 0;
-                TurnToTarget();
-                return new BoltAttack(this, damage, pierceCount, projectileSpeed, projectileRotationSpeed, 0.5f, level);
+                timeSinceLastShot = Math.Min(timeSinceLastShot, fireDelay);
+            }
+            else
+            {
+                while (timeSinceLastShot >= fireDelay)
+                {
+                    timeSinceLastShot -= fireDelay;
+                    TurnToTarget();
+                    return new BoltAttack(this, damage, pierceCount, projectileSpeed, projectileRotationSpeed, 0.5f, level);
+                }
             }
             return null;
         }

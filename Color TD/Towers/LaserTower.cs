@@ -31,11 +31,18 @@ namespace Color_TD
 
         public override Attack Shoot()
         {
-            if (timeSinceLastShot >= fireDelay && target != null)
+            if (target == null)
             {
-                timeSinceLastShot = 0;
-                TurnToTarget();
-                return new LaserAttack(target, this, damage, 1, 1, laserIndex);
+                timeSinceLastShot = Math.Min(timeSinceLastShot, fireDelay);
+            }
+            else
+            {
+                while (timeSinceLastShot >= fireDelay)
+                {
+                    timeSinceLastShot -= fireDelay;
+                    TurnToTarget();
+                    return new LaserAttack(target, this, damage, 1, 1, laserIndex);
+                }
             }
             return null;
         }
