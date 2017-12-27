@@ -18,8 +18,8 @@ namespace Color_TD
 
         public LaserTower (Vector2 position) : base(position, 1/2f, 0, 1/2f, 10, 100, 50)
         {
-            UpgradeCosts = new List<int>() { 100, 600, 2250, 0 };
-            SellValues = new List<int>() { 45, 135, 675, 2700 };
+            UpgradeCosts = new List<int>() { 90, 550, 2000, 0 };
+            SellValues = new List<int>() { 45, 126, 621, 2421 };
             laserIndex = 0;
         } //TODO: change attack to make it more effective
 
