@@ -121,10 +121,8 @@ namespace Color_TD
             BoltAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Bolt2"));
             BoltAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Bolt3"));
             BoltAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Bolt4"));
-            //LaserAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Laser1"));
-            LaserAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Laser2"));
-            //LaserAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Laser3"));
-            LaserAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Laser4"));
+            LaserAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Laser"));
+            LaserAttack.Sprites.Add(Content.Load<Texture2D>("Graphics\\Laser_Splash"));
             UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Coin"));
             UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Heart"));
             UIElement.Sprites.Add(Content.Load<Texture2D>("Graphics\\Button_Laser"));
@@ -197,15 +195,21 @@ namespace Color_TD
             {
                 if (attack.AttackType == AttackType.Laser)
                 {
+                    float radius = attack.Target.Scale * attack.Target.Size / 2 * rng.Next() / int.MaxValue;
+                    double angle = rng.Next(361) * Math.PI / 180;
+                    Vector2 randOffset = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * radius;
+
                     Vector2 correction = new Vector2(attack.GetSprite().Width / 2f);
-                    spriteBatch.Draw(attack.GetSprite(), attack.Target.Position * GAMESCALE, null, Color.White, 0, correction, attack.Scale * GAMESCALE, SpriteEffects.None, 0);
+                    spriteBatch.Draw(attack.GetSprite(), (attack.Target.Position + randOffset) * GAMESCALE, null, attack.Shooter.Color, 0, correction, attack.Scale * GAMESCALE, SpriteEffects.None, 0);
+
+                    DrawLaser(attack.Shooter.Position + new Vector2((float)Math.Cos(attack.Shooter.Rotation), (float)Math.Sin(attack.Shooter.Rotation)) * (attack.Shooter.Scale * attack.Shooter.Size / 2 + attack.GetSprite().Width / 2f), attack.Target.Position + randOffset, 3, attack.Shooter.Color);
 
                     correction = new Vector2(-attack.Shooter.Size * attack.Shooter.Scale / 2, attack.GetSprite().Width / 2);
-                    spriteBatch.Draw(attack.GetSprite(), attack.Shooter.Position * GAMESCALE, null, Color.White, attack.Shooter.Rotation, correction, GAMESCALE, SpriteEffects.None, 0);
+                    spriteBatch.Draw(attack.GetSprite(), attack.Shooter.Position * GAMESCALE, null, attack.Shooter.Color, attack.Shooter.Rotation, correction, GAMESCALE, SpriteEffects.None, 0);
                 }
-                if (attack.AttackType == AttackType.Bolt)
+                else if (attack.AttackType == AttackType.Bolt)
                 {
-                    Vector2 correction = new Vector2(attack.Width * attack.Scale, attack.Height * attack.Scale);
+                    Vector2 correction = new Vector2(attack.Width, attack.Height) * attack.Scale;
                     spriteBatch.Draw(attack.GetSprite(), attack.Position * GAMESCALE, null, Color.White, attack.Rotation, correction, attack.Scale * GAMESCALE, SpriteEffects.None, 0);
                 }
             }
@@ -455,6 +459,12 @@ namespace Color_TD
                     }
                 }
             }
+        }
+
+        private void DrawLaser (Vector2 start, Vector2 end, int width, Color color)
+        {
+            float angle = (float)Math.Atan2(end.Y - start.Y, end.X - start.X);
+            spriteBatch.Draw(LaserAttack.Sprites[0], new Rectangle((int)(start.X * GAMESCALE), (int)((start.Y - width / 2 * Math.Cos(angle)) * GAMESCALE), (int)((end-start).Length() * GAMESCALE), (int)(width * GAMESCALE)), null, color, angle, Vector2.Zero, SpriteEffects.None, 0);
         }
 
         private void DrawCircleAroundTower(Tower tower, bool isValid)

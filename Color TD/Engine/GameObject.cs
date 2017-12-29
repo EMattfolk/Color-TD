@@ -16,6 +16,7 @@ namespace Color_TD
         private Vector2 position = new Vector2(), velocity = new Vector2();
         private int width = 0, height = 0, size = 0;
         private float rotation = 0, scale = 1;
+        private Color color = Color.White;
 
         public GameObject ()
         {
@@ -63,6 +64,12 @@ namespace Color_TD
         {
             get { return velocity; }
             set { velocity = value; }
+        }
+
+        public Color Color
+        {
+            get { return color; }
+            set { color = value; }
         }
 
         public void MoveTo (Vector2 destination, GameTime gameTime)

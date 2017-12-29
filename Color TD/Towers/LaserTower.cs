@@ -20,7 +20,8 @@ namespace Color_TD
         {
             UpgradeCosts = new List<int>() { 90, 550, 2000, 0 };
             SellValues = new List<int>() { 45, 126, 621, 2421 };
-            laserIndex = 0;
+            laserIndex = 1;
+            Color = Color.DarkOrange;
         } //TODO: change attack to make it more effective
 
         public static List<Texture2D> Sprites => sprites;
@@ -54,16 +55,19 @@ namespace Color_TD
             {
                 fireDelay = 1 / 6f;
                 range += 20;
+                Color = Color.Cyan;
             }
             else if (level == 2)
             {
                 fireDelay = 1 / 30f;
                 range += 20;
+                Color = Color.DarkRed;
             }
             else if (level == 3)
             {
                 damage += 10;
                 laserIndex++;
+                Color = Color.Blue;
                 fireDelay = 1 / 60f;
                 range += 20;
             }

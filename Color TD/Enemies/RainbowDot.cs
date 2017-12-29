@@ -12,8 +12,8 @@ namespace Color_TD.Enemies
         {
             if (IsUpgraded)
             {
-                maxhp *= 4;
-                hp *= 4;
+                maxhp *= 5;
+                hp *= 5;
             }
             Upgrade();
         }
