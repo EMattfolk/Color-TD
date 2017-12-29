@@ -38,7 +38,7 @@ namespace Color_TD
                 Vector2 direction = new Vector2(shooter.Target.Position.X - Position.X, shooter.Target.Position.Y - Position.Y);
                 direction.Normalize();
                 velocity.Normalize();
-                direction = Vector2.Lerp(velocity, direction, rotationSpeed);
+                direction = Vector2.Lerp(velocity, direction, rotationSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds);
                 Rotation = (float)Math.Atan2(direction.Y, direction.X);
                 velocity = new Vector2((float)Math.Cos(Rotation) * speed, (float)Math.Sin(Rotation) * speed);
             }

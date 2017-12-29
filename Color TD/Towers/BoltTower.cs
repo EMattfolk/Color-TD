@@ -53,14 +53,14 @@ namespace Color_TD
             if (level == 1)
             {
                 pierceCount++;
-                projectileRotationSpeed += .1f;
+                projectileRotationSpeed += 6;
                 damage += 5;
                 range += 20;
             }
             else if (level == 2)
             {
                 pierceCount += 3;
-                projectileRotationSpeed += .1f;
+                projectileRotationSpeed += 6;
                 damage += 5;
                 range += 20;
             }
