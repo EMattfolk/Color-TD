@@ -76,6 +76,7 @@ namespace Color_TD
                 dist = l.DistanceToPoint(fromPosition);
                 min = min > dist ? dist : min;
             }
+            Console.WriteLine(min);
             return min;
         }
 

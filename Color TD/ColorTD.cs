@@ -14,7 +14,7 @@ namespace Color_TD
 {
     public class ColorTD : Game
     {
-        private static readonly int MAPSIZE = 480, UIWIDTH = 150, PATHWIDTH = 40;
+        private static readonly int MAPSIZE = 480, UIWIDTH = 150, PATHWIDTH = 35;
         private static readonly float GAMESCALE = 1.5f;
         private TDMap map;
         private Player player;
@@ -93,7 +93,7 @@ namespace Color_TD
             graphics.PreferredBackBufferHeight = (int)(MAPSIZE * GAMESCALE);
             graphics.ApplyChanges();
             IsMouseVisible = true;
-            IsFixedTimeStep = false;
+            IsFixedTimeStep = true;
             fastForward = false;
             base.Initialize();
         }
@@ -157,6 +157,8 @@ namespace Color_TD
 
             if (fastForward) gameTime.ElapsedGameTime += gameTime.ElapsedGameTime;
 
+            Window.Title = "Color TD - Wave " + spawner.CurrentWave;
+
             if (!IsGameOver())
             {
                 CheckForMouseInput();
@@ -172,6 +174,7 @@ namespace Color_TD
                 CleanupDertroyedObjects();
                 UpdatePositions(gameTime);
                 UpdateShots(gameTime);
+                CheckForRestart();
             }
 
             base.Update(gameTime);
@@ -473,6 +476,14 @@ namespace Color_TD
         private void DrawCircleAroundTower(Tower tower, bool isValid)
         {
             spriteBatch.Draw(circleSprites[isValid ? 1 : 0], (tower.Position - new Vector2(tower.Range)) * GAMESCALE, null, Color.White, 0, Vector2.Zero, tower.Range / 100f * GAMESCALE, SpriteEffects.None, 0);
+        }
+
+        private void CheckForRestart ()
+        {
+            if (Keyboard.GetState().IsKeyDown(Keys.R))
+            {
+                Initialize();
+            }
         }
 
         private Tower ClickedTower(Vector2 mousePosition)

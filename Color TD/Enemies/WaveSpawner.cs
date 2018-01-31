@@ -139,5 +139,7 @@ namespace Color_TD
         public bool IsIdle => isIdle;
 
         public bool IsEmpty => waves[waves.Count - 1].IsDone;
+
+        public int CurrentWave => currentWave + 1;
     }
 }
